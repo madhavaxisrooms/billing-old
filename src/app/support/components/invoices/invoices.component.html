@@ -1,0 +1,70 @@
+<div class="body-content">
+    <div class="client-nav">
+        <button routerLink="../home">Templates</button>
+        <button>Promotions</button>
+    </div>
+    <div class="invoice-table">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Chain Name</th>
+                <th>Hotel Name</th>
+                <th>Product</th>
+                <th>Invoice Date</th>
+                <th>Due Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let invoice of invoices; index as i">
+                <td>{{invoice.invoiceId}}</td>
+                <td>Axisrooms</td>
+                <td>{{invoice.hotelName}}</td>
+                <td>-</td>
+                <td>{{invoice.generationDate }}</td>
+                <td>{{invoice.paymentDueDate }}</td>
+                <td>{{invoice.amount | currency: invoice.currency}}</td>
+                <td>{{invoice.status}}</td>
+                <td class="action-dropdown-rel">
+                    <img class="icon action-menu" (click)="actionMenu[i] = !actionMenu[i]" src="https://image.flaticon.com/icons/png/512/64/64576.png"
+                        alt="Three Dot Menu">
+                    <ul class="action-dropdown" [hidden]="!actionMenu[i]">
+                        <!-- <li>View Invoice</li> -->
+                        <li (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId">Change Due-Date</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'PAID');actionMenu[i] = !actionMenu[i]">Change to Paid</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'UNPAID');actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'DELETED');actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
+                    </ul>
+                </td>
+            </tr>
+
+        </table>
+        <!-- <div class="pagination">
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div> -->
+    </div>
+</div>
+
+<div class="modal-wrapper" *ngIf="changeDueDateVisibility">
+
+    <div class="modal-content change-due-date">
+        <div class="close icon">
+            <img (click)="changeDueDateVisibility = !changeDueDateVisibility" src="../../../../assets/close-icon-white.png" alt="Close Icon"
+                class="icon">
+        </div>
+        <div class="navigation-tabs">
+            <h3 class="modal-heading">Change Due Date</h3>
+        </div>
+        <div class="modal-body-content">
+            <input type="date" #date (change)="date.value">
+            <button (click)="changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility ">Done</button>
+        </div>
+
+    </div>
+</div>

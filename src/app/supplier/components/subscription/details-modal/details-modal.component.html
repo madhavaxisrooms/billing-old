@@ -1,0 +1,33 @@
+<div class="modal-wrapper">
+  <div class="modal-content">
+    <div class="close icon">
+      <img (click)="closeModal()" src="../../../../assets/close-icon-white.png" alt="Close Icon" class="icon">
+    </div>
+    <div class="navigation-tabs">
+      <h3 class="modal-heading">Products Enabled</h3>
+    </div>
+    <div class="modal-body-content">
+      <span  *ngFor="let ruleDetail of userDetails?.ruleDetails" >
+
+      <div class="product-card" *ngIf="ruleDetail.productRules" >
+
+        <h3 class="product-name">
+          {{ruleDetail.productType | productName}}
+        </h3>
+        <div class="hotel-details" *ngFor="let productRule of ruleDetail.productRules">
+          <p class="hotel-name">{{productRule.productName}}</p>
+          <!-- Fixed Amount Value , recurring? , cycle? -->
+          <!--% Amount  of + transaction base  , recurring? , cycle? -->
+          <div>
+            <!-- <p class="hotel-rules" *ngFor="let rule of productRule.appliedRules"> {{rule.chargeValue | chargeValue: ruleDetail: rule}}, {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}} -->
+            <p class="hotel-rules" *ngFor="let rule of productRule.appliedRules"> INR {{rule.chargeValue}} : {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+:host{
+    width: 74%;
+    background: #fffdfd;
+    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    -moz-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    justify-content: space-around;
+}
+

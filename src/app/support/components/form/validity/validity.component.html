@@ -1,0 +1,41 @@
+<form [formGroup]='validityForm' (ngSubmit)="save()">
+    <div class="modal-form">
+        <div class="form-element">
+            <p>Duration</p>
+            <select #d (change)="duration(d.value)" formControlName="validityType">
+                <option value="PERPETUAL">Perpetual</option>
+                <option value="CUSTOM">Custom</option>
+            </select>
+        </div>
+        <div class="form-element" *ngIf="customHidden">
+            <p>Custom</p>
+            <select #c (change)="custom(c.value)">
+                <option value=null>custom</option>
+                <option value=1>1 Month</option>
+                <option value=3>3 Month</option>
+                <option value=6>6 Month</option>
+                <option value=c>Custom Duration</option>
+            </select>
+        </div>
+
+        <div class="form-element" *ngIf="datesHidden">
+            <p>Start Date</p>
+            <input formControlName="startDate" type="date">
+        </div>
+        <div class="form-element" *ngIf="datesHidden">
+            <p>End Date</p>
+            <input formControlName="endDate" type="date">
+        </div>
+    </div>
+
+    <div class="payment-type">
+        <select formControlName="paymentOption">
+            <option value="PREPAID">Prepaid</option>
+            <option value="POSTPAID">Post-paid</option>
+        </select>
+    </div>
+
+    <div class="save-button">
+        <button type="submit" >Save</button>
+    </div>
+</form>

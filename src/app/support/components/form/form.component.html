@@ -1,0 +1,18 @@
+<div class="modal-wrapper">
+    <div class="modal-content">
+        <div class="close icon">
+            <img (click)="hideForm()" src="../../../../assets/close-icon-white.png" alt="Close Icon"
+                class="icon">
+        </div>
+        <div class="navigation-tabs">
+            <button (click)="toggleFormTabs(null,'audience')" [ngClass]="{'active': !audienceHidden}">Audience</button>
+            <button (click)="toggleFormTabs(null,'billing')" [ngClass]="{'active': !billingHidden}">Billing</button>
+            <button (click)="toggleFormTabs(null,'validity')" [ngClass]="{'active': !validityHidden}">Validity</button>
+        </div>
+        <div class="modal-form-content">
+            <app-audience [hidden]="audienceHidden"></app-audience>
+            <app-billing [hidden]="billingHidden"></app-billing>
+            <app-validity [hidden]="validityHidden"></app-validity>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<form [formGroup]="audienceForm" (ngSubmit)="next()">
+    <div class="currency-selector">
+        <select formControlName="transactionCurrency" class="currency-select" name="currency" id="">
+            <option value="INR">INR</option>
+            <option value="USD">USD</option>
+            <option value="AUD">AUD</option>
+        </select>
+    </div>
+
+    <div class="modal-form">
+
+        <div class="form-element">
+            <div class="default-values">
+                <input formControlName="templateType" type="checkbox">
+                <h3 [hidden]="!audienceForm.value.templateType">Custom</h3>
+                <h3 [hidden]="audienceForm.value.templateType">Default</h3>
+            </div>
+        </div>
+        <div class="form-element">
+            <p>Enter Rule Name</p>
+            <input formControlName="ruleName" type="text" placeholder="Rule Name">
+        </div>
+
+        <!-- Default Form -->
+        <span [hidden]="audienceForm.value.templateType">
+            <div class="form-element">
+                <p>Select Country</p>
+                <select formControlName="country">
+                    <option value='all'> All </option>
+                    <option *ngFor="let country of countries" value="{{country.countryValue}}">{{country.countryValue}}</option>
+
+                </select>
+            </div>
+
+            <div class="form-element">
+                <p>Rating</p>
+                <select formControlName="starRating">
+                    <option value=0> Any </option>
+                    <option value=1> &#9733; </option>
+                    <option value=2> &#9733;&#9733; </option>
+                    <option value=3> &#9733;&#9733;&#9733; </option>
+                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>
+                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>
+                </select>
+            </div>
+
+            <div class="form-element">
+                <p>Belongs To</p>
+                <select #btc (change)="btc.value">
+                    <option value="axr"> Axisrooms </option>
+                    <option value="agg"> Aggregator | Whitelable </option>
+                </select>
+            </div>
+
+            <div class="form-element" *ngIf="btc.value == 'axr'">
+                <p>User Type</p>
+                <select formControlName="userRole">
+                    <option value="AGGREGATOR"> User Type </option>
+                    <option value="SUPPLIER"> Supplier </option>
+                    <option value="SUPPLIER_ADMIN"> Supplier Admin </option>
+                </select>
+            </div>
+
+
+        </span>
+
+        <!-- Custom Form -->
+        <span [hidden]="!audienceForm.value.templateType">
+            <div class="form-element">
+                <p>Belongs custom To</p>
+                <select #btc1 (change)="btc1.value">
+                    <option value="axr"> Axisrooms </option>
+                    <option value="agg"> Aggregator | Whitelable </option>
+                </select>
+            </div>
+
+            <div class="form-element" *ngIf="btc1.value == 'axr'">
+                <p>User Type</p>
+                <select formControlName="userRole" (change)="getUserIds()">
+                    <option value="AGGREGATOR"> User Type </option>
+                    <option value="SUPPLIER"> Supplier </option>
+                    <option value="SUPPLIER_ADMIN"> Supplier Admin </option>
+                </select>
+            </div>
+
+            <div class="form-element">
+                <p>Choose Users</p>
+                <select formControlName="userId">
+                    <option *ngFor="let user of allUsers" value="{{user.userId}}">{{user.userName}}</option>
+                </select>
+            </div>
+        </span>
+
+
+    </div>
+    <div class="next-button">
+        <button type="submit" [disabled]="audienceForm.invalid">Next</button>
+    </div>
+</form>

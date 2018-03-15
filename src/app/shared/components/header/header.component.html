@@ -1,0 +1,28 @@
+<header class="header">
+  <img class="axis-logo" src="../../../../assets/axisrooms_logo.png" alt="Axisrooms Logo">
+  <nav>
+      <!-- <h2>
+          <a href="#">Booking Engine</a>
+      </h2>
+      <h2>
+          <a href="#">Channel Manager</a>
+      </h2>
+      <h2>
+          <a href="#">Private</a>
+      </h2>
+      <h2>
+          <a href="#">Options</a>
+      </h2> -->
+  </nav>
+  <div class="profile">
+    <button class="initials" (click)="dropdownHidden = !dropdownHidden" >
+        L
+    </button>
+    <div class="drop-down" [hidden]="dropdownHidden" >
+        <ul>
+            <li>Settings</li>
+            <li>Log Out</li>
+        </ul>
+    </div>
+</div>
+</header>

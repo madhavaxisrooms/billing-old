@@ -1,0 +1,46 @@
+<app-details-modal [hidden]="detailsHidden" [userDetails]='supplierDetails' (hideModal)="detailsHidden = $event "></app-details-modal>
+
+<div class="menu-content">
+    <div class="title-content">
+
+        <div class="title-info">
+            <h3>Products Enabled</h3>
+            <i (click)="detailsHidden = !detailsHidden">details</i>
+        </div>
+        <div class="product-names">
+            <ul>
+                <li *ngFor="let product of supplierDetails?.assignedProduct">{{product}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="price-details">
+        <div class="total-price">
+            <h3>Total Price</h3>
+            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>
+        </div>
+        <div class="credits">
+            <h3>Credits</h3>
+            <p>
+                {{supplierDetails?.creditAmount}}
+                <input  style="width: 50px;margin-left: 10px;"  #amountAdded  type="text" [hidden]="addCreditsVisibility">
+                <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">add</i>
+                <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="!addCreditsVisibility" >add</i>
+            </p>
+        </div>
+    </div>
+    <!-- <div class="auto-renewal">
+        <h3>Auto Renewal</h3>
+        <div>
+            <input type="checkbox">
+            <p>Two Day Grace</p>
+        </div>
+    </div> -->
+    <div class="note">
+        <h3>Note</h3>
+        <p>
+            HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days.
+        </p>
+    </div>
+
+</div>
+

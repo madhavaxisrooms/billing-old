@@ -1,0 +1,93 @@
+<app-form *ngIf='!formHidden'></app-form>
+<div class="body-content">
+  <div class="client-nav">
+    <button>Templates</button>
+    <button>Promotions</button>
+    <span class="icon-container">
+      <img src="../../../../assets/filter-icon.png" class="filter-icon icon" />
+    </span>
+
+    <select name="type">
+      <option value="#">Axisrooms</option>
+      <option value="#">Hotel Linkage</option>
+      <option value="#">Staydilly</option>
+    </select>
+    <button class="align-right-flex" routerLink="../invoices">Invoices</button>
+  </div>
+  <div class="search-options">
+    <input type="text" class="search-bar" placeholder="Search">
+    <button class="create-new" (click)='showForm()'>Create New</button>
+  </div>
+  <div class="cards-area">
+      <app-loading-indicator [hidden]="loadingIndicator" ></app-loading-indicator>
+      <div class="info-card" *ngFor="let template of templateData?.templateDetails.reverse()"  >
+          RULE NAME: {{template.ruleName}} ,
+          CREATOR NAME: {{template.creatorName}} ,
+          COUNTRY: {{template.country}} ,
+          STAR RATING: {{template.starRating}} ,
+          CURRENCY: {{template.transactionCurrency}} ,
+      </div>
+
+    <div class="info-card">
+      <span class="edit-button">
+        <img (click)='showForm()' src="../../../../assets/edit-icon.svg" alt="Edit Icon" class="edit icon">
+      </span>
+      <div class="card-data">
+        <h3 class="title">Filter</h3>
+        <p class="content">United States of America, India, United Kingdom</p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Channel Manager</h3>
+        <p class="content">Fixed: 20%, Recurring: 5% of Booking amount </p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Booking Engine</h3>
+        <p class="content">Fixed 10%</p>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="edit-button">
+        <img (click)='showForm()' src="https://image.flaticon.com/icons/svg/61/61456.svg" alt="Edit Icon" class="edit icon">
+      </span>
+      <div class="card-data">
+        <h3 class="title">Filter</h3>
+        <p class="content">United States of America, India, United Kingdom</p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Channel Manager</h3>
+        <p class="content">Fixed: 20%, Recurring: 5% of Booking amount </p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Booking Engine</h3>
+        <p class="content">Fixed 10%</p>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="edit-button">
+        <img (click)='showForm()' src="https://image.flaticon.com/icons/svg/61/61456.svg" alt="Edit Icon" class="edit icon">
+      </span>
+      <div class="card-data">
+        <h3 class="title">Filter</h3>
+        <p class="content">United States of America, India, United Kingdom</p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Channel Manager</h3>
+        <p class="content">Fixed: 20%, Recurring: 5% of Booking amount </p>
+      </div>
+      <div class="card-data">
+        <h3 class="title">Booking Engine</h3>
+        <p class="content">Fixed 10%</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="pagination">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+  </div>
+</div>

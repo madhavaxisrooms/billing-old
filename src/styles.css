@@ -1,1 +1,866 @@
-/* You can add global styles to this file, and also import other style files */
+/* General CSS  */
+
+body {
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background: #f6f8fa;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(to left, #0072ff, #00c6ff); */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+*:focus {
+    outline: none;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    width: 60px !important;
+    height: 30px !important;
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 100px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+input:checked[type="checkbox"] {
+    background: #02285a;
+}
+
+input[type="checkbox"]:before {
+    content: "";
+    position: absolute;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50px;
+    top: 0;
+    left: 0;
+    background: white;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+input:checked[type="checkbox"]:before {
+    left: 30px;
+}
+
+input, select {
+    border-radius: 100px;
+}
+
+::-webkit-input-placeholder {
+    font-family: Raleway, sans-serif;
+    font-size: 1.2em;
+}
+
+button, ul li, a, p, h1, h2, h3, h4, h5, h6, th, td, input {
+    font-family: "Poppins", sans-serif;
+}
+
+p, td {
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon, button, select {
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: grey;
+}
+
+input {
+    border: 2px solid #3d464d;
+    outline: none;
+    padding: 10px 20px;
+    color: #3d464d;
+}
+
+input[type="date"] {
+    color: #006bab;
+    border-color: #006bab;
+    font-size: 0.9em;
+}
+
+button {
+    padding: 10px 20px;
+    background: #006cab;
+    border: none;
+    font-size: 1em;
+    color: #ffffff;
+    border-radius: 100px;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+}
+
+select {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid #006bab;
+    font-size: 1em;
+    color: #006bab;
+    outline: none;
+}
+
+button.active, button:hover {
+    color: white;
+    background: #4dbc9c;
+}
+
+.header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #01285b;
+    height: 60px;
+}
+
+.header .axis-logo {
+    max-height: 70px;
+}
+
+.header nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header nav h2 {
+    font-size: 1em;
+    color: white;
+    padding: 0 10px;
+    margin: auto;
+    font-weight: 100;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+
+.header nav h2:hover {
+    color: #4ebc9b;
+}
+
+.header .profile {
+    margin-left: auto;
+    padding: 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+
+header .profile .drop-down {
+    position: absolute;
+    width: 120px;
+    right: 0;
+    top: 58px;
+    background-color: white;
+    padding: 10px;
+    text-align: left;
+    list-style: none;
+    border: 2px solid grey;
+}
+
+header .profile .drop-down ul {
+    padding: 0;
+}
+
+header .profile .drop-down li {
+    list-style: none;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.header .profile .initials {
+    width: 39px;
+    background: #4dbc9c;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 1em;
+    margin: auto;
+    padding: 7px;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+.footer {
+    background: #01285c;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.footer .footer-content {
+    margin: auto;
+    color: white;
+}
+
+.footer .footer-content h3 {
+    font-size: 1em;
+}
+
+.filter-icon {
+    width: 30px;
+}
+
+.align-right-flex {
+    margin-left: auto !important;
+}
+
+.body-content {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.body-content .client-nav {
+    padding: 50px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.body-content .client-nav>* {
+    margin: 0 10px;
+}
+
+.body-content .client-nav button:first-child {
+    margin-left: 0;
+}
+
+.body-content .client-nav .filter-icon {
+    margin-top: 10px;
+}
+
+.body-content .search-options {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.body-content .search-options .search-bar {
+    -ms-flex-preferred-size: 80%;
+    flex-basis: 80%;
+    padding: 10px;
+}
+
+.body-content .three-dot-menu {
+    max-width: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+
+.body-content .three-dot-menu .three-dot-menu.icon {
+    height: 30px;
+    margin: auto;
+}
+
+.body-content .three-dot-menu .options {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    z-index: 1;
+}
+
+.cards-area .info-card {
+    padding: 20px;
+    margin: 50px 0;
+    position: relative;
+    background: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.cards-area .info-card .edit-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.cards-area .info-card .edit-button .edit.icon {
+    height: 20px;
+}
+
+.cards-area .info-card .card-data {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.cards-area .info-card .card-data .title {
+    -ms-flex-preferred-size: 20%;
+    flex-basis: 20%;
+    color: #02285a;
+}
+
+.cards-area .info-card .card-data .content {
+    -ms-flex-preferred-size: 80%;
+    flex-basis: 80%;
+    color: #3d464d;
+}
+
+/* Modal */
+
+.modal-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #00000080;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: auto;
+}
+
+.modal-wrapper .modal-content {
+    margin: auto;
+    width: 1170px;
+    max-height: 600px;
+    overflow: auto;
+    background-color: white;
+    position: relative;
+    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+}
+
+.modal-wrapper .modal-content .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.modal-wrapper .modal-content .close img {
+    height: 20px;
+}
+
+.modal-wrapper .modal-content .navigation-tabs {
+    padding: 20px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #01285b;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.modal-wrapper .modal-content .navigation-tabs button {
+    margin: 0 5px;
+}
+
+.modal-wrapper .modal-content .modal-body-content, .modal-wrapper .modal-content .modal-form-content {
+    padding: 10px;
+}
+
+.modal-wrapper .modal-content .navigation-tabs h3 {
+    color: white;
+}
+
+.modal-wrapper .modal-content .currency-selector {
+    overflow: auto;
+}
+
+.modal-wrapper .modal-content .currency-select {
+    float: right;
+}
+
+.modal-wrapper .modal-content .modal-form {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element {
+    width: 49%;
+    display: inline-block;
+    position: relative;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element .default-values {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 200px;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element .default-values h3 {
+    margin: auto;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element.full-length {
+    width: 100%;
+    display: block;
+    position: relative;
+    padding: 20px 0;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element p {
+    display: inline-block;
+    width: 40%;
+    color: #545454;
+}
+
+.modal-wrapper .modal-content .modal-form .form-element input, .modal-wrapper .modal-content .modal-form .form-element select {
+    width: 49%;
+    display: inline-block;
+}
+
+.modal-wrapper .modal-content .save-button, .modal-wrapper .modal-content .next-button {
+    overflow: auto;
+}
+
+.modal-wrapper .modal-content .save-button button, .modal-wrapper .modal-content .next-button button {
+    float: right;
+}
+
+.modal-wrapper .modal-content .modal-form .payment-type {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+/* Billing Modal*/
+
+.modal-wrapper .modal-content .modal-form .product {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.modal-content .rule-name {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.modal-content .rule-name p {
+    color: #525252;
+    margin-right: 20px;
+}
+
+.modal-content .rule-addition-area .rule .hotel-list-input {
+    min-width: 200px;
+    position: relative;
+}
+
+.modal-content .hotel-list {
+    z-index: 4;
+    position: absolute;
+    background: #fff;
+    padding: 5px 10px;
+    width: 200px;
+    border: 1px solid grey;
+    height: 250px;
+    overflow: auto;
+    top: 64px;
+    left: 25px;
+}
+
+.modal-content .hotel-list ul {
+    padding: 0;
+}
+
+.modal-content .hotel-list ul li {
+    list-style: none;
+    color: grey;
+    padding: 6px 0;
+    cursor: pointer;
+}
+
+.modal-content .hotel-list-selected {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 64px;
+    left: 10px;
+}
+
+.modal-content .hotel-list-selected p {
+    background: #ffc107;
+    margin: 2px;
+    padding: 10px;
+    border-radius: 40px;
+    color: #02285a;
+    width: auto !important;
+}
+
+.modal-content .hotel-list-selected p::after {
+    content: "  -X-";
+    cursor: pointer;
+    color: red;
+}
+
+.modal-content .rule-addition-area .rule {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    margin: 5px 0;
+    padding: 20px 0px;
+    position: relative;
+}
+
+.modal-content .rule-addition-area .rule input {
+    width: 60px;
+}
+
+.modal-content .rule-addition-area .rule select {
+    width: 140px;
+}
+
+.modal-content .rule-addition-area div .rule .add-rule {
+    visibility: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 40px;
+}
+
+.modal-content .rule-addition-area div:last-child .rule .add-rule {
+    visibility: visible;
+}
+
+.modal-content .rule-addition-area .rule .add-rule .add-icon {
+    width: 30px;
+    margin: auto;
+}
+
+/*Invoice Page*/
+
+.modal-wrapper .modal-content.change-due-date{
+    width: auto;
+}
+
+.body-content .invoice-table table {
+    width: 100%;
+    border-spacing: 0;
+    border: 2px solid #032859;
+}
+
+.body-content .invoice-table table th {
+    text-transform: uppercase;
+    font-weight: 100;
+    color: white;
+}
+
+.body-content .invoice-table table tr:first-child {
+    background: #02285a;
+}
+
+.body-content .invoice-table {
+    margin: 20px 0;
+}
+
+.body-content .invoice-table table td {
+    text-align: center;
+    color: #3d464d;
+}
+
+th, td {
+    padding: 15px 10px;
+}
+
+tr:nth-child(odd) {
+    background: #c7c7c757;
+}
+
+tr {
+    border: 3px solid grey;
+}
+
+table .action-menu {
+    max-height: 25px;
+}
+
+table .action-dropdown-rel {
+    position: relative;
+}
+
+table .action-dropdown-rel .action-dropdown {
+    position: absolute;
+    width: 300px;
+    right: 0;
+    background-color: white;
+    padding: 10px;
+    text-align: left;
+    list-style: none;
+    border: 2px solid grey;
+    z-index: 1;
+}
+
+table .action-dropdown-rel .action-dropdown li {
+    padding: 3px;
+    cursor: pointer;
+}
+
+.body-content .pagination {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 50px 0;
+}
+
+.body-content .pagination ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: auto;
+}
+
+.body-content .pagination ul li {
+    background: #01285b;
+    list-style: none;
+    padding: 15px;
+    min-width: 15px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin: 0px 10px;
+    border-radius: 50%;
+    border: 1px solid #032859;
+    cursor: pointer;
+    color: white;
+    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+/* Supplier Styles */
+
+.body-content .supplier-nav {
+    padding: 50px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.body-content .supplier-nav>* {
+    margin: 0 10px;
+}
+
+.body-content .supplier-nav button:first-child {
+    margin-left: 0;
+}
+
+.body-content .supplier-nav .filter-icon {
+    margin-top: 10px;
+}
+
+.supplier-content-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 50px 0;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 520px;
+}
+
+.supplier-content-area .menu ul {
+    margin: 0px;
+    padding: 0;
+}
+
+.supplier-content-area .menu ul li {
+    padding: 10px 10px;
+    list-style: none;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    padding-left: 30px;
+}
+
+.supplier-content-area .menu ul .active, .supplier-content-area .menu ul li:hover {
+    background: #4dbc9c;
+}
+
+.supplier-content-area .menu-content {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+.supplier-content-area .menu-content h3 {
+    color: #02285a;
+    margin: 8px 0;
+}
+
+.supplier-content-area .menu-content .tab-title {
+    text-align: center;
+}
+
+.supplier-content-area .menu-content p {
+    color: #525252;
+}
+
+.supplier-content-area .menu-content .title-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.supplier-content-area .menu-content .title-content .title-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.supplier-content-area .menu-content i {
+    margin: auto 15px;
+    cursor: pointer;
+    color: #4ebc9b;
+    text-decoration: underline;
+}
+
+.supplier-content-area .menu-content .title-content .product-names ul {
+    padding: 0 0 0 25px;
+    margin: 0;
+    list-style: none;
+    font-weight: bold;
+    color: #525252;
+}
+
+.supplier-content-area .menu-content .price-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.supplier-content-area .menu-content .auto-renewal div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 200px;
+}
+
+.supplier-content-area .menu-content .auto-renewal div p {
+    margin: auto;
+    display: inline;
+}
+
+.supplier-content-area .menu-content .price-details .total-price p {
+    text-align: center;
+}
+
+/* Invoice Tab */
+
+.supplier-content-area .menu-content .invoice-table {
+    margin: 0;
+}
+
+.supplier-content-area .menu-content .invoice-table table tr td:last-child {
+    text-align: left;
+}
+
+.supplier-content-area .menu-content .pagination {
+    margin: 20px auto;
+}
+
+/* History Tab */
+
+.supplier-content-area .menu-content .history-card {
+    background: #ececec;
+    padding: 20px 10px;
+    margin: 5px 0;
+}
+
+.supplier-content-area .menu-content .history-card p {
+    color: #003156;
+}
+
+.supplier-content-area .menu-content .history-card small {
+    color: #636363;
+    float: right;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Details Tab */
+
+.modal-wrapper .modal-content .modal-body-content .product-card {
+    background: #eaeaea;
+    padding: 10px;
+    margin: 20px 20px;
+}
+
+.modal-wrapper .modal-content .modal-body-content .product-card .product-name {
+    color: #02285a;
+    margin: 0;
+}
+
+.modal-wrapper .modal-content .modal-body-content .product-card .hotel-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.modal-wrapper .modal-content .modal-body-content .product-card .hotel-details .hotel-name {
+    -ms-flex-preferred-size: 30%;
+    flex-basis: 30%;
+}
+
+.modal-wrapper .modal-content .modal-body-content .product-card .hotel-details .hotel-rules {
+    color: #4d5d71;
+}

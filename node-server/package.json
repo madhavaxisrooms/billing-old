@@ -1,0 +1,15 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "Node server to run the  Billing Application ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*"
+  },
+  "author": "Madhav Sharma - Axisrooms",
+  "license": "MIT"
+}
