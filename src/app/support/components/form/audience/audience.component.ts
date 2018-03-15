@@ -14,7 +14,7 @@ export class AudienceComponent implements OnInit {
   public axisroomsSelected: boolean = true;
   public aggregatorSelected: boolean = false;
   public allUsers = [];
-  public countries =[];
+  public countries = [];
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -29,24 +29,23 @@ export class AudienceComponent implements OnInit {
       ruleName: [, Validators.required], //
       transactionCurrency: ['INR', Validators.required], //
       userRole: ["AGGREGATOR"], //user role
-      userId:[]
+      userId: []
     });
 
     this.formDataService.getCountries().subscribe(
       res => {
         this.countries = JSON.parse(res['_body']);
-        
       }
     );
   }
 
 
-  getUserIds(){
-      this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
-        res => {
-          this.allUsers = JSON.parse(res['_body']);   
-        }
-      );
+  getUserIds() {
+    this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
+      res => {
+        this.allUsers = JSON.parse(res['_body']);
+      }
+    );
   }
 
   next() {
@@ -54,7 +53,7 @@ export class AudienceComponent implements OnInit {
     this.audienceForm.value.templateType == false ? this.audienceForm.value.templateType = 'DEFAULT' : this.audienceForm.value.templateType = 'CUSTOM';
     this.formDataService.audienceForm = this.audienceForm.value;
     //For Navigation
-    this.formService.toggleFromTabs('audience', 'billing');
+    this.formService.toggleFormTabs('audience', 'billing');
 
   }
 

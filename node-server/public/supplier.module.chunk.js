@@ -180,7 +180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i>Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID'\" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
+module.exports = "<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i>Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID' && invoice.amount != 0 \" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
 
 /***/ }),
 

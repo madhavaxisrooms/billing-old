@@ -14,47 +14,66 @@
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
 
                 <div class="rule" [formGroupName]="i">
-                    <input [hidden]="isDefault == 'DEFAULT'" type="text" class="hotel-list-input" #hotelName (keyup)='hotelName.value' placeholder="Leave Empty for all hotels">
+                    <div class="input-element">
+                        <p>Select Hotels</p>
+                        <input [hidden]="isDefault == 'DEFAULT'" type="text" class="hotel-list-input" #hotelName (keyup)='hotelName.value' placeholder="Leave Empty for all hotels">
+                    </div>
                     <div class="hotel-list" *ngIf="hotelName.value">
                         <ul *ngFor='let hotel of hotels | search:hotelName.value '>
-                            <li (click)="hotelSelected(hotel,i);">{{hotel.productName}}</li>
+                            <li (click)="hotelSelected(hotel,i); hotelName.value =''">{{hotel.productName}}</li>
                         </ul>
                     </div>
                     <div class="hotel-list-selected">
                         <p *ngFor="let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels" (click)="removeHotel(connectedHotels,i)">{{connectedHotels.productName}}</p>
                     </div>
-                    <select formControlName="recurring">
-                        <option value=true>Recurring</option>
-                        <option value=false>One Time</option>
-                    </select>
-                    <select formControlName="paymentType">
-                        <option value=null>Payment Type</option>
-                        <option value="FIXED">Fixed</option>
-                        <option value="TRANSACTION_BASED">Tansaction Based</option>
-                    </select>
-                    <select [hidden]="billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'" formControlName="trasactionBase">
-                        <option value=null>Transactions</option>
-                        <option value="ROOM_NIGHTS_CHECK_IN_DATE">Room Nights - Check In Date</option>
-                        <option value="ROOM_NIGHTS_BOOKING_DATE">Room Nights - Booking Date</option>
-                        <option value="TOTAL_REVENUE_CHECK_IN_DATE">Total Revenue - Check In Date</option>
-                        <option value="TOTAL_REVENUE_BOOKING_DATE">Total Revenue - Booking Date</option>
-                        <option value="TOTAL_REVENUE_WITHOUT_TAX_CHECK_IN_DATE">Total Revenue Without Tax - Check In Date</option>
-                        <option value="TOTAL_REVENUE_WITHOUT_TAX_BOOKING_DATE">Total Revenue Without Tax - Booking Date</option>
-                    </select>
-                    <select formControlName="chargeType" [hidden]="billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'">
-                        <option value=null>Charge Type</option>
-                        <option value='PERCENTAGE'>percentage</option>
-                        <option value="FIXED">fixed</option>
-                    </select>
-                    <input formControlName="chargeValue" type="text" placeholder="price">
-                    <select formControlName="paymentCycle">
-                        <option value=null>Cycle</option>
-                        <option value=1>Montly</option>
-                        <option value=3>Querterly</option>
-                        <option value=6>Half Yearly</option>
-                        <option value=12>Yearly</option>
-                    </select>
+                    <div class="input-element">
+                        <p>Duration</p>
+                        <select formControlName="recurring">
+                            <option value=true>Recurring</option>
+                            <option value=false>One Time</option>
+                        </select>
+                    </div>
+                    <div class="input-element">
+                        <p>Payment Type</p>
+                        <select formControlName="paymentType">
+                            <option value="FIXED">Fixed</option>
+                            <option value="TRANSACTION_BASED">Tansaction Based</option>
+                        </select>
+                    </div>
+                    <div [hidden]="billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'" class="input-element">
+                        <p>Transactions</p>
+                        <select formControlName="trasactionBase">
+                            <option value="ROOM_NIGHTS_CHECK_IN_DATE">Room Nights - Check In Date</option>
+                            <option value="ROOM_NIGHTS_BOOKING_DATE">Room Nights - Booking Date</option>
+                            <option value="TOTAL_REVENUE_CHECK_IN_DATE">Total Revenue - Check In Date</option>
+                            <option value="TOTAL_REVENUE_BOOKING_DATE">Total Revenue - Booking Date</option>
+                            <option value="TOTAL_REVENUE_WITHOUT_TAX_CHECK_IN_DATE">Total Revenue Without Tax - Check In Date</option>
+                            <option value="TOTAL_REVENUE_WITHOUT_TAX_BOOKING_DATE">Total Revenue Without Tax - Booking Date</option>
+                        </select>
+                    </div>
+                    <div [hidden]="billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'" class="input-element">
+                        <p>Charge Type</p>
+                        <select formControlName="chargeType">
+                            <option value='PERCENTAGE'>percentage</option>
+                            <option value="FIXED">fixed</option>
+                        </select>
+                    </div>
+                    <div class="input-element">
+                        <p>Charge Value</p>
+                        <input formControlName="chargeValue" type="text" placeholder="Value">
+                    </div>
+                    <div class="input-element">
+                        <p>Cycle</p>
+                        <select formControlName="paymentCycle">
+                            <option value=1>Montly</option>
+                            <option value=3>Quarterly</option>
+                            <option value=6>Half Yearly</option>
+                            <option value=12>Yearly</option>
+                        </select>
+                    </div>
+
                     <div class="add-rule">
+                        <img (click)="removeRulesForm(i)" src="../../../../assets/close-icon-black.png" alt="Close Icon" class="icon remove-rule">
                         <img (click)="addRulesForm()" class="icon add-icon" src="../../../../assets/plus-circle-outline.png" alt="Add Rule Icon">
                     </div>
                 </div>

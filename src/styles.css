@@ -285,10 +285,16 @@ header .profile .drop-down li {
     z-index: 1;
 }
 
+.cards-area {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .cards-area .info-card {
+    flex-basis: 43%;
     padding: 20px;
-    margin: 50px 0;
-    position: relative;
+    margin: 50px 20px;
+    position: relative; 
     background: white;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -319,13 +325,14 @@ header .profile .drop-down li {
 
 .cards-area .info-card .card-data .title {
     -ms-flex-preferred-size: 20%;
-    flex-basis: 20%;
+    flex: 2;
     color: #02285a;
 }
 
 .cards-area .info-card .card-data .content {
     -ms-flex-preferred-size: 80%;
-    flex-basis: 80%;
+    flex: 3;
+    align-self: center;
     color: #3d464d;
 }
 
@@ -348,7 +355,7 @@ header .profile .drop-down li {
 .modal-wrapper .modal-content {
     margin: auto;
     width: 1170px;
-    max-height: 600px;
+    min-height: 400px;
     overflow: auto;
     background-color: white;
     position: relative;
@@ -484,11 +491,11 @@ header .profile .drop-down li {
     position: absolute;
     background: #fff;
     padding: 5px 10px;
-    width: 200px;
+    width: 220px;
     border: 1px solid grey;
-    height: 250px;
+    height: 200px;
     overflow: auto;
-    top: 64px;
+    top: 114px;
     left: 25px;
 }
 
@@ -510,7 +517,7 @@ header .profile .drop-down li {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     position: absolute;
-    top: 64px;
+    top: 120px;
     left: 10px;
 }
 
@@ -540,6 +547,10 @@ header .profile .drop-down li {
     position: relative;
 }
 
+.modal-content .rule-addition-area .input-element p{
+    text-align: center;
+}
+
 .modal-content .rule-addition-area .rule input {
     width: 60px;
 }
@@ -549,25 +560,30 @@ header .profile .drop-down li {
 }
 
 .modal-content .rule-addition-area div .rule .add-rule {
-    visibility: hidden;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    height: 40px;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.modal-content .rule-addition-area div .rule .add-rule .icon{
+    display: none;
+    height: 30px;
 }
 
-.modal-content .rule-addition-area div:last-child .rule .add-rule {
-    visibility: visible;
+.modal-content .rule-addition-area div .rule .add-rule .remove-rule{
+    display: block;
+}
+ 
+
+.modal-content .rule-addition-area div:last-child .rule .add-icon{
+    display: block;
 }
 
-.modal-content .rule-addition-area .rule .add-rule .add-icon {
-    width: 30px;
-    margin: auto;
-}
 
 /*Invoice Page*/
 
-.modal-wrapper .modal-content.change-due-date{
+.modal-wrapper .modal-content.change-due-date {
     width: auto;
 }
 

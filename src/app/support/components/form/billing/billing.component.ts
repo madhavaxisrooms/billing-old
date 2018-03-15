@@ -23,7 +23,6 @@ export class BillingComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.billingForm = this.formBuilder.group({
       productType: ['BE'], //productType
       ruleDetails: this.formBuilder.array([
@@ -40,12 +39,17 @@ export class BillingComponent implements OnInit {
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
       chargeValue: [, Validators.required], //chargevalue
-      paymentCycle: [, Validators.required] //paymentCycle - num 1,3,6,12
+      paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
   addRulesForm() {
     const control = <FormArray>this.billingForm.controls['ruleDetails'];
     control.push(this.initRulesArray());
+  }
+
+  removeRulesForm(i){
+    console.log(this.billingForm.value.ruleDetails[i]);
+    this.billingForm.value.ruleDetails.splice(i,1);
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -62,7 +66,6 @@ export class BillingComponent implements OnInit {
     if (this.formDataService.audienceForm.templateType == "CUSTOM") {
       this.formDataService.getUsers(productSelected).subscribe(
         res => {
-          // console.log(JSON.parse(res["_body"]));
           this.hotels = JSON.parse(res["_body"]);
         }
       );
@@ -71,7 +74,7 @@ export class BillingComponent implements OnInit {
 
   next() {
     this.formDataService.billingForm = this.billingForm.value;
-    this.formService.toggleFromTabs('billing', 'validity');
+    this.formService.toggleFormTabs('billing', 'validity');
   }
 
 }

@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
   }
 
   toggleFormTabs(from: any, to: string) {
-    this.formService.toggleFromTabs(from, to);
+    this.formService.toggleFormTabs(from, to);
   }
 
 }

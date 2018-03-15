@@ -49,7 +49,7 @@ export class ValidityComponent implements OnInit {
 
   save() {
     this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
-    this.formService.toggleFromTabs('validity', null);
+    this.formService.toggleFormTabs('validity', null);
     this.formService.toggleForm(true);
   }
 }

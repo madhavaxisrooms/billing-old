@@ -27,7 +27,7 @@ export class FormService {
   }
 
   //Take from component and to component
-  toggleFromTabs(from: any, to: any) {
+  toggleFormTabs(from: any, to: any) {
 
     if (from == null || to == null) {
       this.audienceHiddenSource.next(true);

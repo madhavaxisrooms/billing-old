@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
     this.formService.getAllTemplates().subscribe(
       res => {
         this.templateData = JSON.parse(res['_body']);
-        console.log(this.templateData);
         this.loadingIndicator = true;
 
       }
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   showForm() {
-    this.formService.toggleFromTabs(null, 'audience')
+    this.formService.toggleFormTabs(null, 'audience')
     this.formService.toggleForm(false);
   }
 
