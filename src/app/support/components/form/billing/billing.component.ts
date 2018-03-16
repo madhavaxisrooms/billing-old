@@ -11,6 +11,7 @@ import { FormDataService } from '../services/form-data.service';
 export class BillingComponent implements OnInit {
   public hotels = [];
 
+  public currency;
   public productSelected;
   public billingForm: FormGroup;
   public isDefault: string; // To see if the user has selcted the default or the custom option in the audience Tab
@@ -29,6 +30,10 @@ export class BillingComponent implements OnInit {
         this.initRulesArray(),
       ])
     });
+  
+    this.currency = this.formDataService.audienceForm.transactionCurrency;
+
+    console.log(this.currency);
   }
   initRulesArray() {
     return this.formBuilder.group({

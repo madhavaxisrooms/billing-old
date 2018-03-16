@@ -5,6 +5,7 @@
             <option value="CM">Channel Manager</option>
         </select>
         <button type="button" (click)="productChoice(pc.value)"> Add </button>
+        <p class="align-right-flex" >Currency : {{currency}}</p>
     </div>
     <div class="modal-form" *ngIf="productSelected">
         <p class="title">

@@ -260,6 +260,7 @@ header .profile .drop-down li {
 }
 
 .body-content .search-options .search-bar {
+    visibility: hidden;
     -ms-flex-preferred-size: 80%;
     flex-basis: 80%;
     padding: 10px;
@@ -462,6 +463,11 @@ header .profile .drop-down li {
 }
 
 /* Billing Modal*/
+
+.billing-navigation{
+    display: flex;
+}
+
 
 .modal-wrapper .modal-content .modal-form .product {
     background-color: #f1f1f1;

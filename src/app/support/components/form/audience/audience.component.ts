@@ -27,7 +27,7 @@ export class AudienceComponent implements OnInit {
       country: ['all'],
       starRating: [0,],
       ruleName: [, Validators.required], //
-      transactionCurrency: ['INR', Validators.required], //
+      transactionCurrency: ['INR'], //
       userRole: ["AGGREGATOR"], //user role
       userId: []
     });

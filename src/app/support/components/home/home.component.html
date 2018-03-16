@@ -21,11 +21,11 @@
   <div class="cards-area">
     <app-loading-indicator [hidden]="loadingIndicator"></app-loading-indicator>
     
-    <div class="info-card" *ngFor="let template of templateData?.templateDetails.reverse()">
-    <app-template-details (hideTemplate)="hideTemplateDetails($event)" [hidden]="templateDetailsHidden" [templateDetails]="template" ></app-template-details>
+    <div class="info-card" *ngFor="let template of templateData?.templateDetails.reverse();let i = index">
+    <app-template-details (hideTemplate)="hideTemplateDetails($event)" [hidden]="templateDetailsHidden[i]" [templateDetails]="template" [index]="i"></app-template-details>
       
       <span class="edit-button">
-        <img (click)='templateDetailsHidden = false' src="../../../../assets/edit-icon.svg" alt="Edit Icon" class="edit icon">
+        <img (click)='templateDetailsHidden[i] = false' src="../../../../assets/edit-icon.svg" alt="Edit Icon" class="edit icon">
       </span>
       <div class="card-data">
         <h3 class="title"> Rule Name</h3>

@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TemplateDetailsComponent implements OnInit {
 
   @Input() templateDetails;
+  @Input() index;
   @Output() hideTemplate: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
@@ -17,8 +18,8 @@ export class TemplateDetailsComponent implements OnInit {
     console.log(this.templateDetails);
   }
 
-  hideTemplateDetails() {
-    this.hideTemplate.emit(true);
+  hideTemplateDetails() {    
+    this.hideTemplate.emit(this.index);
   }
 
 }

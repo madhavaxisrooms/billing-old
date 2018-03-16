@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   loadingIndicator: boolean = false;
   formHidden: boolean;
   aggrMenuHidden: boolean = true;
-  templateDetailsHidden: boolean = true;
+  templateDetailsHidden;
   constructor(
     private formService: FormService
   ) { }
@@ -21,15 +21,15 @@ export class HomeComponent implements OnInit {
     this.formService.getAllTemplates().subscribe(
       res => {
         this.templateData = JSON.parse(res['_body']);
+        this.templateDetailsHidden = new Array(this.templateData.templateDetails.length).fill(true);
         this.loadingIndicator = true;
-
       }
     );
 
     this.formService.formHidden.subscribe((status) => { this.formHidden = status });
   }
-  hideTemplateDetails(message:boolean){
-    this.templateDetailsHidden = message;
+  hideTemplateDetails(message) {
+    this.templateDetailsHidden[message] = true;
   }
   showForm() {
     this.formService.toggleFormTabs(null, 'audience')
