@@ -15,7 +15,8 @@ import { FormService } from './services/form.service';
 import { SearchPipe } from '../shared/pipes/search.pipe';
 import { FormDataService } from './components/form/services/form-data.service';
 import { InvoiceService } from '../shared/services/invoice.service';
-import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component'
+import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component';
+import { TemplateDetailsComponent } from './components/template-details/template-details.component'
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import {LoadingIndicatorComponent} from './components/loading-indicator/loading-
     ValidityComponent,
     LoadingIndicatorComponent,
     SearchPipe,
+    TemplateDetailsComponent,
   ],
   providers:[
     FormService,

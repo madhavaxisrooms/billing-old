@@ -1,0 +1,52 @@
+.template-content{
+    width: 70%;
+    background: white;
+    margin: 20px auto;
+    padding: 20px;
+    overflow: auto;
+    position: relative;
+}
+
+.close{
+    height: 30px;
+    position: absolute;
+    right: 10px;
+}
+
+.icon{
+    height: 30px;
+}
+
+.template-content .template-heading{
+    text-align: center;
+}
+
+.data{
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.title{
+    flex: 1;
+}
+
+.info{
+    flex: 2;
+    color: #444;
+}
+
+.rule-desc{
+    flex-direction: column;
+}
+
+.rule-desc-info{
+    display: flex;
+    flex-wrap: wrap;
+    background: #ececec;
+    margin: 10px;
+}
+
+.sub-data{
+    padding: 10px;
+}

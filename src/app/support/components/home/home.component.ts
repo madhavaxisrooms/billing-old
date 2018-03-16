@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   loadingIndicator: boolean = false;
   formHidden: boolean;
   aggrMenuHidden: boolean = true;
+  templateDetailsHidden: boolean = true;
   constructor(
     private formService: FormService
   ) { }
@@ -27,7 +28,9 @@ export class HomeComponent implements OnInit {
 
     this.formService.formHidden.subscribe((status) => { this.formHidden = status });
   }
-
+  hideTemplateDetails(message:boolean){
+    this.templateDetailsHidden = message;
+  }
   showForm() {
     this.formService.toggleFormTabs(null, 'audience')
     this.formService.toggleForm(false);
