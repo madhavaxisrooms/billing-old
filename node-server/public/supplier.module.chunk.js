@@ -391,6 +391,7 @@ var DetailsModalComponent = /** @class */ (function () {
         this.hideModal = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     DetailsModalComponent.prototype.ngOnInit = function () {
+        console.log(this.userDetails);
     };
     DetailsModalComponent.prototype.closeModal = function () {
         this.hideModal.emit(true);
