@@ -577,7 +577,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n\n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse()\">\n      <span class=\"edit-button\">\n        <img (click)='showForm()' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Creator Name</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\">{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
+module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse()\">\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden\" [templateDetails]=\"template\" ></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden = false' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Creator Name</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\">{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
 
 /***/ }),
 
@@ -604,6 +604,7 @@ var HomeComponent = /** @class */ (function () {
         this.formService = formService;
         this.loadingIndicator = false;
         this.aggrMenuHidden = true;
+        this.templateDetailsHidden = true;
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -612,6 +613,9 @@ var HomeComponent = /** @class */ (function () {
             _this.loadingIndicator = true;
         });
         this.formService.formHidden.subscribe(function (status) { _this.formHidden = status; });
+    };
+    HomeComponent.prototype.hideTemplateDetails = function (message) {
+        this.templateDetailsHidden = message;
     };
     HomeComponent.prototype.showForm = function () {
         this.formService.toggleFormTabs(null, 'audience');
@@ -722,7 +726,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h3{\n  text-align: center;\n}\n\n.wrapper-loader {\n  margin: 20px auto;\n  width: 100px;\n  height: 100px;\n}\n\n.loader {\n  position: relative;\n  width: 100px;\n  height: 100px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #5d7eab;\n  border-top-color: #163256;\n  border-right-color: #01285b;\n  -webkit-animation: spin 0.8s linear infinite;\n          animation: spin 0.8s linear infinite;\n}\n\n/* .loader:before {\n  top: 6px;\n  left: 6px;\n  position: absolute;\n  content: \"\";\n  width: 80px;\n  height: 80px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #006cab;\n  -webkit-animation: spin 1.6s linear infinite;\n          animation: spin 1.6s linear infinite;\n}\n.loader:after {\n  top: 16px;\n  left: 16px;\n  position: absolute;\n  content: \"\";\n  width: 60px;\n  height: 60px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #4dbc9c;\n  -webkit-animation: spin 1.2s linear infinite;\n          animation: spin 1.2s linear infinite;\n} */\n\n@-webkit-keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n", ""]);
+exports.push([module.i, "h3{\n  text-align: center;\n  color: white;\n}\n\n.wrapper-loader {\n  margin: auto;\n  width: 100px;\n  height: 100px;\n}\n\n.loader {\n  position: relative;\n  width: 100px;\n  height: 100px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  /* border-left-color: #5d7eab;\n  border-top-color: #163256;\n  border-right-color: #01285b; */\n  border-left-color:white;\n  border-top-color:white;\n  border-right-color:white;\n  -webkit-animation: spin 0.8s linear infinite;\n          animation: spin 0.8s linear infinite;\n}\n\n/* .loader:before {\n  top: 6px;\n  left: 6px;\n  position: absolute;\n  content: \"\";\n  width: 80px;\n  height: 80px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #006cab;\n  -webkit-animation: spin 1.6s linear infinite;\n          animation: spin 1.6s linear infinite;\n}\n.loader:after {\n  top: 16px;\n  left: 16px;\n  position: absolute;\n  content: \"\";\n  width: 60px;\n  height: 60px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #4dbc9c;\n  -webkit-animation: spin 1.2s linear infinite;\n          animation: spin 1.2s linear infinite;\n} */\n\n@-webkit-keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n", ""]);
 
 // exports
 
@@ -735,7 +739,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/loading-indicator/loading-indicator.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper-loader\">\n    <h3>Loading</h3>\n  <div class=\"loader\"></div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"wrapper-loader\">\n    <h3>Loading</h3>\n    <div class=\"loader\"></div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -769,6 +773,80 @@ var LoadingIndicatorComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], LoadingIndicatorComponent);
     return LoadingIndicatorComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/components/template-details/template-details.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".template-content{\n    width: 70%;\n    background: white;\n    margin: 20px auto;\n    padding: 20px;\n    overflow: auto;\n    position: relative;\n}\n\n.close{\n    height: 30px;\n    position: absolute;\n    right: 10px;\n}\n\n.icon{\n    height: 30px;\n}\n\n.template-content .template-heading{\n    text-align: center;\n}\n\n.data{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 80%;\n    margin: auto;\n}\n\n.title{\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n}\n\n.info{\n    -webkit-box-flex: 2;\n        -ms-flex: 2;\n            flex: 2;\n    color: #444;\n}\n\n.rule-desc{\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n\n.rule-desc-info{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    background: #ececec;\n    margin: 10px;\n}\n\n.sub-data{\n    padding: 10px;\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/components/template-details/template-details.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"template-content\">\n\n    <div class=\"close icon\">\n      <img (click)=\"hideTemplateDetails()\" src=\"../../../../assets/close-icon-black.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <h2 class=\"template-heading\">{{templateDetails.ruleName}}</h2>\n    <div class=\"data\">\n      <h3 class=\"title\">Country</h3>\n      <p class=\"info\"> {{templateDetails.country}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Creator Name</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Star Rating</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\"> Template Type</h3>\n      <p class=\"info\"> {{templateDetails.templateType}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\">Transaction Currency</h3>\n      <p class=\"info\"> {{templateDetails.transactionCurrency}}</p>\n    </div>\n    <div class=\"data rule-desc \">\n      <h3>Rules</h3>\n      <div class=\"rule-desc-info info\" *ngFor=\"let rule of templateDetails.ruleDescription\">\n\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Type</h4>\n          <p class=\"info\">{{rule.chargeType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Value</h4>\n          <p class=\"info\">{{rule.chargeValue}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Type</h4>\n          <p class=\"info\">{{rule.paymentType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Rule Type </h4>\n          <p class=\"info\">{{rule.ruletype}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Reccrring </h4>\n          <p class=\"info\">{{rule.recurring}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Start Date </h4>\n          <p class=\"info\">{{rule.startDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> End Date</h4>\n          <p class=\"info\">{{rule.endDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Validity Type</h4>\n          <p class=\"info\">{{rule.validityType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Option</h4>\n          <p class=\"info\">{{rule.paymentOption}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Cycle </h4>\n          <p class=\"info\">{{rule.paymentCycle}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Connected Hotels </h4>\n          <p class=\"info\" *ngFor=\"let hotel of rule.connecteHotels\" >{{hotel.hotelName}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/components/template-details/template-details.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TemplateDetailsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var TemplateDetailsComponent = /** @class */ (function () {
+    function TemplateDetailsComponent() {
+        this.hideTemplate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
+    }
+    TemplateDetailsComponent.prototype.ngOnInit = function () {
+        console.log(this.templateDetails);
+    };
+    TemplateDetailsComponent.prototype.hideTemplateDetails = function () {
+        this.hideTemplate.emit(true);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", Object)
+    ], TemplateDetailsComponent.prototype, "templateDetails", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */])
+    ], TemplateDetailsComponent.prototype, "hideTemplate", void 0);
+    TemplateDetailsComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-template-details',
+            template: __webpack_require__("../../../../../src/app/support/components/template-details/template-details.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/support/components/template-details/template-details.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], TemplateDetailsComponent);
+    return TemplateDetailsComponent;
 }());
 
 
@@ -923,12 +1001,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_form_services_form_data_service__ = __webpack_require__("../../../../../src/app/support/components/form/services/form-data.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/support/components/loading-indicator/loading-indicator.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_template_details_template_details_component__ = __webpack_require__("../../../../../src/app/support/components/template-details/template-details.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -968,6 +1048,7 @@ var SupportModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__components_form_validity_validity_component__["a" /* ValidityComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__components_loading_indicator_loading_indicator_component__["a" /* LoadingIndicatorComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__shared_pipes_search_pipe__["a" /* SearchPipe */],
+                __WEBPACK_IMPORTED_MODULE_17__components_template_details_template_details_component__["a" /* TemplateDetailsComponent */],
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_12__services_form_service__["a" /* FormService */],
