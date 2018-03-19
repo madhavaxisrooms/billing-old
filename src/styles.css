@@ -32,6 +32,10 @@ input[type="checkbox"] {
     border: none;
 }
 
+input.ng-invalid{
+    border-color: red;
+}
+
 input:checked[type="checkbox"] {
     background: #02285a;
 }
@@ -207,6 +211,7 @@ header .profile .drop-down li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    height: 60px;
 }
 
 .footer .footer-content {

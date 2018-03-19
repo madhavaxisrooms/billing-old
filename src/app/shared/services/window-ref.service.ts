@@ -8,4 +8,8 @@ export class WindowRefService {
   get nativeWindow(): any {
     return _window();
   }
+
+  reload(){
+    this.nativeWindow.location.reload();
+  }
 }

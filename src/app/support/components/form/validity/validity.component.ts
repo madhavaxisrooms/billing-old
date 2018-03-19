@@ -4,6 +4,8 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormDataService } from '../services/form-data.service';
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
+import { window } from 'rxjs/operators/window';
+import { WindowRefService } from '../../../../shared/services/window-ref.service';
 
 
 @Component({
@@ -17,11 +19,12 @@ export class ValidityComponent implements OnInit {
   public validityForm: FormGroup;
   public customHidden: boolean = false;
   public datesHidden: boolean = false;
-
+  public restrictToPostPaid:boolean = false;
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
+    private winRef: WindowRefService
   ) { }
 
   ngOnInit() {
@@ -29,8 +32,10 @@ export class ValidityComponent implements OnInit {
       validityType: ['PERPETUAL'], //validityType - enum | custom perpet
       startDate: [], //startDate
       endDate: [],//endDate
-      paymentOption: ['PREPAID'], // paymentOption - enum
+      paymentOption: ['POSTPAID'], // paymentOption - enum
     });
+
+    this.formDataService.restrictToPostPaid.subscribe(res => { this.restrictToPostPaid = res });
   }
 
   duration(value) {
@@ -51,5 +56,6 @@ export class ValidityComponent implements OnInit {
     this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
     this.formService.toggleFormTabs('validity', null);
     this.formService.toggleForm(true);
+    this.winRef.reload();
   }
 }

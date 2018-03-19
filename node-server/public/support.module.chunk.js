@@ -18,6 +18,9 @@ var SearchPipe = /** @class */ (function () {
     }
     SearchPipe.prototype.transform = function (values, query) {
         var filteredList = [];
+        if (query == "SHOWING ALL HOTELS") {
+            return values;
+        }
         if (query != '') {
             query = query.toUpperCase();
             for (var i = 0, len = values.length; i < len; i++)
@@ -59,7 +62,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/audience/audience.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n    <div class=\"currency-selector\">\n        <select formControlName=\"transactionCurrency\" class=\"currency-select\" name=\"currency\" id=\"\">\n            <option value=\"INR\">INR</option>\n            <option value=\"USD\">USD</option>\n            <option value=\"AUD\">AUD</option>\n        </select>\n    </div>\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <input formControlName=\"templateType\" type=\"checkbox\">\n                <h3 [hidden]=\"!audienceForm.value.templateType\">Custom</h3>\n                <h3 [hidden]=\"audienceForm.value.templateType\">Default</h3>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p>\n            <input formControlName=\"ruleName\" type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option value='all'> All </option>\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"AGGREGATOR\"> User Type </option>\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"!audienceForm.value.templateType\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds()\">\n                    <option value=\"AGGREGATOR\"> User Type </option>\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Choose Users</p>\n                <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}}</option>\n                </select>\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
+module.exports = "<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p> {{ruleName.invalid}}\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option value='all'> All </option>\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds()\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Choose Users</p>\n                <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}}</option>\n                </select>\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -98,29 +101,38 @@ var AudienceComponent = /** @class */ (function () {
     AudienceComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.audienceForm = this.formBuilder.group({
-            templateType: [false,],
+            templateType: ['DEFAULT',],
             country: ['all'],
             starRating: [0,],
-            ruleName: [, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
-            transactionCurrency: ['INR'],
-            userRole: ["AGGREGATOR"],
+            ruleName: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].maxLength(50)]],
+            userRole: ["SUPPLIER"],
             userId: []
         });
         this.formDataService.getCountries().subscribe(function (res) {
             _this.countries = JSON.parse(res['_body']);
         });
+        this.getUserIds();
+    };
+    AudienceComponent.prototype.fillAggregators = function (val) {
+        if (val == 'agg') {
+            this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
+            console.log(this.audienceForm.value.userRole);
+            this.getUserIds();
+        }
     };
     AudienceComponent.prototype.getUserIds = function () {
         var _this = this;
         this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(function (res) {
             _this.allUsers = JSON.parse(res['_body']);
+            console.log(_this.allUsers);
         });
     };
     AudienceComponent.prototype.next = function () {
         this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
-        this.audienceForm.value.templateType == false ? this.audienceForm.value.templateType = 'DEFAULT' : this.audienceForm.value.templateType = 'CUSTOM';
         this.formDataService.audienceForm = this.audienceForm.value;
+        this.formDataService.toggleIsDefault(this.audienceForm.value.templateType);
         //For Navigation
+        console.log(this.audienceForm.value);
         this.formService.toggleFormTabs('audience', 'billing');
     };
     AudienceComponent = __decorate([
@@ -161,7 +173,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/billing/billing.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"billingForm\" (ngSubmit)=\"next()\">\n    <div class=\"billing-navigation\">\n        <select #pc class=\"product-selection\" formControlName=\"productType\">\n            <option value=\"BE\">Booking Engine</option>\n            <option value=\"CM\">Channel Manager</option>\n        </select>\n        <button type=\"button\" (click)=\"productChoice(pc.value)\"> Add </button>\n        <p class=\"align-right-flex\" >Currency : {{currency}}</p>\n    </div>\n    <div class=\"modal-form\" *ngIf=\"productSelected\">\n        <p class=\"title\">\n            {{productSelected}}\n        </p>\n        <div class=\"rule-addition-area\">\n            <div class=\"rules\" formArrayName=\"ruleDetails\" *ngFor=\"let rule of billingForm.controls.ruleDetails.controls; let i = index\">\n\n                <div class=\"rule\" [formGroupName]=\"i\">\n                    <div class=\"input-element\">\n                        <p>Select Hotels</p>\n                        <input [hidden]=\"isDefault == 'DEFAULT'\" type=\"text\" class=\"hotel-list-input\" #hotelName (keyup)='hotelName.value' placeholder=\"Leave Empty for all hotels\">\n                    </div>\n                    <div class=\"hotel-list\" *ngIf=\"hotelName.value\">\n                        <ul *ngFor='let hotel of hotels | search:hotelName.value '>\n                            <li (click)=\"hotelSelected(hotel,i); hotelName.value =''\">{{hotel.productName}}</li>\n                        </ul>\n                    </div>\n                    <div class=\"hotel-list-selected\">\n                        <p *ngFor=\"let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels\" (click)=\"removeHotel(connectedHotels,i)\">{{connectedHotels.productName}}</p>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Duration</p>\n                        <select formControlName=\"recurring\">\n                            <option value=true>Recurring</option>\n                            <option value=false>One Time</option>\n                        </select>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Payment Type</p>\n                        <select formControlName=\"paymentType\">\n                            <option value=\"FIXED\">Fixed</option>\n                            <option value=\"TRANSACTION_BASED\">Tansaction Based</option>\n                        </select>\n                    </div>\n                    <div [hidden]=\"billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'\" class=\"input-element\">\n                        <p>Transactions</p>\n                        <select formControlName=\"trasactionBase\">\n                            <option value=\"ROOM_NIGHTS_CHECK_IN_DATE\">Room Nights - Check In Date</option>\n                            <option value=\"ROOM_NIGHTS_BOOKING_DATE\">Room Nights - Booking Date</option>\n                            <option value=\"TOTAL_REVENUE_CHECK_IN_DATE\">Total Revenue - Check In Date</option>\n                            <option value=\"TOTAL_REVENUE_BOOKING_DATE\">Total Revenue - Booking Date</option>\n                            <option value=\"TOTAL_REVENUE_WITHOUT_TAX_CHECK_IN_DATE\">Total Revenue Without Tax - Check In Date</option>\n                            <option value=\"TOTAL_REVENUE_WITHOUT_TAX_BOOKING_DATE\">Total Revenue Without Tax - Booking Date</option>\n                        </select>\n                    </div>\n                    <div [hidden]=\"billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'\" class=\"input-element\">\n                        <p>Charge Type</p>\n                        <select formControlName=\"chargeType\">\n                            <option value='PERCENTAGE'>percentage</option>\n                            <option value=\"FIXED\">fixed</option>\n                        </select>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Charge Value</p>\n                        <input formControlName=\"chargeValue\" type=\"text\" placeholder=\"Value\">\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Cycle</p>\n                        <select formControlName=\"paymentCycle\">\n                            <option value=1>Montly</option>\n                            <option value=3>Quarterly</option>\n                            <option value=6>Half Yearly</option>\n                            <option value=12>Yearly</option>\n                        </select>\n                    </div>\n\n                    <div class=\"add-rule\">\n                        <img (click)=\"removeRulesForm(i)\" src=\"../../../../assets/close-icon-black.png\" alt=\"Close Icon\" class=\"icon remove-rule\">\n                        <img (click)=\"addRulesForm()\" class=\"icon add-icon\" src=\"../../../../assets/plus-circle-outline.png\" alt=\"Add Rule Icon\">\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"save-button\">\n            <button type=\"submit\" [disabled]=\"billingForm.invalid\">Next</button>\n        </div>\n    </div>\n</form>"
+module.exports = "<form [formGroup]=\"billingForm\" (ngSubmit)=\"next()\">\n    <div class=\"billing-navigation\">\n        <span>\n            <select #pc class=\"product-selection\" (change)=\"productChoice(pc.value)\" formControlName=\"productType\">\n                <option value=\"BE\">Booking Engine</option>\n                <option value=\"CM\">Channel Manager</option>\n            </select>\n        </span>\n        <!-- <button type=\"button\" (click)=\"productChoice(pc.value)\"> Add </button> -->\n        <span class=\"align-right-flex\">\n            <select formControlName=\"transactionCurrency\" class=\"currency-select\" name=\"currency\" id=\"\">\n                <option value=\"INR\">Indian Rupee</option>\n                <option value=\"USD\">US Dollar</option>\n                <option value=\"EUR\">Euro</option>\n                <option value=\"LKR\">Sri Lankan Rupee</option>\n                <option value=\"THB\">Thai Baht</option>\n                <option value=\"GBP\">British Pound</option>\n                <option value=\"SGD\">Singapore Dollar</option>\n                <option value=\"CHF\">Swiss Franc</option>\n                <option value=\"ZAR\">South African Rand</option>\n                <option value=\"CLP\">Chilean Peso</option>\n                <option value=\"GTQ\">Guatemalan Quetzal</option>\n                <option value=\"AED\">United Arab Emirates Dirham</option>\n                <option value=\"IDR\">Indonesian Rupiah</option>\n                <option value=\"OMR\">Omani Rial</option>\n                <option value=\"PLN\">Polish Zloty</option>\n                <option value=\"MXN\">Mexican Pesos</option>\n                <option value=\"MYR\">Malaysian Ringgit</option>\n                <option value=\"BRL\">Brazil Real</option>\n                <option value=\"ARS\">Argentine Peso</option>\n                <option value=\"PHL\">Philippine peso</option>\n                <option value=\"COP\">Colombian peso</option>\n                <option value=\"PHP\">Philippines Peso</option>\n                <option value=\"AUD\">Australian Dollar</option>\n                <option value=\"MVR\">Maldivian Rufiyaa</option>\n                <option value=\"HKD\">Hong Kong Dollar</option>\n                <option value=\"RUB\">Russian Ruble</option>\n                <option value=\"CRC\">Costa Rican Colon</option>\n                <option value=\"CNY\">Chinese Yuan</option>\n                <option value=\"TWD\">Taiwan Dolla</option>\n            </select>\n        </span>\n    </div>\n    <div class=\"modal-form\">\n        <div class=\"rule-addition-area\">\n            <div class=\"rules\" formArrayName=\"ruleDetails\" *ngFor=\"let rule of billingForm.controls.ruleDetails.controls; let i = index\">\n\n                <div class=\"rule\" [formGroupName]=\"i\">\n                    <div class=\"input-element\" [hidden]=\"isDefault == 'DEFAULT'\">\n                        <p>Select Hotels</p>\n                        <input type=\"text\" class=\"hotel-list-input\" #hotelName (focus)=\"hotelName.value = 'SHOWING ALL HOTELS'\" (keyup)='hotelName.value' placeholder=\"Leave Empty for all hotels\">\n                    </div>\n                    <div class=\"hotel-list\" *ngIf=\"hotelName.value\">\n                        <ul *ngFor='let hotel of hotels | search:hotelName.value '>\n                            <li (click)=\"hotelSelected(hotel,i); hotelName.value =''\">{{hotel.productName}}</li>\n                        </ul>\n                    </div>\n                    <div class=\"hotel-list-selected\">\n                        <p *ngFor=\"let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels\" (click)=\"removeHotel(connectedHotels,i)\">{{connectedHotels.productName}}</p>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Duration</p>\n                        <select formControlName=\"recurring\">\n                            <option value=true>Recurring</option>\n                            <option value=false>One Time</option>\n                        </select>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Payment Type</p>\n                        <select formControlName=\"paymentType\">\n                            <option value=\"FIXED\">Fixed</option>\n                            <option value=\"TRANSACTION_BASED\">Tansaction Based</option>\n                        </select>\n                    </div>\n                    <div [hidden]=\"billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'\" class=\"input-element\">\n                        <p>Transactions</p>\n                        <select formControlName=\"trasactionBase\">\n                            <option value=\"ROOM_NIGHTS_CHECK_IN_DATE\">Room Nights - Check In Date</option>\n                            <option value=\"ROOM_NIGHTS_BOOKING_DATE\">Room Nights - Booking Date</option>\n                            <option value=\"TOTAL_REVENUE_CHECK_IN_DATE\">Total Revenue - Check In Date</option>\n                            <option value=\"TOTAL_REVENUE_BOOKING_DATE\">Total Revenue - Booking Date</option>\n                            <option value=\"TOTAL_REVENUE_WITHOUT_TAX_CHECK_IN_DATE\">Total Revenue Without Tax - Check In Date</option>\n                            <option value=\"TOTAL_REVENUE_WITHOUT_TAX_BOOKING_DATE\">Total Revenue Without Tax - Booking Date</option>\n                        </select>\n                    </div>\n                    <div [hidden]=\"billingForm.value.ruleDetails[i].paymentType != 'TRANSACTION_BASED'\" class=\"input-element\">\n                        <p>Charge Type</p>\n                        <select formControlName=\"chargeType\">\n                            <option value='PERCENTAGE'>percentage</option>\n                            <option value=\"FIXED\">fixed</option>\n                        </select>\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Charge Value</p> \n                        <input formControlName=\"chargeValue\" type=\"text\" placeholder=\"Value\">\n                    </div>\n                    <div class=\"input-element\">\n                        <p>Cycle</p>\n                        <select formControlName=\"paymentCycle\">\n                            <option value=1>Montly</option>\n                            <option value=3>Quarterly</option>\n                            <option value=6>Half Yearly</option>\n                            <option value=12>Yearly</option>\n                        </select>\n                    </div>\n\n                    <div class=\"add-rule\">\n                        <img (click)=\"removeRule(i)\" src=\"../../../../assets/close-icon-black.png\" alt=\"Close Icon\" class=\"icon remove-rule\">\n                        <img (click)=\"addRulesForm()\" class=\"icon add-icon\" src=\"../../../../assets/plus-circle-outline.png\" alt=\"Add Rule Icon\">\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"save-button\">\n            <button type=\"submit\" [disabled]=\"billingForm.invalid\">Next</button>\n        </div>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -195,24 +207,25 @@ var BillingComponent = /** @class */ (function () {
         this.hotels = [];
     }
     BillingComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.billingForm = this.formBuilder.group({
             productType: ['BE'],
+            transactionCurrency: ['INR'],
             ruleDetails: this.formBuilder.array([
                 this.initRulesArray(),
             ])
         });
-        this.currency = this.formDataService.audienceForm.transactionCurrency;
-        console.log(this.currency);
+        this.formDataService.isDefault.subscribe(function (res) { _this.isDefault = res; _this.productChoice("BE"); });
     };
     BillingComponent.prototype.initRulesArray = function () {
         return this.formBuilder.group({
             connectedHotels: [[]],
             ruleType: [['DEFAULT'], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
             recurring: [true, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
-            paymentType: [, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
+            paymentType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
             trasactionBase: [],
             chargeType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
-            chargeValue: [, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
+            chargeValue: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].pattern('^[1-9]\d*$')]],
             paymentCycle: [1, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required] //paymentCycle - num 1,3,6,12
         });
     };
@@ -220,8 +233,9 @@ var BillingComponent = /** @class */ (function () {
         var control = this.billingForm.controls['ruleDetails'];
         control.push(this.initRulesArray());
     };
-    BillingComponent.prototype.removeRulesForm = function (i) {
-        console.log(this.billingForm.value.ruleDetails[i]);
+    BillingComponent.prototype.removeRule = function (i) {
+        console.log(this.billingForm.value.ruleDetails);
+        console.log(i);
         this.billingForm.value.ruleDetails.splice(i, 1);
     };
     BillingComponent.prototype.hotelSelected = function (hotel, i) {
@@ -234,16 +248,23 @@ var BillingComponent = /** @class */ (function () {
     };
     BillingComponent.prototype.productChoice = function (productSelected) {
         var _this = this;
-        this.isDefault = this.formDataService.audienceForm.templateType;
-        productSelected == 'BE' ? this.productSelected = 'Booking Engine' : this.productSelected = 'Channel Manager';
-        if (this.formDataService.audienceForm.templateType == "CUSTOM") {
-            this.formDataService.getUsers(productSelected).subscribe(function (res) {
-                _this.hotels = JSON.parse(res["_body"]);
-            });
+        this.formDataService.getUsers(productSelected).subscribe(function (res) {
+            _this.hotels = JSON.parse(res["_body"]);
+        });
+    };
+    //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+    BillingComponent.prototype.checkPaymentType = function () {
+        var rules = this.billingForm.value.ruleDetails;
+        for (var i = 0; i < rules.length; i++) {
+            if (rules[i].paymentType === "TRANSACTION_BASED") {
+                return true;
+            }
         }
+        return false;
     };
     BillingComponent.prototype.next = function () {
         this.formDataService.billingForm = this.billingForm.value;
+        this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
         this.formService.toggleFormTabs('billing', 'validity');
     };
     BillingComponent = __decorate([
@@ -346,6 +367,7 @@ var FormComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_form_service__ = __webpack_require__("../../../../../src/app/support/services/form.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/_esm5/BehaviorSubject.js");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -367,21 +389,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FormDataService = /** @class */ (function () {
     function FormDataService(formService, http) {
         this.formService = formService;
         this.http = http;
+        this.restrictToPostPaidSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
+        this.restrictToPostPaid = this.restrictToPostPaidSource.asObservable();
+        this.isDefaultSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]("DEFAULT");
+        this.isDefault = this.isDefaultSource.asObservable();
         this.audienceForm = {
             ruleName: '',
             country: '',
             starRating: '',
             templateType: '',
-            transactionCurrency: '',
             userRole: '',
             userId: 1521 //Number
         };
         this.billingForm = {
             productType: '',
+            transactionCurrency: '',
             ruleDetails: []
         };
         this.validityForm = {
@@ -395,6 +422,12 @@ var FormDataService = /** @class */ (function () {
         };
         this.mergerdForm = {};
     }
+    FormDataService.prototype.enableRestrictToPostPaid = function (val) {
+        this.restrictToPostPaidSource.next(val);
+    };
+    FormDataService.prototype.toggleIsDefault = function (val) {
+        this.isDefaultSource.next(val);
+    };
     FormDataService.prototype.getCountries = function () {
         var url = "http://94.130.54.42:36000/v1/api/country";
         return this.http.post(url, null).map(function (res) {
@@ -409,7 +442,6 @@ var FormDataService = /** @class */ (function () {
         else if (userType == 'SUPPLIER_ADMIN')
             val = 6;
         var val;
-        // console.log("Inside getUSerId");
         var url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
         return this.http.post(url, null).map(function (res) {
             return res;
@@ -418,7 +450,6 @@ var FormDataService = /** @class */ (function () {
     FormDataService.prototype.getUsers = function (product) {
         var url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
         return this.http.post(url, null).map(function (res) {
-            // console.log(JSON.parse(res["_body"]));      
             return res;
         });
     };
@@ -476,7 +507,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/validity/validity.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <div class=\"modal-form\">\n        <div class=\"form-element\">\n            <p>Duration</p>\n            <select #d (change)=\"duration(d.value)\" formControlName=\"validityType\">\n                <option value=\"PERPETUAL\">Perpetual</option>\n                <option value=\"CUSTOM\">Custom</option>\n            </select>\n        </div>\n        <div class=\"form-element\" *ngIf=\"customHidden\">\n            <p>Custom</p>\n            <select #c (change)=\"custom(c.value)\">\n                <option value=null>custom</option>\n                <option value=1>1 Month</option>\n                <option value=3>3 Month</option>\n                <option value=6>6 Month</option>\n                <option value=c>Custom Duration</option>\n            </select>\n        </div>\n\n        <div class=\"form-element\" *ngIf=\"datesHidden\">\n            <p>Start Date</p>\n            <input formControlName=\"startDate\" type=\"date\">\n        </div>\n        <div class=\"form-element\" *ngIf=\"datesHidden\">\n            <p>End Date</p>\n            <input formControlName=\"endDate\" type=\"date\">\n        </div>\n    </div>\n\n    <div class=\"payment-type\">\n        <select formControlName=\"paymentOption\">\n            <option value=\"PREPAID\">Prepaid</option>\n            <option value=\"POSTPAID\">Post-paid</option>\n        </select>\n    </div>\n\n    <div class=\"save-button\">\n        <button type=\"submit\" >Save</button>\n    </div>\n</form>"
+module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <div class=\"modal-form\">\n        <div class=\"form-element\">\n            <p>Duration</p>\n            <select #d (change)=\"duration(d.value)\" formControlName=\"validityType\">\n                <option value=\"PERPETUAL\">Perpetual</option>\n                <option value=\"CUSTOM\">Custom</option>\n            </select>\n        </div>\n        <div class=\"form-element\" *ngIf=\"customHidden\">\n            <p>Custom</p>\n            <select #c (change)=\"custom(c.value)\">\n                <option value=null>custom</option>\n                <option value=1>1 Month</option>\n                <option value=3>3 Month</option>\n                <option value=6>6 Month</option>\n                <option value=c>Custom Duration</option>\n            </select>\n        </div>\n\n        <div class=\"form-element\" *ngIf=\"datesHidden\">\n            <p>Start Date</p>\n            <input formControlName=\"startDate\" type=\"date\">\n        </div>\n        <div class=\"form-element\" *ngIf=\"datesHidden\">\n            <p>End Date</p>\n            <input formControlName=\"endDate\" type=\"date\">\n        </div>\n    </div>\n\n    <div class=\"payment-type\">\n        <select formControlName=\"paymentOption\" *ngIf=\"!restrictToPostPaid\" >\n            <option value=\"PREPAID\">Prepaid</option>\n            <option value=\"POSTPAID\">Post-paid</option>\n        </select>\n        <p *ngIf=\"restrictToPostPaid\">Payment Type is Postpaid</p>\n    </div>\n\n    <div class=\"save-button\">\n        <button type=\"submit\" >Save</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -493,6 +524,7 @@ module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br__ = __webpack_require__("../../../../moment/locale/pt-br.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -508,21 +540,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ValidityComponent = /** @class */ (function () {
-    function ValidityComponent(formService, formBuilder, formDataService) {
+    function ValidityComponent(formService, formBuilder, formDataService, winRef) {
         this.formService = formService;
         this.formBuilder = formBuilder;
         this.formDataService = formDataService;
+        this.winRef = winRef;
         this.customHidden = false;
         this.datesHidden = false;
+        this.restrictToPostPaid = false;
     }
     ValidityComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.validityForm = this.formBuilder.group({
             validityType: ['PERPETUAL'],
             startDate: [],
             endDate: [],
-            paymentOption: ['PREPAID'],
+            paymentOption: ['POSTPAID'],
         });
+        this.formDataService.restrictToPostPaid.subscribe(function (res) { _this.restrictToPostPaid = res; });
     };
     ValidityComponent.prototype.duration = function (value) {
         value == 'CUSTOM' ? this.customHidden = true : this.customHidden = false;
@@ -540,6 +577,7 @@ var ValidityComponent = /** @class */ (function () {
         this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
         this.formService.toggleFormTabs('validity', null);
         this.formService.toggleForm(true);
+        this.winRef.reload();
     };
     ValidityComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -549,7 +587,8 @@ var ValidityComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_form_service__["a" /* FormService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */]])
+            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */],
+            __WEBPACK_IMPORTED_MODULE_6__shared_services_window_ref_service__["a" /* WindowRefService */]])
     ], ValidityComponent);
     return ValidityComponent;
 }());
@@ -579,7 +618,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\">\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\" [index]=\"i\"></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Creator Name</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\">{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
+module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\">\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\" [index]=\"i\"></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Creator Name</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
 
 /***/ }),
 
@@ -802,7 +841,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/template-details/template-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"template-content\">\n\n    <div class=\"close icon\">\n      <img (click)=\"hideTemplateDetails()\" src=\"../../../../assets/close-icon-black.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <h2 class=\"template-heading\">{{templateDetails.ruleName}}</h2>\n    <div class=\"data\">\n      <h3 class=\"title\">Country</h3>\n      <p class=\"info\"> {{templateDetails.country}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Creator Name</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Star Rating</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\"> Template Type</h3>\n      <p class=\"info\"> {{templateDetails.templateType}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\">Transaction Currency</h3>\n      <p class=\"info\"> {{templateDetails.transactionCurrency}}</p>\n    </div>\n    <div class=\"data rule-desc \">\n      <h3>Rules</h3>\n      <div class=\"rule-desc-info info\" *ngFor=\"let rule of templateDetails.ruleDescription\">\n\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Type</h4>\n          <p class=\"info\">{{rule.chargeType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Value</h4>\n          <p class=\"info\">{{rule.chargeValue}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Type</h4>\n          <p class=\"info\">{{rule.paymentType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Rule Type </h4>\n          <p class=\"info\">{{rule.ruletype}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Reccrring </h4>\n          <p class=\"info\">{{rule.recurring}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Start Date </h4>\n          <p class=\"info\">{{rule.startDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> End Date</h4>\n          <p class=\"info\">{{rule.endDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Validity Type</h4>\n          <p class=\"info\">{{rule.validityType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Option</h4>\n          <p class=\"info\">{{rule.paymentOption}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Cycle </h4>\n          <p class=\"info\">{{rule.paymentCycle}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Connected Hotels </h4>\n          <p class=\"info\" *ngFor=\"let hotel of rule.connecteHotels\" >{{hotel.hotelName}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"template-content\">\n\n    <div class=\"close icon\">\n      <img (click)=\"hideTemplateDetails()\" src=\"../../../../assets/close-icon-black.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <h2 class=\"template-heading\">{{templateDetails.ruleName}}</h2>\n    <div class=\"data\">\n      <h3 class=\"title\">Country</h3>\n      <p class=\"info\"> {{templateDetails.country}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Creator Name</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Star Rating</h3>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating != 0\" > {{templateDetails.starRating}}</p>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating == 0\" > ANY</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\"> Template Type</h3>\n      <p class=\"info\"> {{templateDetails.templateType}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\">Transaction Currency</h3>\n      <p class=\"info\"> {{templateDetails.transactionCurrency}}</p>\n    </div>\n    <div class=\"data rule-desc \">\n      <h3>Rules</h3>\n      <div class=\"rule-desc-info info\" *ngFor=\"let rule of templateDetails.ruleDescription\">\n\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Type</h4>\n          <p class=\"info\">{{rule.chargeType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Value</h4>\n          <p class=\"info\">{{rule.chargeValue}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Type</h4>\n          <p class=\"info\">{{rule.paymentType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Rule Type </h4>\n          <p class=\"info\">{{rule.ruleType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Reccrring </h4>\n          <p class=\"info\">{{rule.recurring}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Start Date </h4>\n          <p class=\"info\">{{rule.startDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n            <h4 class=\"title\">Validity Type</h4>\n            <p class=\"info\">{{rule.validityType}}</p>\n          </div>\n        <div class=\"sub-data\" *ngIf=\"rule.endDate\" >\n          <h4 class=\"title\"> End Date</h4>\n          <p class=\"info\">{{rule.endDate}}</p>\n        </div>\n        \n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Option</h4>\n          <p class=\"info\">{{rule.paymentOption}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Cycle </h4>\n          <p class=\"info\">{{rule.paymentCycle}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Connected Hotels </h4>\n          <p class=\"info\" *ngFor=\"let hotel of rule.connecteHotels\" >{{hotel.hotelName}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1008,12 +1047,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/support/components/loading-indicator/loading-indicator.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_template_details_template_details_component__ = __webpack_require__("../../../../../src/app/support/components/template-details/template-details.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1059,7 +1100,8 @@ var SupportModule = /** @class */ (function () {
             providers: [
                 __WEBPACK_IMPORTED_MODULE_12__services_form_service__["a" /* FormService */],
                 __WEBPACK_IMPORTED_MODULE_14__components_form_services_form_data_service__["a" /* FormDataService */],
-                __WEBPACK_IMPORTED_MODULE_15__shared_services_invoice_service__["a" /* InvoiceService */]
+                __WEBPACK_IMPORTED_MODULE_15__shared_services_invoice_service__["a" /* InvoiceService */],
+                __WEBPACK_IMPORTED_MODULE_18__shared_services_window_ref_service__["a" /* WindowRefService */]
             ]
         })
     ], SupportModule);

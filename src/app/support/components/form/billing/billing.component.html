@@ -1,23 +1,54 @@
 <form [formGroup]="billingForm" (ngSubmit)="next()">
     <div class="billing-navigation">
-        <select #pc class="product-selection" formControlName="productType">
-            <option value="BE">Booking Engine</option>
-            <option value="CM">Channel Manager</option>
-        </select>
-        <button type="button" (click)="productChoice(pc.value)"> Add </button>
-        <p class="align-right-flex" >Currency : {{currency}}</p>
+        <span>
+            <select #pc class="product-selection" (change)="productChoice(pc.value)" formControlName="productType">
+                <option value="BE">Booking Engine</option>
+                <option value="CM">Channel Manager</option>
+            </select>
+        </span>
+        <!-- <button type="button" (click)="productChoice(pc.value)"> Add </button> -->
+        <span class="align-right-flex">
+            <select formControlName="transactionCurrency" class="currency-select" name="currency" id="">
+                <option value="INR">Indian Rupee</option>
+                <option value="USD">US Dollar</option>
+                <option value="EUR">Euro</option>
+                <option value="LKR">Sri Lankan Rupee</option>
+                <option value="THB">Thai Baht</option>
+                <option value="GBP">British Pound</option>
+                <option value="SGD">Singapore Dollar</option>
+                <option value="CHF">Swiss Franc</option>
+                <option value="ZAR">South African Rand</option>
+                <option value="CLP">Chilean Peso</option>
+                <option value="GTQ">Guatemalan Quetzal</option>
+                <option value="AED">United Arab Emirates Dirham</option>
+                <option value="IDR">Indonesian Rupiah</option>
+                <option value="OMR">Omani Rial</option>
+                <option value="PLN">Polish Zloty</option>
+                <option value="MXN">Mexican Pesos</option>
+                <option value="MYR">Malaysian Ringgit</option>
+                <option value="BRL">Brazil Real</option>
+                <option value="ARS">Argentine Peso</option>
+                <option value="PHL">Philippine peso</option>
+                <option value="COP">Colombian peso</option>
+                <option value="PHP">Philippines Peso</option>
+                <option value="AUD">Australian Dollar</option>
+                <option value="MVR">Maldivian Rufiyaa</option>
+                <option value="HKD">Hong Kong Dollar</option>
+                <option value="RUB">Russian Ruble</option>
+                <option value="CRC">Costa Rican Colon</option>
+                <option value="CNY">Chinese Yuan</option>
+                <option value="TWD">Taiwan Dolla</option>
+            </select>
+        </span>
     </div>
-    <div class="modal-form" *ngIf="productSelected">
-        <p class="title">
-            {{productSelected}}
-        </p>
+    <div class="modal-form">
         <div class="rule-addition-area">
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
 
                 <div class="rule" [formGroupName]="i">
-                    <div class="input-element">
+                    <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
                         <p>Select Hotels</p>
-                        <input [hidden]="isDefault == 'DEFAULT'" type="text" class="hotel-list-input" #hotelName (keyup)='hotelName.value' placeholder="Leave Empty for all hotels">
+                        <input type="text" class="hotel-list-input" #hotelName (focus)="hotelName.value = 'SHOWING ALL HOTELS'" (keyup)='hotelName.value' placeholder="Leave Empty for all hotels">
                     </div>
                     <div class="hotel-list" *ngIf="hotelName.value">
                         <ul *ngFor='let hotel of hotels | search:hotelName.value '>
@@ -60,7 +91,7 @@
                         </select>
                     </div>
                     <div class="input-element">
-                        <p>Charge Value</p>
+                        <p>Charge Value</p> 
                         <input formControlName="chargeValue" type="text" placeholder="Value">
                     </div>
                     <div class="input-element">
@@ -74,7 +105,7 @@
                     </div>
 
                     <div class="add-rule">
-                        <img (click)="removeRulesForm(i)" src="../../../../assets/close-icon-black.png" alt="Close Icon" class="icon remove-rule">
+                        <img (click)="removeRule(i)" src="../../../../assets/close-icon-black.png" alt="Close Icon" class="icon remove-rule">
                         <img (click)="addRulesForm()" class="icon add-icon" src="../../../../assets/plus-circle-outline.png" alt="Add Rule Icon">
                     </div>
                 </div>

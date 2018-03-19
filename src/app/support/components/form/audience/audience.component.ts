@@ -23,12 +23,11 @@ export class AudienceComponent implements OnInit {
 
   ngOnInit() {
     this.audienceForm = this.formBuilder.group({
-      templateType: [false,],
+      templateType: ['DEFAULT',],
       country: ['all'],
       starRating: [0,],
-      ruleName: [, Validators.required], //
-      transactionCurrency: ['INR'], //
-      userRole: ["AGGREGATOR"], //user role
+      ruleName: [, [Validators.required, Validators.maxLength(50)]], //     
+      userRole: ["SUPPLIER"], //user role
       userId: []
     });
 
@@ -37,22 +36,33 @@ export class AudienceComponent implements OnInit {
         this.countries = JSON.parse(res['_body']);
       }
     );
+    this.getUserIds();
   }
 
+  fillAggregators(val){
+    if(val == 'agg'){
+      this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
+      console.log(this.audienceForm.value.userRole);
+      this.getUserIds();
+    }
+  }
 
   getUserIds() {
     this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
       res => {
         this.allUsers = JSON.parse(res['_body']);
+        console.log(this.allUsers);
       }
     );
   }
 
   next() {
     this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
-    this.audienceForm.value.templateType == false ? this.audienceForm.value.templateType = 'DEFAULT' : this.audienceForm.value.templateType = 'CUSTOM';
     this.formDataService.audienceForm = this.audienceForm.value;
+    this.formDataService.toggleIsDefault(this.audienceForm.value.templateType);
     //For Navigation
+    console.log(this.audienceForm.value);
+    
     this.formService.toggleFormTabs('audience', 'billing');
 
   }

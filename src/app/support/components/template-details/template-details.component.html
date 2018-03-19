@@ -17,7 +17,8 @@
 
     <div class="data">
       <h3 class="title">Star Rating</h3>
-      <p class="info"> {{templateDetails.creatorName}}</p>
+      <p class="info" *ngIf="templateDetails.starRating != 0" > {{templateDetails.starRating}}</p>
+      <p class="info" *ngIf="templateDetails.starRating == 0" > ANY</p>
     </div>
     <div class="data">
       <h3 class="title"> Template Type</h3>
@@ -45,7 +46,7 @@
         </div>
         <div class="sub-data">
           <h4 class="title"> Rule Type </h4>
-          <p class="info">{{rule.ruletype}}</p>
+          <p class="info">{{rule.ruleType}}</p>
         </div>
         <div class="sub-data">
           <h4 class="title"> Reccrring </h4>
@@ -56,13 +57,14 @@
           <p class="info">{{rule.startDate}}</p>
         </div>
         <div class="sub-data">
+            <h4 class="title">Validity Type</h4>
+            <p class="info">{{rule.validityType}}</p>
+          </div>
+        <div class="sub-data" *ngIf="rule.endDate" >
           <h4 class="title"> End Date</h4>
           <p class="info">{{rule.endDate}}</p>
         </div>
-        <div class="sub-data">
-          <h4 class="title">Validity Type</h4>
-          <p class="info">{{rule.validityType}}</p>
-        </div>
+        
         <div class="sub-data">
           <h4 class="title"> Payment Option</h4>
           <p class="info">{{rule.paymentOption}}</p>

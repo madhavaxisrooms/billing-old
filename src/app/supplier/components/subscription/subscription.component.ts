@@ -18,7 +18,7 @@ export class SubscriptionComponent implements OnInit {
   rzp1: any;
   public detailsHidden: boolean = true;
   public supplierDetails;
-
+  public loading: boolean = false;
   constructor(
     private winRef: WindowRefService,
     private paymentService: PaymentService
@@ -29,6 +29,7 @@ export class SubscriptionComponent implements OnInit {
       res => {
         this.supplierDetails = JSON.parse(res["_body"]);
         console.log(this.supplierDetails);
+        this.loading = true;
       }
     );
   }
@@ -38,12 +39,21 @@ export class SubscriptionComponent implements OnInit {
         console.log(res);
       }
     );
-    
+    this.winRef.reload();
   }
 
-  public payNow(amount): void {
-    console.log(amount);
-    
+  public payNow(amount) {
+    if(amount < 1){
+      alert("Please enter any number greater than 0");
+      this.winRef.reload();
+      return 0;
+    }
+   
+    if(isNaN(amount)){
+      alert(amount + " is not a number");
+      this.winRef.reload();
+      return 0;
+    }
     var userDetails = {
       "paymentRequestType": "CREDIT",
       "loginId": this.supplierDetails.userId,

@@ -10,3 +10,7 @@
     overflow: auto;
     justify-content: space-around;
 }
+
+.menu-content{
+    display: block;
+}

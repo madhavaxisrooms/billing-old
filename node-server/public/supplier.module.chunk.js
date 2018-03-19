@@ -1,42 +1,5 @@
 webpackJsonp(["supplier.module"],{
 
-/***/ "../../../../../src/app/shared/services/window-ref.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WindowRefService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-function _window() {
-    // return the global native browser window object
-    return window;
-}
-var WindowRefService = /** @class */ (function () {
-    function WindowRefService() {
-    }
-    Object.defineProperty(WindowRefService.prototype, "nativeWindow", {
-        get: function () {
-            return _window();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WindowRefService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])()
-    ], WindowRefService);
-    return WindowRefService;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../../../../src/app/supplier/components/history/history.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -167,7 +130,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\n    width: 74%;\n    background: #fffdfd;\n    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    padding: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    overflow: auto;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}", ""]);
+exports.push([module.i, ":host{\n    width: 74%;\n    background: #fffdfd;\n    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    padding: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    overflow: auto;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n\n.menu-content{\n    display: block;\n}", ""]);
 
 // exports
 
@@ -180,7 +143,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i>Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID' && invoice.amount != 0 \" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
+module.exports = "<app-loading-indicator [hidden]=\"loading\"  ></app-loading-indicator>\n\n<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i>Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID' && invoice.amount != 0 \" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
 
 /***/ }),
 
@@ -211,11 +174,13 @@ var InvoicesComponent = /** @class */ (function () {
         this.invoiceService = invoiceService;
         this.paymentService = paymentService;
         this.winRef = winRef;
+        this.loading = false;
     }
     InvoicesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.invoiceService.getInvoiceDetailsById(1101).subscribe(function (res) {
             _this.invoices = JSON.parse(res['_body']);
+            _this.loading = true;
         });
     };
     InvoicesComponent.prototype.paymentResponseHander = function (response) {
@@ -278,6 +243,67 @@ var InvoicesComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_3__shared_services_window_ref_service__["a" /* WindowRefService */]])
     ], InvoicesComponent);
     return InvoicesComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "h3{\n  text-align: center;\n  color: white;\n}\n\n.wrapper-loader {\n  margin: auto;\n  width: 100px;\n  height: 100px;\n}\n\n.loader {\n  position: relative;\n  width: 100px;\n  height: 100px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  /* border-left-color: #5d7eab;\n  border-top-color: #163256;\n  border-right-color: #01285b; */\n  border-left-color:white;\n  border-top-color:white;\n  border-right-color:white;\n  -webkit-animation: spin 0.8s linear infinite;\n          animation: spin 0.8s linear infinite;\n}\n\n/* .loader:before {\n  top: 6px;\n  left: 6px;\n  position: absolute;\n  content: \"\";\n  width: 80px;\n  height: 80px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #006cab;\n  -webkit-animation: spin 1.6s linear infinite;\n          animation: spin 1.6s linear infinite;\n}\n.loader:after {\n  top: 16px;\n  left: 16px;\n  position: absolute;\n  content: \"\";\n  width: 60px;\n  height: 60px;\n  border: 4px solid transparent;\n  border-radius: 50%;\n  border-left-color: #4dbc9c;\n  -webkit-animation: spin 1.2s linear infinite;\n          animation: spin 1.2s linear infinite;\n} */\n\n@-webkit-keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"wrapper-loader\">\n    <h3>Loading</h3>\n    <div class=\"loader\"></div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingIndicatorComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LoadingIndicatorComponent = /** @class */ (function () {
+    function LoadingIndicatorComponent() {
+    }
+    LoadingIndicatorComponent.prototype.ngOnInit = function () {
+    };
+    LoadingIndicatorComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-loading-indicator',
+            template: __webpack_require__("../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LoadingIndicatorComponent);
+    return LoadingIndicatorComponent;
 }());
 
 
@@ -391,7 +417,6 @@ var DetailsModalComponent = /** @class */ (function () {
         this.hideModal = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     DetailsModalComponent.prototype.ngOnInit = function () {
-        console.log(this.userDetails);
     };
     DetailsModalComponent.prototype.closeModal = function () {
         this.hideModal.emit(true);
@@ -440,7 +465,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/subscription/subscription.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <input  style=\"width: 50px;margin-left: 10px;\"  #amountAdded  type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">add</i>\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\" >add</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>\n\n"
+module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n<app-loading-indicator [hidden]=\"loading\"></app-loading-indicator>\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <input style=\"width: 50px;margin-left: 10px;\" #amountAdded type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">Pay</i>\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\">Add</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -470,22 +495,34 @@ var SubscriptionComponent = /** @class */ (function () {
         this.paymentService = paymentService;
         this.addCreditsVisibility = true;
         this.detailsHidden = true;
+        this.loading = false;
     }
     SubscriptionComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.paymentService.getSupplierDetails().subscribe(function (res) {
             _this.supplierDetails = JSON.parse(res["_body"]);
             console.log(_this.supplierDetails);
+            _this.loading = true;
         });
     };
     SubscriptionComponent.prototype.paymentResponseHander = function (response) {
         this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(function (res) {
             console.log(res);
         });
+        this.winRef.reload();
     };
     SubscriptionComponent.prototype.payNow = function (amount) {
         var _this = this;
-        console.log(amount);
+        if (amount < 1) {
+            alert("Please enter any number greater than 0");
+            this.winRef.reload();
+            return 0;
+        }
+        if (isNaN(amount)) {
+            alert(amount + " is not a number");
+            this.winRef.reload();
+            return 0;
+        }
         var userDetails = {
             "paymentRequestType": "CREDIT",
             "loginId": this.supplierDetails.userId,
@@ -560,8 +597,6 @@ var ChargeValuePipe = /** @class */ (function () {
     function ChargeValuePipe() {
     }
     ChargeValuePipe.prototype.transform = function (value, userDetail, rule) {
-        console.log(userDetail);
-        console.log(rule);
         return null;
     };
     ChargeValuePipe = __decorate([
@@ -816,12 +851,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pipes_payment_cycle_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/payment-cycle.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pipes_produt_name_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/produt-name.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -864,7 +901,8 @@ var SupplierModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_14__pipes_charge_value_pipe__["a" /* ChargeValuePipe */],
                 __WEBPACK_IMPORTED_MODULE_15__pipes_recurring_pipe__["a" /* RecurringPipe */],
                 __WEBPACK_IMPORTED_MODULE_16__pipes_payment_cycle_pipe__["a" /* PaymentCyclePipe */],
-                __WEBPACK_IMPORTED_MODULE_17__pipes_produt_name_pipe__["a" /* ProductNamePipe */]
+                __WEBPACK_IMPORTED_MODULE_17__pipes_produt_name_pipe__["a" /* ProductNamePipe */],
+                __WEBPACK_IMPORTED_MODULE_19__components_loading_indicator_loading_indicator_component__["a" /* LoadingIndicatorComponent */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_10__shared_services_window_ref_service__["a" /* WindowRefService */],

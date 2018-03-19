@@ -1,5 +1,5 @@
 <app-details-modal [hidden]="detailsHidden" [userDetails]='supplierDetails' (hideModal)="detailsHidden = $event "></app-details-modal>
-
+<app-loading-indicator [hidden]="loading"></app-loading-indicator>
 <div class="menu-content">
     <div class="title-content">
 
@@ -22,9 +22,9 @@
             <h3>Credits</h3>
             <p>
                 {{supplierDetails?.creditAmount}}
-                <input  style="width: 50px;margin-left: 10px;"  #amountAdded  type="text" [hidden]="addCreditsVisibility">
-                <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">add</i>
-                <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="!addCreditsVisibility" >add</i>
+                <input style="width: 50px;margin-left: 10px;" #amountAdded type="text" [hidden]="addCreditsVisibility">
+                <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">Pay</i>
+                <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="!addCreditsVisibility">Add</i>
             </p>
         </div>
     </div>
@@ -44,4 +44,3 @@
     </div>
 
 </div>
-

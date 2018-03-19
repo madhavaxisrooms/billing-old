@@ -16,6 +16,7 @@ export class TemplateDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.templateDetails);
+    
   }
 
   hideTemplateDetails() {    

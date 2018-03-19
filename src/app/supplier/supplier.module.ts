@@ -18,6 +18,7 @@ import { RecurringPipe } from './pipes/recurring.pipe';
 import { PaymentCyclePipe } from './pipes/payment-cycle.pipe';
 import { ProductNamePipe } from './pipes/produt-name.pipe';
 import { InvoiceService } from '../shared/services/invoice.service';
+import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { InvoiceService } from '../shared/services/invoice.service';
     ChargeValuePipe,
     RecurringPipe,
     PaymentCyclePipe,
-    ProductNamePipe
+    ProductNamePipe,
+    LoadingIndicatorComponent
   ],
   providers:[
     WindowRefService,

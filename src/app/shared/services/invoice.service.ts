@@ -23,7 +23,6 @@ export class InvoiceService {
     const url = 'http://94.130.54.42:36000/v1/api/invoiceDetails';
     return this.http.post(url, null).map(
       (res) => {
-        console.log(res);
         return res;
       }
     );

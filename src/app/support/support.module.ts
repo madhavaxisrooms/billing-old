@@ -17,6 +17,7 @@ import { FormDataService } from './components/form/services/form-data.service';
 import { InvoiceService } from '../shared/services/invoice.service';
 import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component'
+import { WindowRefService } from '../shared/services/window-ref.service';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { TemplateDetailsComponent } from './components/template-details/template
   providers:[
     FormService,
     FormDataService,
-    InvoiceService
+    InvoiceService,
+    WindowRefService
   ]
 })
 export class SupportModule {

@@ -75,7 +75,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "div{\n    min-height: calc(100vh - 80px);\n}", ""]);
 
 // exports
 
@@ -88,7 +88,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\n<router-outlet></router-outlet>\n<app-footer></app-footer>"
+module.exports = "<div>\n    <app-header></app-header>\n    <router-outlet></router-outlet>\n</div>\n<app-footer></app-footer>"
 
 /***/ }),
 

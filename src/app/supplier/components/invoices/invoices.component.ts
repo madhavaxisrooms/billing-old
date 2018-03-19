@@ -11,6 +11,7 @@ import { WindowRefService } from '../../../shared/services/window-ref.service';
 export class InvoicesComponent implements OnInit {
   rzp1: any;
   public invoices;
+  public loading: boolean = false;
 
   constructor(
     private invoiceService: InvoiceService,
@@ -22,6 +23,7 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService.getInvoiceDetailsById(1101).subscribe(
       res => {
         this.invoices = JSON.parse(res['_body']);
+        this.loading = true;
       }
     );
   }

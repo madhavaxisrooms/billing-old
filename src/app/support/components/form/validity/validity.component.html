@@ -29,10 +29,11 @@
     </div>
 
     <div class="payment-type">
-        <select formControlName="paymentOption">
+        <select formControlName="paymentOption" *ngIf="!restrictToPostPaid" >
             <option value="PREPAID">Prepaid</option>
             <option value="POSTPAID">Post-paid</option>
         </select>
+        <p *ngIf="restrictToPostPaid">Payment Type is Postpaid</p>
     </div>
 
     <div class="save-button">

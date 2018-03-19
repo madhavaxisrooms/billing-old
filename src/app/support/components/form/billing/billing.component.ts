@@ -12,38 +12,36 @@ export class BillingComponent implements OnInit {
   public hotels = [];
 
   public currency;
-  public productSelected;
   public billingForm: FormGroup;
   public isDefault: string; // To see if the user has selcted the default or the custom option in the audience Tab
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
   ) { }
 
 
   ngOnInit() {
-
     this.billingForm = this.formBuilder.group({
       productType: ['BE'], //productType
+      transactionCurrency: ['INR'], //
       ruleDetails: this.formBuilder.array([
         this.initRulesArray(),
       ])
     });
-  
-    this.currency = this.formDataService.audienceForm.transactionCurrency;
 
-    console.log(this.currency);
+    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; this.productChoice("BE"); });
+   
   }
   initRulesArray() {
     return this.formBuilder.group({
       connectedHotels: [[]],
       ruleType: [['DEFAULT'], Validators.required],
       recurring: [true, Validators.required], //reccuring - boolean
-      paymentType: [, Validators.required], // payment type - enum  
+      paymentType: ['FIXED', Validators.required], // payment type - enum  
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
-      chargeValue: [, Validators.required], //chargevalue
+      chargeValue: [, [Validators.required, Validators.pattern('^[1-9]\d*$')]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
@@ -52,9 +50,10 @@ export class BillingComponent implements OnInit {
     control.push(this.initRulesArray());
   }
 
-  removeRulesForm(i){
-    console.log(this.billingForm.value.ruleDetails[i]);
-    this.billingForm.value.ruleDetails.splice(i,1);
+  removeRule(i) {
+    console.log(this.billingForm.value.ruleDetails);
+    console.log(i);
+    this.billingForm.value.ruleDetails.splice(i, 1);  
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -65,20 +64,27 @@ export class BillingComponent implements OnInit {
     this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
   }
   productChoice(productSelected) {
-    this.isDefault = this.formDataService.audienceForm.templateType;
-    productSelected == 'BE' ? this.productSelected = 'Booking Engine' : this.productSelected = 'Channel Manager';
-
-    if (this.formDataService.audienceForm.templateType == "CUSTOM") {
       this.formDataService.getUsers(productSelected).subscribe(
         res => {
           this.hotels = JSON.parse(res["_body"]);
         }
       );
+  }
+
+  //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+  checkPaymentType() {
+    let rules = this.billingForm.value.ruleDetails;
+    for (let i = 0; i < rules.length; i++) {
+      if (rules[i].paymentType === "TRANSACTION_BASED") {
+        return true;
+      }
     }
+    return false;
   }
 
   next() {
     this.formDataService.billingForm = this.billingForm.value;
+    this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
     this.formService.toggleFormTabs('billing', 'validity');
   }
 

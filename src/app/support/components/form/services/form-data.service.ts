@@ -3,6 +3,7 @@ import { FormService } from '../../../services/form.service';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class FormDataService {
@@ -11,18 +12,34 @@ export class FormDataService {
     private http: Http
   ) { }
 
+  private restrictToPostPaidSource = new BehaviorSubject<boolean>(false);
+  restrictToPostPaid = this.restrictToPostPaidSource.asObservable();
+
+
+  enableRestrictToPostPaid(val) {
+    this.restrictToPostPaidSource.next(val);
+  }
+
+  private isDefaultSource = new BehaviorSubject<string>("DEFAULT");
+  isDefault = this.isDefaultSource.asObservable();
+
+  toggleIsDefault(val){
+    this.isDefaultSource.next(val);
+  }
+
+
   public audienceForm = {
     ruleName: '',
     country: '',
     starRating: '', //Number
     templateType: '',
-    transactionCurrency: '',
     userRole: '',
     userId: 1521 //Number
   };
 
   public billingForm = {
     productType: '',
+    transactionCurrency: '',
     ruleDetails: []
   };
 
@@ -52,7 +69,6 @@ export class FormDataService {
     else if (userType == 'SUPPLIER') val = 1;
     else if (userType == 'SUPPLIER_ADMIN') val = 6;
     var val;
-    // console.log("Inside getUSerId");
 
     const url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
     return this.http.post(url, null).map(
@@ -66,7 +82,6 @@ export class FormDataService {
     const url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
     return this.http.post(url, null).map(
       (res) => {
-        // console.log(JSON.parse(res["_body"]));      
         return res;
       }
     );

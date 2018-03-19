@@ -37,7 +37,8 @@
       </div>
       <div class="card-data">
         <h3 class="title">Star Rating</h3>
-        <p class="content">{{template.starRating}} </p>
+        <p class="content" *ngIf="template.starRating == 0" > ANY </p>
+        <p class="content" *ngIf="template.starRating != 0" >{{template.starRating}} </p>
       </div>
       <div class="card-data">
         <h3 class="title">Currency</h3>
