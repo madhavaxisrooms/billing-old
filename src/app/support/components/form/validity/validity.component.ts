@@ -4,8 +4,6 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormDataService } from '../services/form-data.service';
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
-import { window } from 'rxjs/operators/window';
-import { WindowRefService } from '../../../../shared/services/window-ref.service';
 
 
 @Component({
@@ -24,7 +22,6 @@ export class ValidityComponent implements OnInit {
     private formService: FormService,
     private formBuilder: FormBuilder,
     private formDataService: FormDataService,
-    private winRef: WindowRefService
   ) { }
 
   ngOnInit() {
@@ -56,6 +53,5 @@ export class ValidityComponent implements OnInit {
     this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
     this.formService.toggleFormTabs('validity', null);
     this.formService.toggleForm(true);
-    this.winRef.reload();
   }
 }

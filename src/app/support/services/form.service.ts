@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
+import { WindowRefService } from '../../shared/services/window-ref.service';
+
 
 
 @Injectable()
@@ -20,7 +22,10 @@ export class FormService {
   validityHidden = this.validityHiddenSource.asObservable();
 
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private winRef: WindowRefService
+  ) { }
 
   toggleForm(change: boolean) {
     this.formHiddenSource.next(change);
@@ -56,12 +61,12 @@ export class FormService {
   }
   
   createTemplate(template) {
-    console.log(template);
     
     const url = "http://94.130.54.42:36000/v1/api/createTemplate";
     this.http.post(url, template).subscribe(
       res => {
         this.getAllTemplates();
+        this.winRef.reload();
       },
       err =>{
         alert(err._body);
