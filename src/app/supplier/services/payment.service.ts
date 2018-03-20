@@ -27,7 +27,7 @@ export class PaymentService {
   }
 
   paymentGateway(userDetails): Observable<any> {
-    var url = "";
+    let url = "";
     userDetails.orderDetail.currency == "INR" ? url = url.concat("domestic") : url = url.concat("international");
 
     url = "http://94.130.54.42:36000/v1/api/payment/request/" + url;

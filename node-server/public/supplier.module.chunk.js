@@ -342,7 +342,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/nav/nav.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"menu\">\n  <ul>\n    <li routerLinkActive=\"active\" routerLink=\"../home/subscription\">\n      Subscription\n    </li>\n    <li   routerLinkActive=\"active\"  routerLink=\"../home/invoices\">\n      Invoices\n    </li>\n    <!-- <li  routerLinkActive=\"active\"  >\n      Payment Modes\n    </li>\n    <li   routerLinkActive=\"active\" routerLink=\"../home/history\">\n      History\n    </li>-->\n  </ul> \n</div>"
+module.exports = "<div class=\"menu\">\n  <ul>\n    <li routerLinkActive=\"active\" routerLink=\"subscription\">\n      Subscription\n    </li>\n    <li   routerLinkActive=\"active\"  routerLink=\"invoices\">\n      Invoices\n    </li>\n    <!-- <li  routerLinkActive=\"active\"  >\n      Payment Modes\n    </li>\n    <li   routerLinkActive=\"active\" routerLink=\"../home/history\">\n      History\n    </li>-->\n  </ul> \n</div>"
 
 /***/ }),
 
