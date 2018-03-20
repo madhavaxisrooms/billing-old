@@ -253,8 +253,8 @@ var BillingComponent = /** @class */ (function () {
         var _this = this;
         this.formDataService.getUsers(productSelected).subscribe(function (res) {
             _this.hotels = JSON.parse(res["_body"]);
+            console.log(_this.hotels);
         });
-        console.log(this.hotels);
     };
     //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
     BillingComponent.prototype.checkPaymentType = function () {
@@ -475,7 +475,7 @@ var FormDataService = /** @class */ (function () {
     };
     FormDataService.prototype.mergeForms = function () {
         this.mergerdForm = __assign({}, this.userDetails, this.audienceForm, this.billingForm);
-        // console.log(this.mergerdForm);
+        console.log(this.mergerdForm);
         this.formService.createTemplate(this.mergerdForm);
     };
     FormDataService = __decorate([
@@ -697,7 +697,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\" >\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>-</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <img class=\"icon action-menu\" (click)=\"actionMenu[i] = !actionMenu[i]\" src=\"https://image.flaticon.com/icons/png/512/64/64576.png\"\n                        alt=\"Three Dot Menu\">\n                    <ul class=\"action-dropdown\" [hidden]=\"!actionMenu[i]\">\n                        <!-- <li>View Invoice</li> -->\n                        <li (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'PAID');actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'UNPAID');actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'DELETED');actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                    </ul>\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<app-loading-indicator [hidden]=\"loader\" ></app-loading-indicator>\n<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\" >\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>-</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <img class=\"icon action-menu\" (click)=\"actionMenu[i] = !actionMenu[i]\" src=\"https://image.flaticon.com/icons/png/512/64/64576.png\"\n                        alt=\"Three Dot Menu\">\n                    <ul class=\"action-dropdown\" [hidden]=\"!actionMenu[i]\">\n                        <!-- <li>View Invoice</li> -->\n                        <li (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'PAID');actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'UNPAID');actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'DELETED');actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                    </ul>\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -723,12 +723,14 @@ var InvoicesComponent = /** @class */ (function () {
     function InvoicesComponent(invoiceService) {
         this.invoiceService = invoiceService;
         this.changeDueDateVisibility = false;
+        this.loader = false;
     }
     InvoicesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.invoiceService.getAllInvoices().subscribe(function (res) {
             _this.invoices = JSON.parse(res['_body']);
             _this.actionMenu = new Array(_this.invoices.length);
+            _this.loader = true;
         });
     };
     InvoicesComponent.prototype.changeStatus = function (invoiceId, status) {
@@ -737,9 +739,7 @@ var InvoicesComponent = /** @class */ (function () {
         });
     };
     InvoicesComponent.prototype.changeDueDate = function (date) {
-        var dateTemp = date.split("-");
-        var dateFromatted = dateTemp[2] + "-" + dateTemp[1] + "-" + dateTemp[0];
-        this.invoiceService.changeDueDate(this.invoiceIdForDueDate, dateFromatted).subscribe(function (res) {
+        this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
             alert(res['_body']);
         });
     };

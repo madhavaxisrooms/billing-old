@@ -12,6 +12,7 @@ export class InvoicesComponent implements OnInit {
   public actionMenu;
   public changeDueDateVisibility: boolean = false;
   public invoiceIdForDueDate;
+  public loader: boolean = false;
   constructor(
     private invoiceService: InvoiceService
   ) { }
@@ -21,6 +22,7 @@ export class InvoicesComponent implements OnInit {
       res => {
         this.invoices = JSON.parse(res['_body']);
         this.actionMenu = new Array(this.invoices.length);
+        this.loader = true;
       }
     );
   }
@@ -35,11 +37,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   changeDueDate(date){
-    
-    let dateTemp = date.split("-");
-    let dateFromatted = dateTemp[2]+"-"+dateTemp[1]+"-"+dateTemp[0];
-    
-    this.invoiceService.changeDueDate(this.invoiceIdForDueDate,dateFromatted).subscribe(
+    this.invoiceService.changeDueDate(this.invoiceIdForDueDate,date).subscribe(
       res => {
         alert(res['_body']);
       }

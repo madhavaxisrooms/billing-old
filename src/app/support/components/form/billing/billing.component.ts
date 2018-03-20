@@ -68,10 +68,9 @@ export class BillingComponent implements OnInit {
       this.formDataService.getUsers(productSelected).subscribe(
         res => {
           this.hotels = JSON.parse(res["_body"]);
+          console.log(this.hotels);
         }
       );
-      console.log(this.hotels);
-      
   }
 
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form

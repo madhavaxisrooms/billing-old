@@ -108,7 +108,7 @@ export class FormDataService {
 
   mergeForms() {
     this.mergerdForm = { ...this.userDetails, ...this.audienceForm, ...this.billingForm };
-    // console.log(this.mergerdForm);
+    console.log(this.mergerdForm);
     this.formService.createTemplate(this.mergerdForm);
   }
 }
