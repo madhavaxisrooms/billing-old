@@ -13,22 +13,25 @@ import { Http } from '@angular/http/src/http';
   styleUrls: ['./subscription.component.css']
 })
 export class SubscriptionComponent implements OnInit {
-
+  public suppierId;
   public addCreditsVisibility: boolean = true;
   rzp1: any;
   public detailsHidden: boolean = true;
   public supplierDetails;
   public loading: boolean = false;
+  public supplierId;
   constructor(
     private winRef: WindowRefService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
   ) { }
 
   ngOnInit() {
-    this.paymentService.getSupplierDetails().subscribe(
+    
+    this.suppierId = localStorage.getItem("id");
+    
+    this.paymentService.getSupplierDetails(this.suppierId).subscribe(
       res => {
         this.supplierDetails = JSON.parse(res["_body"]);
-        console.log(this.supplierDetails);
         this.loading = true;
       }
     );

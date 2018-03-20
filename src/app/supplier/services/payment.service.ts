@@ -8,9 +8,8 @@ export class PaymentService {
 
   constructor(private http: Http) { }
 
-  getSupplierDetails() {
-    //Entering the User ID statically. Will enter it dynamically later.
-    const url = "http://94.130.54.42:36000/v1/api/supplierDetails/1101";
+  getSupplierDetails(supplierId) {
+    const url = "http://94.130.54.42:36000/v1/api/supplierDetails/" + supplierId;
     return this.http.post(url, null).map(
       res => {
         return res;

@@ -1015,8 +1015,8 @@ var SupportRoutingModule = /** @class */ (function () {
     }
     SupportRoutingModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */].forChild(routes)],
-            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */]]
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
         })
     ], SupportRoutingModule);
     return SupportRoutingModule;
@@ -1084,7 +1084,7 @@ var SupportModule = /** @class */ (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_3__support_routing_module__["a" /* SupportRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_6__angular_router__["c" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["b" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["c" /* ReactiveFormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* HttpModule */],

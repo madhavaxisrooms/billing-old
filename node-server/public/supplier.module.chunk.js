@@ -92,6 +92,7 @@ module.exports = "<div class=\"body-content\">\n    <!-- <div class=\"supplier-n
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -102,10 +103,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent() {
+    function HomeComponent(activatedRoute, router) {
+        this.activatedRoute = activatedRoute;
+        this.router = router;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRoute.params.subscribe(function (params) {
+            var supplierId = params['id'];
+            localStorage.setItem('id', supplierId);
+            _this.router.navigate(['subscription'], { relativeTo: _this.activatedRoute });
+        });
     };
     HomeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -113,7 +123,8 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/supplier/components/home/home.component.html"),
             styles: [__webpack_require__("../../../../../src/app/supplier/components/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -466,7 +477,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/subscription/subscription.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n<app-loading-indicator [hidden]=\"loading\"></app-loading-indicator>\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <input style=\"width: 50px;margin-left: 10px;\" #amountAdded type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">Pay</i>\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\">Add</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>"
+module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n\n<app-loading-indicator [hidden]=\"loading\"></app-loading-indicator>\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <input style=\"width: 50px;margin-left: 10px;\" #amountAdded type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">Pay</i>\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\">Add</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -500,9 +511,9 @@ var SubscriptionComponent = /** @class */ (function () {
     }
     SubscriptionComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.paymentService.getSupplierDetails().subscribe(function (res) {
+        this.suppierId = localStorage.getItem("id");
+        this.paymentService.getSupplierDetails(this.suppierId).subscribe(function (res) {
             _this.supplierDetails = JSON.parse(res["_body"]);
-            console.log(_this.supplierDetails);
             _this.loading = true;
         });
     };
@@ -745,9 +756,8 @@ var PaymentService = /** @class */ (function () {
     function PaymentService(http) {
         this.http = http;
     }
-    PaymentService.prototype.getSupplierDetails = function () {
-        //Entering the User ID statically. Will enter it dynamically later.
-        var url = "http://94.130.54.42:36000/v1/api/supplierDetails/1101";
+    PaymentService.prototype.getSupplierDetails = function (supplierId) {
+        var url = "http://94.130.54.42:36000/v1/api/supplierDetails/" + supplierId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
@@ -803,8 +813,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
-        path: 'home', component: __WEBPACK_IMPORTED_MODULE_2__components_home_home_component__["a" /* HomeComponent */], children: [
-            { path: '', component: __WEBPACK_IMPORTED_MODULE_4__components_subscription_subscription_component__["a" /* SubscriptionComponent */] },
+        path: 'home/:id', component: __WEBPACK_IMPORTED_MODULE_2__components_home_home_component__["a" /* HomeComponent */], children: [
+            // { path: '', component: SubscriptionComponent },
             { path: 'subscription', component: __WEBPACK_IMPORTED_MODULE_4__components_subscription_subscription_component__["a" /* SubscriptionComponent */] },
             { path: 'invoices', component: __WEBPACK_IMPORTED_MODULE_3__components_invoices_invoices_component__["a" /* InvoicesComponent */] },
             { path: 'history', component: __WEBPACK_IMPORTED_MODULE_5__components_history_history_component__["a" /* HistoryComponent */] },
@@ -816,8 +826,8 @@ var SupplierRoutingModule = /** @class */ (function () {
     }
     SupplierRoutingModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */].forChild(routes)],
-            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */]]
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forChild(routes)],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
         })
     ], SupplierRoutingModule);
     return SupplierRoutingModule;
@@ -887,7 +897,7 @@ var SupplierModule = /** @class */ (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_2__supplier_routing_module__["a" /* SupplierRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_8__angular_router__["a" /* RouterModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_router__["c" /* RouterModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["b" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_9__angular_forms__["c" /* ReactiveFormsModule */],
                 __WEBPACK_IMPORTED_MODULE_12__angular_http__["b" /* HttpModule */]
