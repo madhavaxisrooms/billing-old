@@ -3,7 +3,10 @@
         <button routerLinkActive="active" routerLink="../home"> All Templates</button>
         <button routerLinkActive="active" routerLink="../invoices">Invoices</button>
     </div>
-    <div class="invoice-table">
+    <div class="empty" *ngIf="!invoices" >
+        <h3>Currently there are no Invoices available.</h3>
+    </div>
+    <div class="invoice-table" *ngIf="invoices">
         <table>
             <tr>
                 <th>ID</th>
