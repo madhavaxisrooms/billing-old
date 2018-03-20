@@ -12,6 +12,8 @@ export class DetailsModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.userDetails);
+    
   }
 
   closeModal(){        

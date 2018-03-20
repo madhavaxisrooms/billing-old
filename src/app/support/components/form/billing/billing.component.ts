@@ -23,14 +23,14 @@ export class BillingComponent implements OnInit {
 
   ngOnInit() {
     this.billingForm = this.formBuilder.group({
-      productType: ['BE'], //productType
-      transactionCurrency: ['INR'], //
+      productType: ['BE'], 
+      transactionCurrency: ['INR'],
       ruleDetails: this.formBuilder.array([
         this.initRulesArray(),
       ])
     });
 
-    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; this.productChoice("BE"); });
+    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if(this.isDefault != "DEFAULT") this.productChoice("BE")});
    
   }
   initRulesArray() {
@@ -41,12 +41,12 @@ export class BillingComponent implements OnInit {
       paymentType: ['FIXED', Validators.required], // payment type - enum  
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
-      chargeValue: [, [Validators.required, Validators.pattern('^[1-9]\d*$')]], //chargevalue
+      chargeValue: [, [Validators.required, Validators.pattern('^[0-9]{1,10}$')]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
   addRulesForm() {
-    const control = <FormArray>this.billingForm.controls['ruleDetails'];
+    const control = <FormArray>this.billingForm.controls['ruleDetails'];1
     control.push(this.initRulesArray());
   }
 
@@ -54,6 +54,7 @@ export class BillingComponent implements OnInit {
     console.log(this.billingForm.value.ruleDetails);
     console.log(i);
     this.billingForm.value.ruleDetails.splice(i, 1);  
+    this.ngOnInit();
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -69,6 +70,8 @@ export class BillingComponent implements OnInit {
           this.hotels = JSON.parse(res["_body"]);
         }
       );
+      console.log(this.hotels);
+      
   }
 
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form

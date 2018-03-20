@@ -215,7 +215,8 @@ var BillingComponent = /** @class */ (function () {
                 this.initRulesArray(),
             ])
         });
-        this.formDataService.isDefault.subscribe(function (res) { _this.isDefault = res; _this.productChoice("BE"); });
+        this.formDataService.isDefault.subscribe(function (res) { _this.isDefault = res; if (_this.isDefault != "DEFAULT")
+            _this.productChoice("BE"); });
     };
     BillingComponent.prototype.initRulesArray = function () {
         return this.formBuilder.group({
@@ -225,18 +226,20 @@ var BillingComponent = /** @class */ (function () {
             paymentType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
             trasactionBase: [],
             chargeType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
-            chargeValue: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].pattern('^[1-9]\d*$')]],
+            chargeValue: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].pattern('^[0-9]{1,10}$')]],
             paymentCycle: [1, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required] //paymentCycle - num 1,3,6,12
         });
     };
     BillingComponent.prototype.addRulesForm = function () {
         var control = this.billingForm.controls['ruleDetails'];
+        1;
         control.push(this.initRulesArray());
     };
     BillingComponent.prototype.removeRule = function (i) {
         console.log(this.billingForm.value.ruleDetails);
         console.log(i);
         this.billingForm.value.ruleDetails.splice(i, 1);
+        this.ngOnInit();
     };
     BillingComponent.prototype.hotelSelected = function (hotel, i) {
         if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -251,6 +254,7 @@ var BillingComponent = /** @class */ (function () {
         this.formDataService.getUsers(productSelected).subscribe(function (res) {
             _this.hotels = JSON.parse(res["_body"]);
         });
+        console.log(this.hotels);
     };
     //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
     BillingComponent.prototype.checkPaymentType = function () {
@@ -524,7 +528,6 @@ module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br__ = __webpack_require__("../../../../moment/locale/pt-br.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_moment_locale_pt_br__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -540,13 +543,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var ValidityComponent = /** @class */ (function () {
-    function ValidityComponent(formService, formBuilder, formDataService, winRef) {
+    function ValidityComponent(formService, formBuilder, formDataService) {
         this.formService = formService;
         this.formBuilder = formBuilder;
         this.formDataService = formDataService;
-        this.winRef = winRef;
         this.customHidden = false;
         this.datesHidden = false;
         this.restrictToPostPaid = false;
@@ -577,7 +578,6 @@ var ValidityComponent = /** @class */ (function () {
         this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
         this.formService.toggleFormTabs('validity', null);
         this.formService.toggleForm(true);
-        this.winRef.reload();
     };
     ValidityComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -587,8 +587,7 @@ var ValidityComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_form_service__["a" /* FormService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */],
-            __WEBPACK_IMPORTED_MODULE_6__shared_services_window_ref_service__["a" /* WindowRefService */]])
+            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */]])
     ], ValidityComponent);
     return ValidityComponent;
 }());
@@ -907,6 +906,7 @@ var TemplateDetailsComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/_esm5/BehaviorSubject.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -920,9 +920,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FormService = /** @class */ (function () {
-    function FormService(http) {
+    function FormService(http, winRef) {
         this.http = http;
+        this.winRef = winRef;
         // Behaviour Subjects for Froms
         this.formHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.audienceHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
@@ -964,17 +966,18 @@ var FormService = /** @class */ (function () {
     };
     FormService.prototype.createTemplate = function (template) {
         var _this = this;
-        console.log(template);
         var url = "http://94.130.54.42:36000/v1/api/createTemplate";
         this.http.post(url, template).subscribe(function (res) {
             _this.getAllTemplates();
+            _this.winRef.reload();
         }, function (err) {
             alert(err._body);
         });
     };
     FormService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */],
+            __WEBPACK_IMPORTED_MODULE_4__shared_services_window_ref_service__["a" /* WindowRefService */]])
     ], FormService);
     return FormService;
 }());
