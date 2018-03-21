@@ -24,7 +24,7 @@
             <p>
                 {{supplierDetails?.creditAmount}}
                 <input style="width: 50px;margin-left: 10px;" #amountAdded type="text" [hidden]="addCreditsVisibility">
-                <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">Pay</i>
+                <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">Pay</i> 
                 <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="!addCreditsVisibility">Add</i>
             </p>
         </div>
