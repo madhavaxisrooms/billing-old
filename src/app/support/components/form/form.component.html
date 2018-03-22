@@ -1,8 +1,8 @@
 <div class="modal-wrapper">
+    <div class="modal-overlay" (click)="hideForm()"></div>
     <div class="modal-content">
         <div class="close icon">
-            <img (click)="hideForm()" src="../../../../assets/close-icon-white.png" alt="Close Icon"
-                class="icon">
+            <img (click)="hideForm()" src="../../../../assets/close-icon-white.png" alt="Close Icon" class="icon">
         </div>
         <div class="navigation-tabs">
             <button (click)="toggleFormTabs(null,'audience')" [ngClass]="{'active': !audienceHidden}">Audience</button>

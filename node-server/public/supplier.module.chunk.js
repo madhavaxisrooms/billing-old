@@ -195,8 +195,10 @@ var InvoicesComponent = /** @class */ (function () {
         });
     };
     InvoicesComponent.prototype.paymentResponseHander = function (response) {
+        var _this = this;
         this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(function (res) {
             console.log(res);
+            _this.winRef.reload();
         });
     };
     InvoicesComponent.prototype.payInvoice = function (invoice) {

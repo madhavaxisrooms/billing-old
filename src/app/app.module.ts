@@ -1,4 +1,4 @@
-;
+
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

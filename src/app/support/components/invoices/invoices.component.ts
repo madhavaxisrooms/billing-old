@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../../shared/services/invoice.service';
+import { WindowRefService } from '../../../shared/services/window-ref.service';
 
 @Component({
   selector: 'app-invoices',
@@ -14,7 +15,8 @@ export class InvoicesComponent implements OnInit {
   public invoiceIdForDueDate;
   public loader: boolean = false;
   constructor(
-    private invoiceService: InvoiceService
+    private invoiceService: InvoiceService,
+    private winRef: WindowRefService
   ) { }
 
   ngOnInit() {
@@ -28,18 +30,24 @@ export class InvoicesComponent implements OnInit {
   }
 
 
-  changeStatus(invoiceId, status) {
-    this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
-      res => {
-        alert(res['_body']);
-      }
-    );
+  changeStatus(invoiceId, status, currentStatus) {
+    if (status == currentStatus) {
+      alert("Status is already " + status)
+    } else {
+      this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
+        res => {
+          alert(res['_body']);
+          this.winRef.reload();
+        }
+      );
+    }
   }
 
-  changeDueDate(date){
-    this.invoiceService.changeDueDate(this.invoiceIdForDueDate,date).subscribe(
+  changeDueDate(date) {
+    this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
         alert(res['_body']);
+        this.winRef.reload();
       }
     );
   }

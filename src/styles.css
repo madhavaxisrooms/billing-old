@@ -358,6 +358,15 @@ header .profile .drop-down li {
     overflow: auto;
 }
 
+.modal-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 3px;
+}
+
 .modal-wrapper .modal-content {
     margin: auto;
     width: 1170px;

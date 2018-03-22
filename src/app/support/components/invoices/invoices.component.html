@@ -1,10 +1,10 @@
-<app-loading-indicator [hidden]="loader" ></app-loading-indicator>
+<app-loading-indicator [hidden]="loader"></app-loading-indicator>
 <div class="body-content">
     <div class="client-nav">
         <button routerLinkActive="active" routerLink="../home"> All Templates</button>
         <button routerLinkActive="active" routerLink="../invoices">Invoices</button>
     </div>
-    <div class="empty" *ngIf="!invoices" >
+    <div class="empty" *ngIf="!invoices">
         <h3>Currently there are no Invoices available.</h3>
     </div>
     <div class="invoice-table" *ngIf="invoices">
@@ -24,20 +24,20 @@
                 <td>{{invoice.invoiceId}}</td>
                 <td>Axisrooms</td>
                 <td>{{invoice.hotelName}}</td>
-                <td>-</td>
+                <td>{{invoice.productName}}</td>
                 <td>{{invoice.generationDate }}</td>
                 <td>{{invoice.paymentDueDate }}</td>
                 <td>{{invoice.amount | currency: invoice.currency}}</td>
                 <td>{{invoice.status}}</td>
                 <td class="action-dropdown-rel">
-                    <img class="icon action-menu" (click)="actionMenu[i] = !actionMenu[i]" src="https://image.flaticon.com/icons/png/512/64/64576.png"
-                        alt="Three Dot Menu">
+                    <!-- <img class="icon action-menu" (click)="actionMenu[i] = !actionMenu[i]" src="https://image.flaticon.com/icons/png/512/64/64576.png"
+                        alt="Three Dot Menu"> -->
+                    <button (click)="actionMenu[i] = !actionMenu[i]" [ngClass]="{active: actionMenu[i]}"> Menu </button>
                     <ul class="action-dropdown" [hidden]="!actionMenu[i]">
-                        <!-- <li>View Invoice</li> -->
                         <li (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId">Change Due-Date</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'PAID');actionMenu[i] = !actionMenu[i]">Change to Paid</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'UNPAID');actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'DELETED');actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Paid</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
+                        <li (click)="changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
                     </ul>
                 </td>
             </tr>

@@ -61,7 +61,6 @@ export class FormService {
   }
   
   createTemplate(template) {
-    
     const url = "http://94.130.54.42:36000/v1/api/createTemplate";
     this.http.post(url, template).subscribe(
       res => {

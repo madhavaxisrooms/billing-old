@@ -32,6 +32,7 @@ export class InvoicesComponent implements OnInit {
     this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(
       res => {
         console.log(res);
+        this.winRef.reload();
       }
     );
   }

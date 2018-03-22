@@ -309,7 +309,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n    <div class=\"modal-content\">\n        <div class=\"close icon\">\n            <img (click)=\"hideForm()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <button (click)=\"toggleFormTabs(null,'audience')\" [ngClass]=\"{'active': !audienceHidden}\">Audience</button>\n            <button (click)=\"toggleFormTabs(null,'billing')\" [ngClass]=\"{'active': !billingHidden}\">Billing</button>\n            <button (click)=\"toggleFormTabs(null,'validity')\" [ngClass]=\"{'active': !validityHidden}\">Validity</button>\n        </div>\n        <div class=\"modal-form-content\">\n            <app-audience [hidden]=\"audienceHidden\"></app-audience>\n            <app-billing [hidden]=\"billingHidden\"></app-billing>\n            <app-validity [hidden]=\"validityHidden\"></app-validity>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n    <div class=\"modal-overlay\" (click)=\"hideForm()\"></div>\n    <div class=\"modal-content\">\n        <div class=\"close icon\">\n            <img (click)=\"hideForm()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <button (click)=\"toggleFormTabs(null,'audience')\" [ngClass]=\"{'active': !audienceHidden}\">Audience</button>\n            <button (click)=\"toggleFormTabs(null,'billing')\" [ngClass]=\"{'active': !billingHidden}\">Billing</button>\n            <button (click)=\"toggleFormTabs(null,'validity')\" [ngClass]=\"{'active': !validityHidden}\">Validity</button>\n        </div>\n        <div class=\"modal-form-content\">\n            <app-audience [hidden]=\"audienceHidden\"></app-audience>\n            <app-billing [hidden]=\"billingHidden\"></app-billing>\n            <app-validity [hidden]=\"validityHidden\"></app-validity>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -347,6 +347,17 @@ var FormComponent = /** @class */ (function () {
     FormComponent.prototype.toggleFormTabs = function (from, to) {
         this.formService.toggleFormTabs(from, to);
     };
+    FormComponent.prototype.doSomething = function ($event) {
+        if ($event.code == "Escape") {
+            this.hideForm();
+        }
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* HostListener */])('window:keydown', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], FormComponent.prototype, "doSomething", null);
     FormComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-form',
@@ -697,7 +708,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-loading-indicator [hidden]=\"loader\" ></app-loading-indicator>\n<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\" >\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>-</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <img class=\"icon action-menu\" (click)=\"actionMenu[i] = !actionMenu[i]\" src=\"https://image.flaticon.com/icons/png/512/64/64576.png\"\n                        alt=\"Three Dot Menu\">\n                    <ul class=\"action-dropdown\" [hidden]=\"!actionMenu[i]\">\n                        <!-- <li>View Invoice</li> -->\n                        <li (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'PAID');actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'UNPAID');actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'DELETED');actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                    </ul>\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<app-loading-indicator [hidden]=\"loader\"></app-loading-indicator>\n<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\">\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>{{invoice.productName}}</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <!-- <img class=\"icon action-menu\" (click)=\"actionMenu[i] = !actionMenu[i]\" src=\"https://image.flaticon.com/icons/png/512/64/64576.png\"\n                        alt=\"Three Dot Menu\"> -->\n                    <button (click)=\"actionMenu[i] = !actionMenu[i]\" [ngClass]=\"{active: actionMenu[i]}\"> Menu </button>\n                    <ul class=\"action-dropdown\" [hidden]=\"!actionMenu[i]\">\n                        <li (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                        <li (click)=\"changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                    </ul>\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -708,6 +719,7 @@ module.exports = "<app-loading-indicator [hidden]=\"loader\" ></app-loading-indi
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoicesComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -719,9 +731,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var InvoicesComponent = /** @class */ (function () {
-    function InvoicesComponent(invoiceService) {
+    function InvoicesComponent(invoiceService, winRef) {
         this.invoiceService = invoiceService;
+        this.winRef = winRef;
         this.changeDueDateVisibility = false;
         this.loader = false;
     }
@@ -733,14 +747,23 @@ var InvoicesComponent = /** @class */ (function () {
             _this.loader = true;
         });
     };
-    InvoicesComponent.prototype.changeStatus = function (invoiceId, status) {
-        this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(function (res) {
-            alert(res['_body']);
-        });
+    InvoicesComponent.prototype.changeStatus = function (invoiceId, status, currentStatus) {
+        var _this = this;
+        if (status == currentStatus) {
+            alert("Status is already " + status);
+        }
+        else {
+            this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(function (res) {
+                alert(res['_body']);
+                _this.winRef.reload();
+            });
+        }
     };
     InvoicesComponent.prototype.changeDueDate = function (date) {
+        var _this = this;
         this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
             alert(res['_body']);
+            _this.winRef.reload();
         });
     };
     InvoicesComponent = __decorate([
@@ -749,7 +772,8 @@ var InvoicesComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/support/components/invoices/invoices.component.html"),
             styles: [__webpack_require__("../../../../../src/app/support/components/invoices/invoices.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_invoice_service__["a" /* InvoiceService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_invoice_service__["a" /* InvoiceService */],
+            __WEBPACK_IMPORTED_MODULE_2__shared_services_window_ref_service__["a" /* WindowRefService */]])
     ], InvoicesComponent);
     return InvoicesComponent;
 }());

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormService } from '../../services/form.service';
 
 @Component({
@@ -31,4 +31,12 @@ export class FormComponent implements OnInit {
     this.formService.toggleFormTabs(from, to);
   }
 
+
+  @HostListener('window:keydown', ['$event'])
+  doSomething($event) {
+    if( $event.code == "Escape" ){
+      this.hideForm();
+    }
+    
+  }
 }
