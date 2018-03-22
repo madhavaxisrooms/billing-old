@@ -517,6 +517,7 @@ header .profile .drop-down li {
     overflow: auto;
     top: 114px;
     left: 25px;
+    margin-bottom: 20px;
 }
 
 .modal-content .hotel-list ul {

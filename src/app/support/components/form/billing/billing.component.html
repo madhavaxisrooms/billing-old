@@ -48,7 +48,7 @@
                 <div class="rule" [formGroupName]="i">
                     <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
                         <p>Select Hotels</p>
-                        <input type="text" class="hotel-list-input" #hotelName (focus)="hotelName.value = 'SHOWING ALL HOTELS'" (keyup)='hotelName.value' placeholder="Leave Empty for all hotels">
+                        <input type="text" class="hotel-list-input" #hotelName (focus)="hotelName.value = searchFocused(hotelName.value)" (keyup)='hotelName.value = searchQueryEntered(hotelName.value)' placeholder="Leave Empty for all hotels">
                     </div>
                     <div class="hotel-list" *ngIf="hotelName.value">
                         <ul *ngFor='let hotel of hotels | search:hotelName.value '>
