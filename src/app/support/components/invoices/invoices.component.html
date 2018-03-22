@@ -33,12 +33,16 @@
                     <!-- <img class="icon action-menu" (click)="actionMenu[i] = !actionMenu[i]" src="https://image.flaticon.com/icons/png/512/64/64576.png"
                         alt="Three Dot Menu"> -->
                     <button (click)="actionMenu[i] = !actionMenu[i]" [ngClass]="{active: actionMenu[i]}"> Menu </button>
-                    <ul class="action-dropdown" [hidden]="!actionMenu[i]">
-                        <li (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId">Change Due-Date</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Paid</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
-                        <li (click)="changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
-                    </ul>
+                    <span [hidden]="!actionMenu[i]" >
+                        <span class="action-dropdown-overlay" (click)="actionMenu[i] = !actionMenu[i]" ></span>
+                        <ul class="action-dropdown" >
+                            <li (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId">Change Due-Date</li>
+                            <li *ngIf="invoice.status != 'PAID'" (click)="changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Paid</li>
+                            <li *ngIf="invoice.status != 'UNPAID'" (click)="changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
+                            <li *ngIf="invoice.status != 'DELETED'" (click)="changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
+                        </ul>
+                    </span>
+
                 </td>
             </tr>
 

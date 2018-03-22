@@ -25,6 +25,10 @@ export class InvoicesComponent implements OnInit {
         this.invoices = JSON.parse(res['_body']);
         this.actionMenu = new Array(this.invoices.length);
         this.loader = true;
+      },
+      err => {
+        alert(JSON.parse(err['_body']));
+        this.loader = true;
       }
     );
   }
