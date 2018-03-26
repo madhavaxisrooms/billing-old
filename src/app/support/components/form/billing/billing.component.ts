@@ -62,14 +62,16 @@ export class BillingComponent implements OnInit {
   }
 
   addRulesForm() {
-    const control = <FormArray>this.billingForm.controls['ruleDetails']; 1
+    const control = <FormArray>this.billingForm.controls['ruleDetails']; 
     control.push(this.initRulesArray());
   }
   removeRule(i) {
     console.log(this.billingForm.value.ruleDetails);
     console.log(i);
-    this.billingForm.value.ruleDetails.splice(i, 1);
-    this.ngOnInit();
+    // this.billingForm.value.ruleDetails.splice(i, 1);
+    const control = <FormArray>this.billingForm.controls['ruleDetails']; 
+    control.removeAt(i);
+    
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)

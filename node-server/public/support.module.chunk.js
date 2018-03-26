@@ -243,14 +243,14 @@ var BillingComponent = /** @class */ (function () {
     };
     BillingComponent.prototype.addRulesForm = function () {
         var control = this.billingForm.controls['ruleDetails'];
-        1;
         control.push(this.initRulesArray());
     };
     BillingComponent.prototype.removeRule = function (i) {
         console.log(this.billingForm.value.ruleDetails);
         console.log(i);
-        this.billingForm.value.ruleDetails.splice(i, 1);
-        this.ngOnInit();
+        // this.billingForm.value.ruleDetails.splice(i, 1);
+        var control = this.billingForm.controls['ruleDetails'];
+        control.removeAt(i);
     };
     BillingComponent.prototype.hotelSelected = function (hotel, i) {
         if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
