@@ -23,6 +23,11 @@ export class BillingComponent implements OnInit {
 
 
   ngOnInit() {
+    this.initForm();
+    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("BE") });
+  }
+
+  initForm() {
     this.billingForm = this.formBuilder.group({
       productType: ['BE'],
       transactionCurrency: ['INR'],
@@ -30,10 +35,8 @@ export class BillingComponent implements OnInit {
         this.initRulesArray(),
       ])
     });
-
-    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("BE") });
-
   }
+
   initRulesArray() {
     return this.formBuilder.group({
       connectedHotels: [[]],
@@ -55,23 +58,20 @@ export class BillingComponent implements OnInit {
   }
 
   searchQueryEntered(query) {
-    if(query.includes("SHOWING ALL HOTELS")) {
-      return query.replace("SHOWING ALL HOTELS",'');
+    if (query.includes("SHOWING ALL HOTELS")) {
+      return query.replace("SHOWING ALL HOTELS", '');
     }
     return query;
   }
 
   addRulesForm() {
-    const control = <FormArray>this.billingForm.controls['ruleDetails']; 
+    const control = <FormArray>this.billingForm.controls['ruleDetails'];
     control.push(this.initRulesArray());
   }
   removeRule(i) {
-    console.log(this.billingForm.value.ruleDetails);
-    console.log(i);
-    // this.billingForm.value.ruleDetails.splice(i, 1);
-    const control = <FormArray>this.billingForm.controls['ruleDetails']; 
+    const control = <FormArray>this.billingForm.controls['ruleDetails'];
     control.removeAt(i);
-    
+
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -88,6 +88,11 @@ export class BillingComponent implements OnInit {
         console.log(this.hotels);
       }
     );
+    // this.billingForm.reset();
+    // console.log(this.billingForm.value);
+
+    this.initForm();
+    this.billingForm.controls.productType.setValue(productSelected);
   }
 
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form

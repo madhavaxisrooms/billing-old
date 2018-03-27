@@ -6,7 +6,6 @@
                 <option value="CM">Channel Manager</option>
             </select>
         </span>
-        <!-- <button type="button" (click)="productChoice(pc.value)"> Add </button> -->
         <span class="align-right-flex">
             <select formControlName="transactionCurrency" class="currency-select" name="currency" id="">
                 <option value="INR">Indian Rupee</option>
@@ -51,6 +50,7 @@
                         <input type="text" class="hotel-list-input" #hotelName (focus)="hotelName.value = searchFocused(hotelName.value)" (keyup)='hotelName.value = searchQueryEntered(hotelName.value)' placeholder="Leave Empty for all hotels">
                     </div>
                     <div class="hotel-list" *ngIf="hotelName.value">
+                        <!-- <span class="hotel-list-overlay" (click)="hotelName.value =''" ></span> -->
                         <ul *ngFor='let hotel of hotels | search:hotelName.value '>
                             <li (click)="hotelSelected(hotel,i); hotelName.value =''">{{hotel.productName}}</li>
                         </ul>

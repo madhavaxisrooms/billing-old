@@ -27,7 +27,7 @@ export class InvoicesComponent implements OnInit {
         this.loader = true;
       },
       err => {
-        alert(JSON.parse(err['_body']));
+        alert("Something went wrong.");
         this.loader = true;
       }
     );
@@ -40,7 +40,7 @@ export class InvoicesComponent implements OnInit {
     } else {
       this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
         res => {
-          alert(res['_body']);
+          alert(JSON.parse(res['_body']) );
           this.winRef.reload();
         }
       );
@@ -50,7 +50,7 @@ export class InvoicesComponent implements OnInit {
   changeDueDate(date) {
     this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
-        alert(res['_body']);
+        alert(JSON.parse(res['_body']));
         this.winRef.reload();
       }
     );
