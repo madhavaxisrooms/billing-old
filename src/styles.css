@@ -518,6 +518,11 @@ header .profile .drop-down li {
     z-index: 3;
 }
 
+.hotel-list-hotels{
+    position: absolute;
+    z-index: 5;
+}
+
 .modal-content .hotel-list {
     z-index: 4;
     position: absolute;

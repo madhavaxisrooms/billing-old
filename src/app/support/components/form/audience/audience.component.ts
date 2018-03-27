@@ -24,7 +24,7 @@ export class AudienceComponent implements OnInit {
   ngOnInit() {
     this.audienceForm = this.formBuilder.group({
       templateType: ['DEFAULT',],
-      country: ['all'],
+      country: [],
       starRating: [0,],
       ruleName: [, [Validators.required, Validators.maxLength(50)]], //     
       userRole: ["SUPPLIER"], //user role

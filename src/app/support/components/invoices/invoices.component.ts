@@ -23,7 +23,7 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService.getAllInvoices().subscribe(
       res => {
         this.invoices = JSON.parse(res['_body']);
-        this.actionMenu = new Array(this.invoices.length);
+        if(this.invoices != null) this.actionMenu = new Array(this.invoices.length);
         this.loader = true;
       },
       err => {

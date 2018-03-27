@@ -20,7 +20,6 @@
             <div class="form-element">
                 <p>Select Country</p>
                 <select formControlName="country">
-                    <option value='all'> All </option>
                     <option *ngFor="let country of countries" value="{{country.countryValue}}">{{country.countryValue}}</option>
                 </select>
             </div>
