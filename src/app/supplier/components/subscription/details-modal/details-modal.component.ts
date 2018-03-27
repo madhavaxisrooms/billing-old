@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-details-modal',
@@ -13,11 +13,19 @@ export class DetailsModalComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.userDetails);
-    
   }
 
   closeModal(){        
     this.hideModal.emit(true);
+  }
+
+
+  @HostListener('window:keydown', ['$event'])
+  doSomething($event) {
+    if( $event.code == "Escape" ){
+      this.closeModal();
+    }
+    
   }
 
 }

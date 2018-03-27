@@ -23,9 +23,10 @@
             <h3>Credits</h3>
             <p>
                 {{supplierDetails?.creditAmount}}
-                <input style="width: 50px;margin-left: 10px;" #amountAdded type="text" [hidden]="addCreditsVisibility">
                 <i (click)="payNow(amountAdded.value)" [hidden]="addCreditsVisibility">Pay</i> 
+                <input style="width: 50px;margin-left: 10px;" #amountAdded type="text" [hidden]="addCreditsVisibility">
                 <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="!addCreditsVisibility">Add</i>
+                <i (click)="addCreditsVisibility = !addCreditsVisibility " [hidden]="addCreditsVisibility">Close</i>
             </p>
         </div>
     </div>

@@ -12,7 +12,7 @@ export class InvoicesComponent implements OnInit {
   rzp1: any;
   public invoices;
   public loading: boolean = false;
-
+  public supplierid = localStorage.getItem('id');
   constructor(
     private invoiceService: InvoiceService,
     private paymentService: PaymentService,
@@ -20,7 +20,7 @@ export class InvoicesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.invoiceService.getInvoiceDetailsById(1101).subscribe(
+    this.invoiceService.getInvoiceDetailsById(this.supplierid).subscribe(
       res => {
         this.invoices = JSON.parse(res['_body']);
         this.loading = true;

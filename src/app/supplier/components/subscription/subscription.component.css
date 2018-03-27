@@ -10,3 +10,14 @@
     overflow: auto;
     justify-content: space-around;
 }
+
+
+
+.price-details .total-price{
+    flex-basis: 50%;
+}
+
+
+.price-details .credits{
+    flex-basis: 50%;
+}

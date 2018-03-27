@@ -186,10 +186,11 @@ var InvoicesComponent = /** @class */ (function () {
         this.paymentService = paymentService;
         this.winRef = winRef;
         this.loading = false;
+        this.supplierid = localStorage.getItem('id');
     }
     InvoicesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.invoiceService.getInvoiceDetailsById(1101).subscribe(function (res) {
+        this.invoiceService.getInvoiceDetailsById(this.supplierid).subscribe(function (res) {
             _this.invoices = JSON.parse(res['_body']);
             _this.loading = true;
         });
@@ -405,7 +406,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/subscription/details-modal/details-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"modal-content\">\n    <div class=\"close icon\">\n      <img (click)=\"closeModal()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Products Enabled</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <span  *ngFor=\"let ruleDetail of userDetails?.ruleDetails\" >\n\n      <div class=\"product-card\" *ngIf=\"ruleDetail.productRules\" >\n\n        <h3 class=\"product-name\">\n          {{ruleDetail.productType | productName}}\n        </h3>\n        <div class=\"hotel-details\" *ngFor=\"let productRule of ruleDetail.productRules\">\n          <p class=\"hotel-name\">{{productRule.productName}}</p>\n          <!-- Fixed Amount Value , recurring? , cycle? -->\n          <!--% Amount  of + transaction base  , recurring? , cycle? -->\n          <div>\n            <!-- <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> {{rule.chargeValue | chargeValue: ruleDetail: rule}}, {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}} -->\n            <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> INR {{rule.chargeValue}} : {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}}\n            </p>\n          </div>\n\n        </div>\n\n      </div>\n      </span>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"modal-overlay\" (click)=\"closeModal()\"></div>\n  <div class=\"modal-content\">\n    <div class=\"close icon\">\n      <img (click)=\"closeModal()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Products Enabled</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <span  *ngFor=\"let ruleDetail of userDetails?.ruleDetails\" >\n\n      <div class=\"product-card\" *ngIf=\"ruleDetail.productRules\" >\n\n        <h3 class=\"product-name\">\n          {{ruleDetail.productType | productName}}\n        </h3>\n        <div class=\"hotel-details\" *ngFor=\"let productRule of ruleDetail.productRules\">\n          <p class=\"hotel-name\">{{productRule.productName}}</p>\n          <!-- Fixed Amount Value , recurring? , cycle? -->\n          <!--% Amount  of + transaction base  , recurring? , cycle? -->\n          <div>\n            <!-- <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> {{rule.chargeValue | chargeValue: ruleDetail: rule}}, {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}} -->\n            <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> INR {{rule.chargeValue}} : {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}}\n            </p>\n          </div>\n\n        </div>\n\n      </div>\n      </span>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -435,6 +436,11 @@ var DetailsModalComponent = /** @class */ (function () {
     DetailsModalComponent.prototype.closeModal = function () {
         this.hideModal.emit(true);
     };
+    DetailsModalComponent.prototype.doSomething = function ($event) {
+        if ($event.code == "Escape") {
+            this.closeModal();
+        }
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
         __metadata("design:type", Object)
@@ -443,6 +449,12 @@ var DetailsModalComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* Output */])(),
         __metadata("design:type", Object)
     ], DetailsModalComponent.prototype, "hideModal", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* HostListener */])('window:keydown', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], DetailsModalComponent.prototype, "doSomething", null);
     DetailsModalComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-details-modal',
@@ -466,7 +478,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\n    width: 74%;\n    background: #fffdfd;\n    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    padding: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    overflow: auto;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}", ""]);
+exports.push([module.i, ":host{\n    width: 74%;\n    background: #fffdfd;\n    -webkit-box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    box-shadow: 6px 10px 47px -9px rgba(56, 56, 56, 0.74);\n    padding: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    overflow: auto;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n\n\n\n.price-details .total-price{\n    -ms-flex-preferred-size: 50%;\n        flex-basis: 50%;\n}\n\n\n\n.price-details .credits{\n    -ms-flex-preferred-size: 50%;\n        flex-basis: 50%;\n}\n", ""]);
 
 // exports
 
@@ -479,7 +491,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/subscription/subscription.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n\n<app-loading-indicator [hidden]=\"loading\"></app-loading-indicator>\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <input style=\"width: 50px;margin-left: 10px;\" #amountAdded type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">Pay</i> \n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\">Add</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>"
+module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='supplierDetails' (hideModal)=\"detailsHidden = $event \"></app-details-modal>\n\n<app-loading-indicator [hidden]=\"loading\"></app-loading-indicator>\n<div class=\"menu-content\">\n    <div class=\"title-content\">\n\n        <div class=\"title-info\">\n            <h3>Products Enabled</h3>\n            <i (click)=\"detailsHidden = !detailsHidden\">details</i>\n        </div>\n        <div class=\"product-names\">\n            <ul>\n                <li *ngFor=\"let product of supplierDetails?.assignedProduct\">{{product}}</li>\n            </ul>\n        </div>\n    </div>\n    <div class=\"price-details\">\n        <div class=\"total-price\">\n            <h3>Total Price</h3>\n            <p>{{supplierDetails?.totalAmount | currency: supplierDetails?.currency}}</p>\n        </div>\n        <div class=\"credits\">\n            <h3>Credits</h3>\n            <p>\n                {{supplierDetails?.creditAmount}}\n                <i (click)=\"payNow(amountAdded.value)\" [hidden]=\"addCreditsVisibility\">Pay</i> \n                <input style=\"width: 50px;margin-left: 10px;\" #amountAdded type=\"text\" [hidden]=\"addCreditsVisibility\">\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"!addCreditsVisibility\">Add</i>\n                <i (click)=\"addCreditsVisibility = !addCreditsVisibility \" [hidden]=\"addCreditsVisibility\">Close</i>\n            </p>\n        </div>\n    </div>\n    <!-- <div class=\"auto-renewal\">\n        <h3>Auto Renewal</h3>\n        <div>\n            <input type=\"checkbox\">\n            <p>Two Day Grace</p>\n        </div>\n    </div> -->\n    <div class=\"note\">\n        <h3>Note</h3>\n        <p>\n            ---\n            <!-- HeX was used for 14 days and then disabled. It will be billed in the next invoice for 14 days. -->\n        </p>\n    </div>\n\n</div>"
 
 /***/ }),
 

@@ -78,7 +78,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "div{\n    min-height: calc(100vh - 80px);\n}", ""]);
+exports.push([module.i, "div{\n    min-height: calc(100vh - 60px);\n}", ""]);
 
 // exports
 
@@ -267,7 +267,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/shared/components/header/header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"header\">\n  <img class=\"axis-logo\" src=\"../../../../assets/axisrooms_logo.png\" alt=\"Axisrooms Logo\">\n  <nav>\n      <!-- <h2>\n          <a href=\"#\">Booking Engine</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Channel Manager</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Private</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Options</a>\n      </h2> -->\n  </nav>\n  <div class=\"profile\">\n    <button class=\"initials\" (click)=\"dropdownHidden = !dropdownHidden\" >\n        L\n    </button>\n    <div class=\"drop-down\" [hidden]=\"dropdownHidden\" >\n        <ul>\n            <li>Settings</li>\n            <li>Log Out</li>\n        </ul>\n    </div>\n</div>\n</header>"
+module.exports = "<header class=\"header\">\n    <img class=\"axis-logo\" src=\"../../../../assets/axisrooms_logo.png\" alt=\"Axisrooms Logo\">\n    <nav>\n        <!-- <h2>\n          <a href=\"#\">Booking Engine</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Channel Manager</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Private</a>\n      </h2>\n      <h2>\n          <a href=\"#\">Options</a>\n      </h2> -->\n    </nav>\n    <!-- <div class=\"profile\">\n        <button class=\"initials\" (click)=\"dropdownHidden = !dropdownHidden\">\n            L\n        </button>\n        <div class=\"drop-down\" [hidden]=\"dropdownHidden\">\n            <ul>\n                <li>Settings</li>\n                <li>Log Out</li>\n            </ul>\n        </div>\n    </div> -->\n</header>"
 
 /***/ }),
 

@@ -4,7 +4,6 @@ body {
     margin: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    min-height: 100vh;
     background: #f6f8fa;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);
@@ -832,7 +831,8 @@ table .action-dropdown-rel .action-dropdown li {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    width: 50%;
+    width:70%;
+    height: 90px;
 }
 
 .supplier-content-area .menu-content .auto-renewal div {
@@ -845,10 +845,6 @@ table .action-dropdown-rel .action-dropdown li {
 .supplier-content-area .menu-content .auto-renewal div p {
     margin: auto;
     display: inline;
-}
-
-.supplier-content-area .menu-content .price-details .total-price p {
-    text-align: center;
 }
 
 /* Invoice Tab */
