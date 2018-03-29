@@ -76,7 +76,7 @@
             <div class="form-element">
                 <p>Choose Users</p>
                 <select formControlName="userId">
-                    <option *ngFor="let user of allUsers" value="{{user.userId}}">{{user.userName}}</option>
+                    <option *ngFor="let user of allUsers" value="{{user.userId}}">{{user.userName}} [{{user.userId}}] </option>
                 </select>
             </div>
         </span>
