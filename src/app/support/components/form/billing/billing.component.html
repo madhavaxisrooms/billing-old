@@ -36,7 +36,7 @@
                 <option value="RUB">Russian Ruble</option>
                 <option value="CRC">Costa Rican Colon</option>
                 <option value="CNY">Chinese Yuan</option>
-                <option value="TWD">Taiwan Dolla</option>
+                <option value="TWD">Taiwan Dollar</option>
             </select>
         </span>
     </div>
@@ -54,12 +54,12 @@
                         <span class="hotel-list-overlay" (click)="hotelName.value =''"></span>
                         <span class="hotel-list-hotels">
                             <ul *ngFor='let hotel of hotels | search:hotelName.value '>
-                                <li (click)="hotelSelected(hotel,i); hotelName.value =''">{{hotel.productName}}</li>
+                                <li (click)="hotelSelected(hotel,i); hotelName.value =''">{{hotel.productName}} [{{ hotel.productId}}]</li>
                             </ul>
                         </span>
                     </div>
                     <div class="hotel-list-selected">
-                        <p *ngFor="let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels" (click)="removeHotel(connectedHotels,i)">{{connectedHotels.productName}}</p>
+                        <p *ngFor="let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels" (click)="removeHotel(connectedHotels,i)">{{connectedHotels.productName}} [{{ connectedHotels.productId}}] </p>
                     </div>
                     <div class="input-element">
                         <p>Duration</p>
