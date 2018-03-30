@@ -23,6 +23,7 @@
 .users-dropdown ul {
   list-style: none;
   padding-left: 15px;
+  background: white;
 }
 
 .users-dropdown ul li {

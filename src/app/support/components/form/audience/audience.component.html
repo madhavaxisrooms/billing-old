@@ -57,7 +57,7 @@
         <span [hidden]="audienceForm.value.templateType != 'CUSTOM'">
             <div class="form-element">
                 <p>Belongs custom To</p>
-                <select #btc1 (change)="btc1.value; fillAggregators(btc1.value)">
+                <select #btc1 (change)="btc1.value; fillAggregators(btc1.value);">
                     <option value="axr"> Axisrooms </option>
                     <option value="agg"> Aggregator | Whitelable </option>
                 </select>
@@ -65,7 +65,7 @@
 
             <div class="form-element" *ngIf="btc1.value == 'axr'">
                 <p>User Type</p>
-                <select formControlName="userRole" (change)="getUserIds()">
+                <select formControlName="userRole" (change)="getUserIds();">
                     <option value="SUPPLIER"> Supplier </option>
                     <option value="SUPPLIER_ADMIN"> Supplier Admin </option>
                 </select>
@@ -73,9 +73,10 @@
 
             <div class="form-element searchable-dropdown ">
                 <p>Choose Users</p>
-                <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUserQuery.value = searchFocused(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/>
+                <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUser(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/>
+                <!-- <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUserQuery.value = searchFocused(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/> -->
                 <!-- <div class="users-dropdown-overlay" *ngIf="searchUserQuery.value" (click)="searchUserQuery.value = ''" ></div> -->
-                <div class="users-dropdown"  *ngIf="searchUserQuery.value">
+                <div class="users-dropdown"  *ngIf="usersSearchedList">
                     <ul>
                         <li *ngFor="let user of usersSearchedList" (click)="userSelected(user);" > {{user.userName}} [{{user.userId}}] </li>
                     </ul>

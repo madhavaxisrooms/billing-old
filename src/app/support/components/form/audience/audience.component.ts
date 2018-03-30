@@ -44,15 +44,22 @@ export class AudienceComponent implements OnInit {
   fillAggregators(val) {
     if (val == 'agg') {
       this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
-      console.log(this.audienceForm.value.userRole);
+      this.selectedUser = '';
+      this.usersSearchedList = [];
       this.getUserIds();
+      this.searchUser(this.selectedUser);
     }
   }
 
   getUserIds() {
+    let counter = 0;
     this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
       res => {
         this.allUsers = JSON.parse(res['_body']);
+        this.selectedUser = '';
+        this.usersSearchedList = [];
+        if(counter > 0)
+        this.searchUser(this.selectedUser);
       }
     );
   }
@@ -64,10 +71,12 @@ export class AudienceComponent implements OnInit {
   }
 
   searchFocused(value) {
-    if (value == '') {
       this.usersSearchedList = this.allUsers;
-      return "SHOWING ALL HOTELS";
-    } else return value;
+    
+    // if (value == '') {
+    //   this.usersSearchedList = this.allUsers;
+    //   return "SHOWING ALL HOTELS";
+    // } else return value;
   }
 
   searchUser(query){
