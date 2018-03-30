@@ -51,7 +51,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".searchable-dropdown {\n  position: relative;\n}\n\n.users-dropdown-overlay{\n    position: fixed;\n    top: 0;\n    right: 0;\n    left: 0;\n    bottom: 0;\n    z-index: 3;\n}\n\n.users-dropdown {\n  position: absolute;\n  left: 230px;\n  top: 48px;\n  width: 290px;\n  /* border: 2px solid #02285a; */\n  z-index: 5;\n}\n\n.users-dropdown ul {\n  list-style: none;\n  padding-left: 15px;\n}\n\n.users-dropdown ul li {\n  padding: 5px 0;\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -64,7 +64,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/audience/audience.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p> {{ruleName.invalid}}\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds()\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Choose Users</p>\n                <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}} [{{user.userId}}] </option>\n                </select>\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
+module.exports = "<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p> {{ruleName.invalid}}\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds()\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element searchable-dropdown \">\n                <p>Choose Users</p>\n                <input type=\"text\" placeholder=\"Type to search\" value=\"{{selectedUser}}\" (focus)=\"searchUserQuery.value = searchFocused(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/>\n                <!-- <div class=\"users-dropdown-overlay\" *ngIf=\"searchUserQuery.value\" (click)=\"searchUserQuery.value = ''\" ></div> -->\n                <div class=\"users-dropdown\"  *ngIf=\"searchUserQuery.value\">\n                    <ul>\n                        <li *ngFor=\"let user of usersSearchedList\" (click)=\"userSelected(user);\" > {{user.userName}} [{{user.userId}}] </li>\n                    </ul>\n                </div>\n                <!-- <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}} [{{user.userId}}] </option>\n                </select> -->\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -99,6 +99,7 @@ var AudienceComponent = /** @class */ (function () {
         this.aggregatorSelected = false;
         this.allUsers = [];
         this.countries = [];
+        this.selectedUser = '';
     }
     AudienceComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -126,8 +127,42 @@ var AudienceComponent = /** @class */ (function () {
         var _this = this;
         this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(function (res) {
             _this.allUsers = JSON.parse(res['_body']);
-            console.log(_this.allUsers);
         });
+    };
+    AudienceComponent.prototype.userSelected = function (user) {
+        this.selectedUser = user.userName + " " + user.userId;
+        this.audienceForm.controls.userId.setValue(user.userId);
+        this.usersSearchedList = [];
+    };
+    AudienceComponent.prototype.searchFocused = function (value) {
+        if (value == '') {
+            this.usersSearchedList = this.allUsers;
+            return "SHOWING ALL HOTELS";
+        }
+        else
+            return value;
+    };
+    AudienceComponent.prototype.searchUser = function (query) {
+        if (query === 'SHOWING ALL HOTELS') {
+            this.usersSearchedList = this.allUsers;
+        }
+        else if (query.includes("SHOWING ALL HOTELS")) {
+            this.selectedUser = query.replace("SHOWING ALL HOTELS", '');
+        }
+        else if (query == "" || query == undefined) {
+            this.usersSearchedList = [];
+            this.usersSearchedList = this.allUsers;
+        }
+        else {
+            console.log(query);
+            this.usersSearchedList = [];
+            var queryUC = query.toUpperCase();
+            for (var i = 0, len = this.allUsers.length; i < len; i++) {
+                var jointSearch = this.allUsers[i].userName + this.allUsers[i].userId;
+                if (jointSearch.toUpperCase().indexOf(queryUC) != -1)
+                    this.usersSearchedList.push(this.allUsers[i]);
+            }
+        }
     };
     AudienceComponent.prototype.next = function () {
         this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);

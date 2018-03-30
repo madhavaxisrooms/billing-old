@@ -15,6 +15,8 @@ export class AudienceComponent implements OnInit {
   public aggregatorSelected: boolean = false;
   public allUsers = [];
   public countries = [];
+  public selectedUser = '';
+  public usersSearchedList;
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -39,8 +41,8 @@ export class AudienceComponent implements OnInit {
     this.getUserIds();
   }
 
-  fillAggregators(val){
-    if(val == 'agg'){
+  fillAggregators(val) {
+    if (val == 'agg') {
       this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
       console.log(this.audienceForm.value.userRole);
       this.getUserIds();
@@ -51,9 +53,42 @@ export class AudienceComponent implements OnInit {
     this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
       res => {
         this.allUsers = JSON.parse(res['_body']);
-        console.log(this.allUsers);
       }
     );
+  }
+
+  userSelected(user) {
+    this.selectedUser = user.userName + " " + user.userId;
+    this.audienceForm.controls.userId.setValue(user.userId);
+    this.usersSearchedList = [];
+  }
+
+  searchFocused(value) {
+    if (value == '') {
+      this.usersSearchedList = this.allUsers;
+      return "SHOWING ALL HOTELS";
+    } else return value;
+  }
+
+  searchUser(query){
+    if(query === 'SHOWING ALL HOTELS'){
+      this.usersSearchedList = this.allUsers;
+    } else if (query.includes("SHOWING ALL HOTELS")){
+        this.selectedUser =  query.replace("SHOWING ALL HOTELS", '');
+    }else if(query=="" || query == undefined){
+      this.usersSearchedList = [];
+      this.usersSearchedList = this.allUsers;
+    }else {
+      console.log(query);
+      this.usersSearchedList = [];
+      let queryUC = query.toUpperCase();
+      for (let i = 0, len = this.allUsers.length; i < len; i++) {
+        let jointSearch = this.allUsers[i].userName + this.allUsers[i].userId;
+        if (jointSearch.toUpperCase().indexOf(queryUC) != -1) this.usersSearchedList.push(this.allUsers[i]);
+      }
+    }
+
+    
   }
 
   next() {
@@ -62,7 +97,7 @@ export class AudienceComponent implements OnInit {
     this.formDataService.toggleIsDefault(this.audienceForm.value.templateType);
     //For Navigation
     console.log(this.audienceForm.value);
-    
+
     this.formService.toggleFormTabs('audience', 'billing');
 
   }
