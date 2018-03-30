@@ -88,7 +88,6 @@ export class AudienceComponent implements OnInit {
       this.usersSearchedList = [];
       this.usersSearchedList = this.allUsers;
     }else {
-      console.log(query);
       this.usersSearchedList = [];
       let queryUC = query.toUpperCase();
       for (let i = 0, len = this.allUsers.length; i < len; i++) {
@@ -96,8 +95,6 @@ export class AudienceComponent implements OnInit {
         if (jointSearch.toUpperCase().indexOf(queryUC) != -1) this.usersSearchedList.push(this.allUsers[i]);
       }
     }
-
-    
   }
 
   next() {

@@ -8,15 +8,21 @@
           <h2 class="template-heading">{{templateDetails.ruleName}}</h2>
     </div>
     
-    <div class="data">
+    <div class="data" *ngIf="templateDetails.templateType != 'Custom'" >
       <h3 class="title">Country</h3>
       <p class="info"> {{templateDetails.country}}</p>
     </div>
 
     <div class="data">
+      <h3 class="title"> User Name</h3>
+      <p class="info">{{templateDetails.userName}} </p>
+    </div>
+
+
+    <!-- <div class="data">
       <h3 class="title">Creator Name</h3>
       <p class="info"> {{templateDetails.creatorName}}</p>
-    </div>
+    </div> -->
 
     <div class="data">
       <h3 class="title">Star Rating</h3>
@@ -53,7 +59,7 @@
         </div>
         <div class="sub-data">
           <h4 class="title"> Recurring </h4>
-          <p class="info">{{rule.recurring}}</p>
+          <p class="info">{{rule.recurring | recurring}}</p>
         </div>
         <div class="sub-data">
           <h4 class="title">Start Date </h4>
@@ -74,11 +80,12 @@
         </div>
         <div class="sub-data">
           <h4 class="title"> Payment Cycle </h4>
-          <p class="info">{{rule.paymentCycle}}</p>
+          <p class="info">{{rule.paymentCycle | paymentCycle }}</p>
         </div>
         <div class="sub-data">
           <h4 class="title"> Connected Hotels </h4>
           <p class="info" *ngFor="let hotel of rule.connectedHotels" >{{hotel.hotelName}}</p>
+          <p class="info" *ngIf="rule.connectedHotels.length == 0" > No Selection </p>
         </div>
       </div>
     </div>

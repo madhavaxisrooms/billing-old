@@ -18,6 +18,9 @@ import { InvoiceService } from '../shared/services/invoice.service';
 import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component';
 import { TemplateDetailsComponent } from './components/template-details/template-details.component'
 import { WindowRefService } from '../shared/services/window-ref.service';
+import { PaymentCyclePipe } from './pipes/payment-cycle.pipe';
+import { ProductNamePipe } from './pipes/product-name.pipe';
+import { RecurringPipe } from './pipes/recurring.pipe';
 
 @NgModule({
   imports: [
@@ -38,6 +41,9 @@ import { WindowRefService } from '../shared/services/window-ref.service';
     LoadingIndicatorComponent,
     SearchPipe,
     TemplateDetailsComponent,
+    PaymentCyclePipe,
+    ProductNamePipe,
+    RecurringPipe,
   ],
   providers:[
     FormService,

@@ -64,7 +64,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/audience/audience.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p> {{ruleName.invalid}}\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value);\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds();\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element searchable-dropdown \">\n                <p>Choose Users</p>\n                <input type=\"text\" placeholder=\"Type to search\" value=\"{{selectedUser}}\" (focus)=\"searchUser(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/>\n                <!-- <input type=\"text\" placeholder=\"Type to search\" value=\"{{selectedUser}}\" (focus)=\"searchUserQuery.value = searchFocused(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/> -->\n                <!-- <div class=\"users-dropdown-overlay\" *ngIf=\"searchUserQuery.value\" (click)=\"searchUserQuery.value = ''\" ></div> -->\n                <div class=\"users-dropdown\"  *ngIf=\"usersSearchedList\">\n                    <ul>\n                        <li *ngFor=\"let user of usersSearchedList\" (click)=\"userSelected(user);\" > {{user.userName}} [{{user.userId}}] </li>\n                    </ul>\n                </div>\n                <!-- <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}} [{{user.userId}}] </option>\n                </select> -->\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
+module.exports = "<!-- <app-loading-indicator [hidden]=\"loader\" ></app-loading-indicator> -->\n<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p> {{ruleName.invalid}}\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value);\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds();\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option>\n                </select>\n            </div>\n\n            <div class=\"form-element searchable-dropdown \">\n                <p>Choose Users</p>\n                <input type=\"text\" placeholder=\"Type to search\" value=\"{{selectedUser}}\" (focus)=\"searchUser(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/>\n                <!-- <input type=\"text\" placeholder=\"Type to search\" value=\"{{selectedUser}}\" (focus)=\"searchUserQuery.value = searchFocused(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/> -->\n                <!-- <div class=\"users-dropdown-overlay\" *ngIf=\"searchUserQuery.value\" (click)=\"searchUserQuery.value = ''\" ></div> -->\n                <div class=\"users-dropdown\"  *ngIf=\"usersSearchedList\">\n                    <ul>\n                        <li *ngFor=\"let user of usersSearchedList\" (click)=\"userSelected(user);\" > {{user.userName}} [{{user.userId}}] </li>\n                    </ul>\n                </div>\n                <!-- <select formControlName=\"userId\">\n                    <option *ngFor=\"let user of allUsers\" value=\"{{user.userId}}\">{{user.userName}} [{{user.userId}}] </option>\n                </select> -->\n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -160,7 +160,6 @@ var AudienceComponent = /** @class */ (function () {
             this.usersSearchedList = this.allUsers;
         }
         else {
-            console.log(query);
             this.usersSearchedList = [];
             var queryUC = query.toUpperCase();
             for (var i = 0, len = this.allUsers.length; i < len; i++) {
@@ -686,7 +685,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\">\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\" [index]=\"i\"></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
+module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\">\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\" [index]=\"i\"></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/edit-icon.svg\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\"> User Name</h3>\n        <p class=\"content\">{{template.userName}} </p>\n      </div>\n\n      <div class=\"card-data\"  *ngIf=\"template.templateType != 'Custom'\" >\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.creatorName}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div>\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
 
 /***/ }),
 
@@ -926,7 +925,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/template-details/template-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"template-overlay\" (click)=\"hideTemplateDetails()\" ></div>\n  <div class=\"template-content\">\n    <div class=\"navigation-tabs\">\n        <div class=\"close icon\">\n            <img (click)=\"hideTemplateDetails()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n          </div>\n          <h2 class=\"template-heading\">{{templateDetails.ruleName}}</h2>\n    </div>\n    \n    <div class=\"data\">\n      <h3 class=\"title\">Country</h3>\n      <p class=\"info\"> {{templateDetails.country}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Creator Name</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\">Star Rating</h3>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating != 0\" > {{templateDetails.starRating}}</p>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating == 0\" > ANY</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\"> Template Type</h3>\n      <p class=\"info\"> {{templateDetails.templateType}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\">Transaction Currency</h3>\n      <p class=\"info\"> {{templateDetails.transactionCurrency}}</p>\n    </div>\n    <div class=\"data rule-desc \">\n      <h3>Rules</h3>\n      <div class=\"rule-desc-info info\" *ngFor=\"let rule of templateDetails.ruleDescription\">\n\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Type</h4>\n          <p class=\"info\">{{rule.chargeType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Value</h4>\n          <p class=\"info\">{{rule.chargeValue}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Type</h4>\n          <p class=\"info\">{{rule.paymentType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Rule Type </h4>\n          <p class=\"info\">{{rule.ruleType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Recurring </h4>\n          <p class=\"info\">{{rule.recurring}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Start Date </h4>\n          <p class=\"info\">{{rule.startDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n            <h4 class=\"title\">Validity Type</h4>\n            <p class=\"info\">{{rule.validityType}}</p>\n          </div>\n        <div class=\"sub-data\" *ngIf=\"rule.endDate\" >\n          <h4 class=\"title\"> End Date</h4>\n          <p class=\"info\">{{rule.endDate}}</p>\n        </div>\n        \n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Option</h4>\n          <p class=\"info\">{{rule.paymentOption}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Cycle </h4>\n          <p class=\"info\">{{rule.paymentCycle}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Connected Hotels </h4>\n          <p class=\"info\" *ngFor=\"let hotel of rule.connectedHotels\" >{{hotel.hotelName}}</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n  <div class=\"template-overlay\" (click)=\"hideTemplateDetails()\" ></div>\n  <div class=\"template-content\">\n    <div class=\"navigation-tabs\">\n        <div class=\"close icon\">\n            <img (click)=\"hideTemplateDetails()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n          </div>\n          <h2 class=\"template-heading\">{{templateDetails.ruleName}}</h2>\n    </div>\n    \n    <div class=\"data\" *ngIf=\"templateDetails.templateType != 'Custom'\" >\n      <h3 class=\"title\">Country</h3>\n      <p class=\"info\"> {{templateDetails.country}}</p>\n    </div>\n\n    <div class=\"data\">\n      <h3 class=\"title\"> User Name</h3>\n      <p class=\"info\">{{templateDetails.userName}} </p>\n    </div>\n\n\n    <!-- <div class=\"data\">\n      <h3 class=\"title\">Creator Name</h3>\n      <p class=\"info\"> {{templateDetails.creatorName}}</p>\n    </div> -->\n\n    <div class=\"data\">\n      <h3 class=\"title\">Star Rating</h3>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating != 0\" > {{templateDetails.starRating}}</p>\n      <p class=\"info\" *ngIf=\"templateDetails.starRating == 0\" > ANY</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\"> Template Type</h3>\n      <p class=\"info\"> {{templateDetails.templateType}}</p>\n    </div>\n    <div class=\"data\">\n      <h3 class=\"title\">Transaction Currency</h3>\n      <p class=\"info\"> {{templateDetails.transactionCurrency}}</p>\n    </div>\n    <div class=\"data rule-desc \">\n      <h3>Rules</h3>\n      <div class=\"rule-desc-info info\" *ngFor=\"let rule of templateDetails.ruleDescription\">\n\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Type</h4>\n          <p class=\"info\">{{rule.chargeType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Charge Value</h4>\n          <p class=\"info\">{{rule.chargeValue}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Type</h4>\n          <p class=\"info\">{{rule.paymentType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Rule Type </h4>\n          <p class=\"info\">{{rule.ruleType}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Recurring </h4>\n          <p class=\"info\">{{rule.recurring | recurring}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\">Start Date </h4>\n          <p class=\"info\">{{rule.startDate}}</p>\n        </div>\n        <div class=\"sub-data\">\n            <h4 class=\"title\">Validity Type</h4>\n            <p class=\"info\">{{rule.validityType}}</p>\n          </div>\n        <div class=\"sub-data\" *ngIf=\"rule.endDate\" >\n          <h4 class=\"title\"> End Date</h4>\n          <p class=\"info\">{{rule.endDate}}</p>\n        </div>\n        \n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Option</h4>\n          <p class=\"info\">{{rule.paymentOption}}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Payment Cycle </h4>\n          <p class=\"info\">{{rule.paymentCycle | paymentCycle }}</p>\n        </div>\n        <div class=\"sub-data\">\n          <h4 class=\"title\"> Connected Hotels </h4>\n          <p class=\"info\" *ngFor=\"let hotel of rule.connectedHotels\" >{{hotel.hotelName}}</p>\n          <p class=\"info\" *ngIf=\"rule.connectedHotels.length == 0\" > No Selection </p>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -977,6 +976,115 @@ var TemplateDetailsComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], TemplateDetailsComponent);
     return TemplateDetailsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/pipes/payment-cycle.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PaymentCyclePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var PaymentCyclePipe = /** @class */ (function () {
+    function PaymentCyclePipe() {
+    }
+    PaymentCyclePipe.prototype.transform = function (value, args) {
+        var cycle;
+        if (value == 1)
+            return "Monthly";
+        else if (value == 3)
+            return "Quarterly";
+        else if (value == 6)
+            return "Half Yearly";
+        else if (value == 12)
+            return "Yearly";
+    };
+    PaymentCyclePipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Pipe */])({
+            name: 'paymentCycle'
+        })
+    ], PaymentCyclePipe);
+    return PaymentCyclePipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/pipes/product-name.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductNamePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ProductNamePipe = /** @class */ (function () {
+    function ProductNamePipe() {
+    }
+    ProductNamePipe.prototype.transform = function (value, args) {
+        if (value == "BE")
+            return "Booking Engine";
+        else if (value == "CM")
+            return "Channel Manager";
+        else if (value == "HEX")
+            return "HeX";
+    };
+    ProductNamePipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Pipe */])({
+            name: 'productName'
+        })
+    ], ProductNamePipe);
+    return ProductNamePipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/support/pipes/recurring.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecurringPipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var RecurringPipe = /** @class */ (function () {
+    function RecurringPipe() {
+    }
+    RecurringPipe.prototype.transform = function (value, args) {
+        if (value == true)
+            return "Recurring";
+        else
+            return "One Time";
+    };
+    RecurringPipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Pipe */])({
+            name: 'recurring'
+        })
+    ], RecurringPipe);
+    return RecurringPipe;
 }());
 
 
@@ -1137,12 +1245,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/support/components/loading-indicator/loading-indicator.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_template_details_template_details_component__ = __webpack_require__("../../../../../src/app/support/components/template-details/template-details.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pipes_payment_cycle_pipe__ = __webpack_require__("../../../../../src/app/support/pipes/payment-cycle.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_product_name_pipe__ = __webpack_require__("../../../../../src/app/support/pipes/product-name.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pipes_recurring_pipe__ = __webpack_require__("../../../../../src/app/support/pipes/recurring.pipe.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -1185,6 +1299,9 @@ var SupportModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_16__components_loading_indicator_loading_indicator_component__["a" /* LoadingIndicatorComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__shared_pipes_search_pipe__["a" /* SearchPipe */],
                 __WEBPACK_IMPORTED_MODULE_17__components_template_details_template_details_component__["a" /* TemplateDetailsComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__pipes_payment_cycle_pipe__["a" /* PaymentCyclePipe */],
+                __WEBPACK_IMPORTED_MODULE_20__pipes_product_name_pipe__["a" /* ProductNamePipe */],
+                __WEBPACK_IMPORTED_MODULE_21__pipes_recurring_pipe__["a" /* RecurringPipe */],
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_12__services_form_service__["a" /* FormService */],

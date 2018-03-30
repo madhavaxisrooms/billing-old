@@ -730,7 +730,7 @@ var RecurringPipe = /** @class */ (function () {
     }
     RecurringPipe.prototype.transform = function (value, args) {
         if (value == true)
-            return "Reccuring";
+            return "Recurring";
         else
             return "One Time";
     };
