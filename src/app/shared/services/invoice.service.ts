@@ -11,7 +11,7 @@ export class InvoiceService {
   ) { }
 
   getInvoiceDetailsById(userid) {
-    const url = 'http://94.130.54.42:36000/v1/api/invoiceDetails/' + userid;
+    const url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails/' + userid;
     return this.http.post(url, null).map(
       (res) => {        
         return res;
@@ -20,7 +20,7 @@ export class InvoiceService {
   }
 
   getAllInvoices() {
-    const url = 'http://94.130.54.42:36000/v1/api/invoiceDetails';
+    const url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails';
     return this.http.post(url, null).map(
       (res) => {
         return res;
@@ -29,7 +29,7 @@ export class InvoiceService {
   }
 
   changeInvoiceStatus(invoiceId, change) {
-    const url = 'http://94.130.54.42:36000/v1/api/changeStatus/' + invoiceId + '/' + change;
+    const url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + invoiceId + '/' + change;
     return this.http.put(url, null).map(
       (res) => {
         return res;
@@ -38,7 +38,7 @@ export class InvoiceService {
   }
 
   changeDueDate(invoiceId, date) {
-    const url = 'http://94.130.54.42:36000/v1/api/changeDueDate/' + invoiceId + '/' + date;
+    const url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + invoiceId + '/' + date;
     return this.http.put(url, null).map(
       (res) => {
         return res;

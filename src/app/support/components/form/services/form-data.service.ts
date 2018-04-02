@@ -55,7 +55,7 @@ export class FormDataService {
   public mergerdForm = {};
 
   getCountries(): Observable <any>{
-    const url = "http://94.130.54.42:36000/v1/api/country";
+    const url = "https://billing-service.axisrooms.com/v1/api/country";
     return this.http.post(url, null).map(
       (res) => {
         return res;
@@ -70,7 +70,7 @@ export class FormDataService {
     else if (userType == 'SUPPLIER_ADMIN') val = 6;
     var val;
 
-    const url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
+    const url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
     return this.http.post(url, null).map(
       (res) => {
         return res;
@@ -79,7 +79,7 @@ export class FormDataService {
   }
 
   getUsers(product): Observable<any> {
-    const url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
+    const url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
     return this.http.post(url, null).map(
       (res) => {
         return res;

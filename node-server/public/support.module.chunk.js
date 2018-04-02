@@ -271,7 +271,7 @@ var BillingComponent = /** @class */ (function () {
             paymentType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
             trasactionBase: [],
             chargeType: ['FIXED', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
-            chargeValue: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].pattern('^[0-9]{1,10}$')]],
+            chargeValue: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].pattern('^([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$')]],
             paymentCycle: [1, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required] //paymentCycle - num 1,3,6,12
         });
     };
@@ -501,7 +501,7 @@ var FormDataService = /** @class */ (function () {
         this.isDefaultSource.next(val);
     };
     FormDataService.prototype.getCountries = function () {
-        var url = "http://94.130.54.42:36000/v1/api/country";
+        var url = "https://billing-service.axisrooms.com/v1/api/country";
         return this.http.post(url, null).map(function (res) {
             return res;
         });
@@ -514,13 +514,13 @@ var FormDataService = /** @class */ (function () {
         else if (userType == 'SUPPLIER_ADMIN')
             val = 6;
         var val;
-        var url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
+        var url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=USER_LIST&userType=" + val;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
     FormDataService.prototype.getUsers = function (product) {
-        var url = "http://94.130.54.42:36000/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
+        var url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
@@ -1153,14 +1153,14 @@ var FormService = /** @class */ (function () {
             this.validityHiddenSource.next(false);
     };
     FormService.prototype.getAllTemplates = function () {
-        var url = 'http://94.130.54.42:36000//v1/api/getTemplate';
+        var url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
     FormService.prototype.createTemplate = function (template) {
         var _this = this;
-        var url = "http://94.130.54.42:36000/v1/api/createTemplate";
+        var url = "https://billing-service.axisrooms.com/v1/api/createTemplate";
         this.http.post(url, template).subscribe(function (res) {
             _this.getAllTemplates();
             _this.winRef.reload();

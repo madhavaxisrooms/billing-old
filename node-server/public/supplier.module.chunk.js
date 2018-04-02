@@ -771,13 +771,13 @@ var PaymentService = /** @class */ (function () {
         this.http = http;
     }
     PaymentService.prototype.getSupplierDetails = function (supplierId) {
-        var url = "http://94.130.54.42:36000/v1/api/supplierDetails/" + supplierId;
+        var url = "https://billing-service.axisrooms.com/v1/api/supplierDetails/" + supplierId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
     PaymentService.prototype.successfulPayment = function (paymentId) {
-        var url = "http://94.130.54.42:36000/v1/api/payment/response?paymentId=" + paymentId;
+        var url = "https://billing-service.axisrooms.com/v1/api/payment/response?paymentId=" + paymentId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
@@ -785,7 +785,7 @@ var PaymentService = /** @class */ (function () {
     PaymentService.prototype.paymentGateway = function (userDetails) {
         var url = "";
         userDetails.orderDetail.currency == "INR" ? url = url.concat("domestic") : url = url.concat("international");
-        url = "http://94.130.54.42:36000/v1/api/payment/request/" + url;
+        url = "https://billing-service.axisrooms.com/v1/api/payment/request/" + url;
         return this.http.post(url, userDetails).map(function (res) {
             return res;
         });

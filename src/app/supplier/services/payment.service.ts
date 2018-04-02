@@ -9,7 +9,7 @@ export class PaymentService {
   constructor(private http: Http) { }
 
   getSupplierDetails(supplierId) {
-    const url = "http://94.130.54.42:36000/v1/api/supplierDetails/" + supplierId;
+    const url = "https://billing-service.axisrooms.com/v1/api/supplierDetails/" + supplierId;
     return this.http.post(url, null).map(
       res => {
         return res;
@@ -18,7 +18,7 @@ export class PaymentService {
   }
 
   successfulPayment(paymentId) {
-    const url = "http://94.130.54.42:36000/v1/api/payment/response?paymentId=" + paymentId;
+    const url = "https://billing-service.axisrooms.com/v1/api/payment/response?paymentId=" + paymentId;
     return this.http.post(url, null).map(
       res => {
         return res;
@@ -30,7 +30,7 @@ export class PaymentService {
     let url = "";
     userDetails.orderDetail.currency == "INR" ? url = url.concat("domestic") : url = url.concat("international");
 
-    url = "http://94.130.54.42:36000/v1/api/payment/request/" + url;
+    url = "https://billing-service.axisrooms.com/v1/api/payment/request/" + url;
 
     return this.http.post(url, userDetails).map(
       (res) => {

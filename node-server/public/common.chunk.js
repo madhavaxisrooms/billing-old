@@ -25,25 +25,25 @@ var InvoiceService = /** @class */ (function () {
         this.http = http;
     }
     InvoiceService.prototype.getInvoiceDetailsById = function (userid) {
-        var url = 'http://94.130.54.42:36000/v1/api/invoiceDetails/' + userid;
+        var url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails/' + userid;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
     InvoiceService.prototype.getAllInvoices = function () {
-        var url = 'http://94.130.54.42:36000/v1/api/invoiceDetails';
+        var url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails';
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
     InvoiceService.prototype.changeInvoiceStatus = function (invoiceId, change) {
-        var url = 'http://94.130.54.42:36000/v1/api/changeStatus/' + invoiceId + '/' + change;
+        var url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + invoiceId + '/' + change;
         return this.http.put(url, null).map(function (res) {
             return res;
         });
     };
     InvoiceService.prototype.changeDueDate = function (invoiceId, date) {
-        var url = 'http://94.130.54.42:36000/v1/api/changeDueDate/' + invoiceId + '/' + date;
+        var url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + invoiceId + '/' + date;
         return this.http.put(url, null).map(function (res) {
             return res;
         });

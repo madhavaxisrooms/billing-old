@@ -52,7 +52,7 @@ export class FormService {
   
 
   getAllTemplates(): Observable<any> {
-    const url = 'http://94.130.54.42:36000//v1/api/getTemplate';
+    const url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
     return this.http.post(url, null).map(
       (res) => {
         return res;
@@ -61,7 +61,7 @@ export class FormService {
   }
   
   createTemplate(template) {
-    const url = "http://94.130.54.42:36000/v1/api/createTemplate";
+    const url = "https://billing-service.axisrooms.com/v1/api/createTemplate";
     this.http.post(url, template).subscribe(
       res => {
         this.getAllTemplates();
