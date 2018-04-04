@@ -1189,7 +1189,7 @@ var FormService = /** @class */ (function () {
             _this.getAllTemplates();
             _this.winRef.reload();
         }, function (err) {
-            alert(err._body);
+            alert("Something went wrong. Could not create template");
         });
     };
     FormService = __decorate([

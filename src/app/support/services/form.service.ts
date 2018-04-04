@@ -68,7 +68,7 @@ export class FormService {
         this.winRef.reload();
       },
       err =>{
-        alert(err._body);
+        alert("Something went wrong. Could not create template");
       }
     );
     
