@@ -40,7 +40,7 @@ export class InvoicesComponent implements OnInit {
     } else {
       this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
         res => {
-          alert(JSON.parse(res['_body']) );
+          alert(res['_body']);
           this.winRef.reload();
         }
       );
@@ -50,7 +50,7 @@ export class InvoicesComponent implements OnInit {
   changeDueDate(date) {
     this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
-        alert(JSON.parse(res['_body']));
+        alert(res['_body']);
         this.winRef.reload();
       }
     );

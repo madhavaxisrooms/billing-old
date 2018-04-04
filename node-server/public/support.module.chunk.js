@@ -815,7 +815,7 @@ var InvoicesComponent = /** @class */ (function () {
         }
         else {
             this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(function (res) {
-                alert(JSON.parse(res['_body']));
+                alert(res['_body']);
                 _this.winRef.reload();
             });
         }
@@ -823,7 +823,7 @@ var InvoicesComponent = /** @class */ (function () {
     InvoicesComponent.prototype.changeDueDate = function (date) {
         var _this = this;
         this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
-            alert(JSON.parse(res['_body']));
+            alert(res['_body']);
             _this.winRef.reload();
         });
     };
