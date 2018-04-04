@@ -51,7 +51,7 @@ export class BillingComponent implements OnInit {
       paymentType: ['FIXED', Validators.required], // payment type - enum  
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
-      chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+$')]], //chargevalue
+      chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+'),Validators.min(1)]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
