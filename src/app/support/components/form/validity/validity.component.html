@@ -10,7 +10,7 @@
         <div class="form-element" *ngIf="customHidden">
             <p>Custom</p>
             <select #c (change)="custom(c.value)">
-                <option value=null>custom</option>
+                <option value=null>Custom</option>
                 <option value=1>1 Month</option>
                 <option value=3>3 Month</option>
                 <option value=6>6 Month</option>
@@ -18,11 +18,11 @@
             </select>
         </div>
 
-        <div class="form-element" *ngIf="datesHidden">
+        <div class="form-element" *ngIf="datesHidden && validityForm.value.validityType != 'PERPETUAL' ">
             <p>Start Date</p>
             <input formControlName="startDate" type="date">
         </div>
-        <div class="form-element" *ngIf="datesHidden">
+        <div class="form-element" *ngIf="datesHidden && validityForm.value.validityType != 'PERPETUAL'  ">
             <p>End Date</p>
             <input formControlName="endDate" type="date">
         </div>
