@@ -42,6 +42,7 @@ export class AudienceComponent implements OnInit {
   }
 
   fillAggregators(val) {
+    this.usersSearchedList = [];
     if (val == 'agg') {
       this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
       this.selectedUser = '';
@@ -72,11 +73,6 @@ export class AudienceComponent implements OnInit {
 
   searchFocused(value) {
       this.usersSearchedList = this.allUsers;
-    
-    // if (value == '') {
-    //   this.usersSearchedList = this.allUsers;
-    //   return "SHOWING ALL HOTELS";
-    // } else return value;
   }
 
   searchUser(query){
@@ -96,7 +92,19 @@ export class AudienceComponent implements OnInit {
       }
     }
   }
+  templateTypeChange(){
+    console.log(this.audienceForm.value.templateType);
+    if(this.audienceForm.value.templateType == 'CUSTOM'){
+      this.audienceForm.controls.userId.setValidators([Validators.required]);    
+      this.audienceForm.controls.userId.updateValueAndValidity();    
+    }
 
+    if(this.audienceForm.value.templateType == 'DEFAULT'){
+      this.audienceForm.controls.userId.clearValidators();    
+      this.audienceForm.controls.userId.updateValueAndValidity();    
+    }
+    
+  }
   next() {
     this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
     this.formDataService.audienceForm = this.audienceForm.value;

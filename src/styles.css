@@ -35,7 +35,8 @@ input[type="checkbox"] {
     border: none;
 }
 
-input.ng-invalid{
+input.ng-invalid,
+.ng-invalid{
     border-color: red;
 }
 

@@ -23,7 +23,7 @@ export class FormDataService {
   private isDefaultSource = new BehaviorSubject<string>("DEFAULT");
   isDefault = this.isDefaultSource.asObservable();
 
-  toggleIsDefault(val){
+  toggleIsDefault(val) {
     this.isDefaultSource.next(val);
   }
 
@@ -40,6 +40,7 @@ export class FormDataService {
   public billingForm = {
     productType: '',
     transactionCurrency: '',
+    singleInvoice: false,
     ruleDetails: []
   };
 
@@ -54,7 +55,7 @@ export class FormDataService {
   }
   public mergerdForm = {};
 
-  getCountries(): Observable <any>{
+  getCountries(): Observable<any> {
     const url = "https://billing-service.axisrooms.com/v1/api/country";
     return this.http.post(url, null).map(
       (res) => {

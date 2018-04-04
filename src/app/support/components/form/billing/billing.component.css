@@ -1,0 +1,7 @@
+.single-invoice-checkbox{
+    display: flex;
+    justify-content: space-between;
+    width: 230px;
+    align-items: center;
+    margin: 0 10px;
+}

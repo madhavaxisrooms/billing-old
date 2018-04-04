@@ -5,14 +5,14 @@
 
         <div class="form-element">
             <div class="default-values">
-                <select style="width: 100%;" formControlName="templateType" >
+                <select style="width: 100%;" formControlName="templateType" (change)="templateTypeChange()" >
                     <option value='CUSTOM'> CUSTOM </option>
                     <option value='DEFAULT'> DEFAULT </option>
                 </select>
             </div>
         </div>
         <div class="form-element">
-            <p>Enter Rule Name</p> {{ruleName.invalid}}
+            <p>Enter Rule Name</p>
             <input formControlName="ruleName" #ruleName type="text" placeholder="Rule Name">
         </div>
 
@@ -74,7 +74,7 @@
 
             <div class="form-element searchable-dropdown ">
                 <p>Choose Users</p>
-                <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUser(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/>
+                <input type="text" placeholder="Type to search" [ngClass]="{'ng-invalid': audienceForm.value.userId == null}" value="{{selectedUser}}" (focus)="searchUser(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/>
                 <!-- <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUserQuery.value = searchFocused(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/> -->
                 <!-- <div class="users-dropdown-overlay" *ngIf="searchUserQuery.value" (click)="searchUserQuery.value = ''" ></div> -->
                 <div class="users-dropdown"  *ngIf="usersSearchedList">

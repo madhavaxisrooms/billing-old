@@ -24,13 +24,19 @@ export class BillingComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("BE") });
+    this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("CM") });
+  }
+
+  testFunction() {
+    console.log(this.billingForm.value.singleInvoice);
+
   }
 
   initForm() {
     this.billingForm = this.formBuilder.group({
-      productType: ['BE'],
+      productType: ['CM'],
       transactionCurrency: ['INR'],
+      singleInvoice: [false,],
       ruleDetails: this.formBuilder.array([
         this.initRulesArray(),
       ])
@@ -45,7 +51,7 @@ export class BillingComponent implements OnInit {
       paymentType: ['FIXED', Validators.required], // payment type - enum  
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
-      chargeValue: [, [Validators.required, Validators.pattern('^([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$')]], //chargevalue
+      chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+$')]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
@@ -69,9 +75,10 @@ export class BillingComponent implements OnInit {
     control.push(this.initRulesArray());
   }
   removeRule(i) {
-    const control = <FormArray>this.billingForm.controls['ruleDetails'];
-    control.removeAt(i);
-
+    if (i > 0) {
+      const control = <FormArray>this.billingForm.controls['ruleDetails'];
+      control.removeAt(i);
+    }
   }
   hotelSelected(hotel, i) {
     if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
@@ -93,6 +100,18 @@ export class BillingComponent implements OnInit {
 
     this.initForm();
     this.billingForm.controls.productType.setValue(productSelected);
+  }
+
+  paymentTypeChange(i) {
+    if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
+      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.setValidators([Validators.required]);
+      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.updateValueAndValidity();
+    } else {
+      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.clearValidators();
+      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.updateValueAndValidity();
+    }
+
+
   }
 
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form

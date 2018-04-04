@@ -35,8 +35,8 @@ export class InvoicesComponent implements OnInit {
 
 
   changeStatus(invoiceId, status, currentStatus) {
-    if (status == currentStatus) {
-      alert("Status is already " + status)
+    if (currentStatus == 'PAID' && status == "DELETED") {
+      alert("Cannot Delete a Paid Invoice")
     } else {
       this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
         res => {

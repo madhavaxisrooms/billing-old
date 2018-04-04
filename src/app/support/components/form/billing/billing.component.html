@@ -6,6 +6,10 @@
                 <option value="CM">Channel Manager</option>
             </select>
         </span>
+        <span class="single-invoice-checkbox" >
+            <input type="checkbox" (click)="testFunction()" formControlName="singleInvoice">
+            <p> Single Invoice <span *ngIf="billingForm.value.singleInvoice" >active</span> <span *ngIf="!billingForm.value.singleInvoice">inactive</span> </p>
+        </span>
         <span class="align-right-flex">
             <select formControlName="transactionCurrency" class="currency-select" name="currency" id="">
                 <option value="INR">Indian Rupee</option>
@@ -70,7 +74,7 @@
                     </div>
                     <div class="input-element">
                         <p>Payment Type</p>
-                        <select formControlName="paymentType">
+                        <select formControlName="paymentType" (change)="paymentTypeChange(i)" >
                             <option value="FIXED">Fixed</option>
                             <option value="TRANSACTION_BASED">Tansaction Based</option>
                         </select>
