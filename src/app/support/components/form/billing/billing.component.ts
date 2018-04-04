@@ -104,11 +104,11 @@ export class BillingComponent implements OnInit {
 
   paymentTypeChange(i) {
     if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
-      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.setValidators([Validators.required]);
-      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.updateValueAndValidity();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.setValidators([Validators.required]);
+      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
     } else {
-      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.clearValidators();
-      this.billingForm.controls.ruleDetails.controls[i].controls.trasactionBase.updateValueAndValidity();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.clearValidators();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
     }
 
 
