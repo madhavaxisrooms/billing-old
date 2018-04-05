@@ -27,11 +27,6 @@ export class BillingComponent implements OnInit {
     this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("CM") });
   }
 
-  testFunction() {
-    console.log(this.billingForm.value.singleInvoice);
-
-  }
-
   initForm() {
     this.billingForm = this.formBuilder.group({
       productType: ['CM'],

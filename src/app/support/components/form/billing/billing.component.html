@@ -7,7 +7,7 @@
             </select>
         </span>
         <span class="single-invoice-checkbox" >
-            <input type="checkbox" (click)="testFunction()" formControlName="singleInvoice">
+            <input type="checkbox" formControlName="singleInvoice">
             <p> Single Invoice <span *ngIf="billingForm.value.singleInvoice" >active</span> <span *ngIf="!billingForm.value.singleInvoice">inactive</span> </p>
         </span>
         <span class="align-right-flex">
@@ -49,23 +49,43 @@
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
 
                 <div class="rule" [formGroupName]="i">
+
+
+
+
+
                     <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
                         <p>Select Hotels</p>
                         <input type="text" class="hotel-list-input" #hotelName (focus)="hotelName.value = searchFocused(hotelName.value)" (keyup)='hotelName.value = searchQueryEntered(hotelName.value)'
                             placeholder="Leave Empty for all hotels">
                     </div>
+
+
                     <span class="hotel-list-overlay" (click)="hotelName.value =''"  *ngIf="hotelName.value"></span>
+
+
                     <div class="hotel-list" *ngIf="hotelName.value">
-                       
                         <span class="hotel-list-hotels">
                             <ul *ngFor='let hotel of hotels | search:hotelName.value '>
                                 <li (click)="hotelSelected(hotel,i); hotelName.value =''">{{hotel.productName}} [{{ hotel.productId}}]</li>
                             </ul>
                         </span>
                     </div>
+
+
                     <div class="hotel-list-selected">
                         <p *ngFor="let connectedHotels of billingForm.value.ruleDetails[i].connectedHotels" (click)="removeHotel(connectedHotels,i)">{{connectedHotels.productName}} [{{ connectedHotels.productId}}] </p>
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <div class="input-element">
                         <p>Duration</p>
                         <select formControlName="recurring">
@@ -99,7 +119,8 @@
                         </select>
                     </div>
                     <div class="input-element">
-                        <p>Charge Value</p>
+                        <p *ngIf="billingForm.value.ruleDetails[i].chargeType != 'PERCENTAGE'" >Charge Value</p>
+                        <p *ngIf="billingForm.value.ruleDetails[i].chargeType == 'PERCENTAGE'" >Charge Percentage</p>
                         <input formControlName="chargeValue" type="text" placeholder="Value">
                     </div>
                     <div class="input-element">
