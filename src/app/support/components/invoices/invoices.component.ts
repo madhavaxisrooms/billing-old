@@ -42,6 +42,9 @@ export class InvoicesComponent implements OnInit {
         res => {
           alert(res['_body']);
           this.winRef.reload();
+        },
+        err => {
+          alert("Something went wrong.");
         }
       );
     }
@@ -56,6 +59,9 @@ export class InvoicesComponent implements OnInit {
       res => {
         alert(res['_body']);
         this.winRef.reload();
+      },
+      err => {
+        alert("Something went wrong.");
       }
     );
   }
