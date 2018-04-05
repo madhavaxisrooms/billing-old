@@ -848,6 +848,8 @@ var InvoicesComponent = /** @class */ (function () {
             this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(function (res) {
                 alert(res['_body']);
                 _this.winRef.reload();
+            }, function (err) {
+                alert("Something went wrong.");
             });
         }
     };
@@ -857,6 +859,8 @@ var InvoicesComponent = /** @class */ (function () {
         this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
             alert(res['_body']);
             _this.winRef.reload();
+        }, function (err) {
+            alert("Something went wrong.");
         });
     };
     InvoicesComponent = __decorate([
