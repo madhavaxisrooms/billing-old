@@ -49,6 +49,9 @@ export class InvoicesComponent implements OnInit {
 
   changeDueDate(date) {
     
+    console.log(this.invoiceIdForDueDate + date);
+    
+
     this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
         alert(res['_body']);
