@@ -15,11 +15,14 @@ export class FormService {
   private audienceHiddenSource = new BehaviorSubject<boolean>(false);
   private billingHiddenSource = new BehaviorSubject<boolean>(true);
   private validityHiddenSource = new BehaviorSubject<boolean>(true);
+  private billingNavDisabledSource = new BehaviorSubject<boolean>(true);
+
 
   formHidden = this.formHiddenSource.asObservable();
   audienceHidden = this.audienceHiddenSource.asObservable();
   billingHidden = this.billingHiddenSource.asObservable();
   validityHidden = this.validityHiddenSource.asObservable();
+  billingNavDisabled = this.billingNavDisabledSource.asObservable();
 
 
   constructor(
@@ -33,7 +36,7 @@ export class FormService {
 
   //Take from component and to component
   toggleFormTabs(from: any, to: any) {
-
+    // Hiding and showing forms
     if (from == null || to == null) {
       this.audienceHiddenSource.next(true);
       this.billingHiddenSource.next(true);
@@ -47,9 +50,14 @@ export class FormService {
     else if (to === 'billing') this.billingHiddenSource.next(false);
     else if (to === 'validity') this.validityHiddenSource.next(false);
 
+
+    //Enabling and disbaling buttons
+    if (to == 'validity') this.billingNavDisabledSource.next(false);
+    if (to == 'audience') this.billingNavDisabledSource.next(true);
+
   }
 
-  
+
 
   getAllTemplates(): Observable<any> {
     const url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
@@ -59,7 +67,7 @@ export class FormService {
       }
     );
   }
-  
+
   createTemplate(template) {
     const url = "https://billing-service.axisrooms.com/v1/api/createTemplate";
     this.http.post(url, template).subscribe(
@@ -67,12 +75,12 @@ export class FormService {
         this.getAllTemplates();
         this.winRef.reload();
       },
-      err =>{
+      err => {
         alert("Something went wrong. Could not create template");
       }
     );
-    
-    
+
+
   }
 
 

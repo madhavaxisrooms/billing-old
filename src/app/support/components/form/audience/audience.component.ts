@@ -26,7 +26,7 @@ export class AudienceComponent implements OnInit {
   ngOnInit() {
     this.audienceForm = this.formBuilder.group({
       templateType: ['DEFAULT',],
-      country: [],
+      country: [,Validators.required],
       starRating: [0,],
       ruleName: [, [Validators.required, Validators.maxLength(50)]], //     
       userRole: ["SUPPLIER"], //user role
@@ -97,11 +97,15 @@ export class AudienceComponent implements OnInit {
     if(this.audienceForm.value.templateType == 'CUSTOM'){
       this.audienceForm.controls.userId.setValidators([Validators.required]);    
       this.audienceForm.controls.userId.updateValueAndValidity();    
+      this.audienceForm.controls.country.clearValidators();    
+      this.audienceForm.controls.country.updateValueAndValidity(); 
     }
 
     if(this.audienceForm.value.templateType == 'DEFAULT'){
       this.audienceForm.controls.userId.clearValidators();    
       this.audienceForm.controls.userId.updateValueAndValidity();    
+      this.audienceForm.controls.country.setValidators([Validators.required]);    
+      this.audienceForm.controls.country.updateValueAndValidity();    
     }
     
   }

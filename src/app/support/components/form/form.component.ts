@@ -13,6 +13,9 @@ export class FormComponent implements OnInit {
   public billingHidden: boolean;
   public validityHidden: boolean;
 
+  public billingNavDisabled: boolean;
+  public validityNavDisabled: boolean = true;
+
   constructor(
     private formService: FormService
   ) { }
@@ -21,6 +24,7 @@ export class FormComponent implements OnInit {
     this.formService.audienceHidden.subscribe((status) => this.audienceHidden = status);
     this.formService.billingHidden.subscribe((status) => this.billingHidden = status);
     this.formService.validityHidden.subscribe((status) => this.validityHidden = status);
+    this.formService.billingNavDisabled.subscribe((status) => this.billingNavDisabled = status);
   }
 
   hideForm() {
@@ -28,7 +32,7 @@ export class FormComponent implements OnInit {
   }
 
   toggleFormTabs(from: any, to: string) {
-    // this.formService.toggleFormTabs(from, to);
+    this.formService.toggleFormTabs(from, to);
   }
 
 
@@ -37,6 +41,5 @@ export class FormComponent implements OnInit {
     if( $event.code == "Escape" ){
       this.hideForm();
     }
-    
   }
 }

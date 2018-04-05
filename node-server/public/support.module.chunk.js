@@ -105,7 +105,7 @@ var AudienceComponent = /** @class */ (function () {
         var _this = this;
         this.audienceForm = this.formBuilder.group({
             templateType: ['DEFAULT',],
-            country: [],
+            country: [, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required],
             starRating: [0,],
             ruleName: [, [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].maxLength(50)]],
             userRole: ["SUPPLIER"],
@@ -171,10 +171,14 @@ var AudienceComponent = /** @class */ (function () {
         if (this.audienceForm.value.templateType == 'CUSTOM') {
             this.audienceForm.controls.userId.setValidators([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required]);
             this.audienceForm.controls.userId.updateValueAndValidity();
+            this.audienceForm.controls.country.clearValidators();
+            this.audienceForm.controls.country.updateValueAndValidity();
         }
         if (this.audienceForm.value.templateType == 'DEFAULT') {
             this.audienceForm.controls.userId.clearValidators();
             this.audienceForm.controls.userId.updateValueAndValidity();
+            this.audienceForm.controls.country.setValidators([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required]);
+            this.audienceForm.controls.country.updateValueAndValidity();
         }
     };
     AudienceComponent.prototype.next = function () {
@@ -390,7 +394,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n    <div class=\"modal-overlay\" (click)=\"hideForm()\"></div>\n    <div class=\"modal-content\">\n        <div class=\"close icon\">\n            <img (click)=\"hideForm()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <button (click)=\"toggleFormTabs(null,'audience')\" [ngClass]=\"{'active': !audienceHidden}\">Audience</button>\n            <button (click)=\"toggleFormTabs(null,'billing')\" [ngClass]=\"{'active': !billingHidden}\">Billing</button>\n            <button (click)=\"toggleFormTabs(null,'validity')\" [ngClass]=\"{'active': !validityHidden}\">Validity</button>\n        </div>\n        <div class=\"modal-form-content\">\n            <app-audience [hidden]=\"audienceHidden\"></app-audience>\n            <app-billing [hidden]=\"billingHidden\"></app-billing>\n            <app-validity [hidden]=\"validityHidden\"></app-validity>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n    <div class=\"modal-overlay\" (click)=\"hideForm()\"></div>\n    <div class=\"modal-content\">\n        <div class=\"close icon\">\n            <img (click)=\"hideForm()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <button (click)=\"toggleFormTabs(null,'audience')\" [ngClass]=\"{'active': !audienceHidden}\" [disabled]=\"audienceNavDisabled\" >Audience</button>\n            <button (click)=\"toggleFormTabs(null,'billing')\" [ngClass]=\"{'active': !billingHidden}\" [disabled]=\"billingNavDisabled\">Billing</button>\n            <button (click)=\"toggleFormTabs(null,'validity')\" [ngClass]=\"{'active': !validityHidden}\" [disabled]=\"validityNavDisabled\">Validity</button>\n        </div>\n        <div class=\"modal-form-content\">\n            <app-audience [hidden]=\"audienceHidden\"></app-audience>\n            <app-billing [hidden]=\"billingHidden\"></app-billing>\n            <app-validity [hidden]=\"validityHidden\"></app-validity>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -415,18 +419,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var FormComponent = /** @class */ (function () {
     function FormComponent(formService) {
         this.formService = formService;
+        this.validityNavDisabled = true;
     }
     FormComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formService.audienceHidden.subscribe(function (status) { return _this.audienceHidden = status; });
         this.formService.billingHidden.subscribe(function (status) { return _this.billingHidden = status; });
         this.formService.validityHidden.subscribe(function (status) { return _this.validityHidden = status; });
+        this.formService.billingNavDisabled.subscribe(function (status) { return _this.billingNavDisabled = status; });
     };
     FormComponent.prototype.hideForm = function () {
         this.formService.toggleForm(true);
     };
     FormComponent.prototype.toggleFormTabs = function (from, to) {
-        // this.formService.toggleFormTabs(from, to);
+        this.formService.toggleFormTabs(from, to);
     };
     FormComponent.prototype.doSomething = function ($event) {
         if ($event.code == "Escape") {
@@ -790,7 +796,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-loading-indicator [hidden]=\"loader\"></app-loading-indicator>\n<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\">\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>{{invoice.productName}}</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <!-- <img class=\"icon action-menu\" (click)=\"actionMenu[i] = !actionMenu[i]\" src=\"https://image.flaticon.com/icons/png/512/64/64576.png\"\n                        alt=\"Three Dot Menu\"> -->\n                    <button (click)=\"actionMenu[i] = !actionMenu[i]\" [ngClass]=\"{active: actionMenu[i]}\" [disabled]=\"invoice.status == 'DELETED'\" > Menu </button>\n                    <span [hidden]=\"!actionMenu[i]\" >\n                        <span class=\"action-dropdown-overlay\" (click)=\"actionMenu[i] = !actionMenu[i]\" ></span>\n                        <ul class=\"action-dropdown\" >\n                            <li *ngIf=\"invoice.status != 'PAID'\" (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                            <li *ngIf=\"invoice.status != 'PAID'\" (click)=\"changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                            <li *ngIf=\"invoice.status != 'UNPAID'\" (click)=\"changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                            <li *ngIf=\"invoice.status == 'UNPAID'\" (click)=\"changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                        </ul>\n                    </span>\n\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
+module.exports = "<app-loading-indicator [hidden]=\"loader\"></app-loading-indicator>\n<div class=\"body-content\">\n    <div class=\"client-nav\">\n        <button routerLinkActive=\"active\" routerLink=\"../home\"> All Templates</button>\n        <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n    </div>\n    <div class=\"empty\" *ngIf=\"!invoices\">\n        <h3>Currently there are no Invoices available.</h3>\n    </div>\n    <div class=\"invoice-table\" *ngIf=\"invoices\">\n        <table>\n            <tr>\n                <th>ID</th>\n                <th>Chain Name</th>\n                <th>Hotel Name</th>\n                <th>Product</th>\n                <th>Invoice Date</th>\n                <th>Due Date</th>\n                <th>Amount</th>\n                <th>Status</th>\n                <th>Action</th>\n            </tr>\n            <tr *ngFor=\"let invoice of invoices; index as i\">\n                <td>{{invoice.invoiceId}}</td>\n                <td>Axisrooms</td>\n                <td>{{invoice.hotelName}}</td>\n                <td>{{invoice.productName}}</td>\n                <td>{{invoice.generationDate }}</td>\n                <td>{{invoice.paymentDueDate }}</td>\n                <td>{{invoice.amount | currency: invoice.currency}}</td>\n                <td>{{invoice.status}}</td>\n                <td class=\"action-dropdown-rel\">\n                    <button (click)=\"actionMenu[i] = !actionMenu[i]\" [ngClass]=\"{active: actionMenu[i]}\" [disabled]=\"invoice.status == 'DELETED'\" > Menu </button>\n                    <span [hidden]=\"!actionMenu[i]\" >\n                        <span class=\"action-dropdown-overlay\" (click)=\"actionMenu[i] = !actionMenu[i]\" ></span>\n                        <ul class=\"action-dropdown\" >\n                            <li *ngIf=\"invoice.status != 'PAID'\" (click)=\"changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId\">Change Due-Date</li>\n                            <li *ngIf=\"invoice.status != 'PAID'\" (click)=\"changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Paid</li>\n                            <li *ngIf=\"invoice.status != 'UNPAID'\" (click)=\"changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]\">Change to Unpaid</li>\n                            <li *ngIf=\"invoice.status == 'UNPAID'\" (click)=\"changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]\">Delete Invoice</li>\n                        </ul>\n                    </span>\n\n                </td>\n            </tr>\n\n        </table>\n        <!-- <div class=\"pagination\">\n            <ul>\n                <li>1</li>\n                <li>2</li>\n                <li>3</li>\n                <li>4</li>\n                <li>5</li>\n            </ul>\n        </div> -->\n    </div>\n</div>\n\n<div class=\"modal-wrapper\" *ngIf=\"changeDueDateVisibility\">\n\n    <div class=\"modal-content change-due-date\">\n        <div class=\"close icon\">\n            <img (click)=\"changeDueDateVisibility = !changeDueDateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n                class=\"icon\">\n        </div>\n        <div class=\"navigation-tabs\">\n            <h3 class=\"modal-heading\">Change Due Date</h3>\n        </div>\n        <div class=\"modal-body-content\">\n            <input type=\"date\" #date (change)=\"date.value\">\n            <button (click)=\"changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility \">Done</button>\n        </div>\n\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1148,16 +1154,19 @@ var FormService = /** @class */ (function () {
         this.audienceHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.billingHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.validityHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
+        this.billingNavDisabledSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.formHidden = this.formHiddenSource.asObservable();
         this.audienceHidden = this.audienceHiddenSource.asObservable();
         this.billingHidden = this.billingHiddenSource.asObservable();
         this.validityHidden = this.validityHiddenSource.asObservable();
+        this.billingNavDisabled = this.billingNavDisabledSource.asObservable();
     }
     FormService.prototype.toggleForm = function (change) {
         this.formHiddenSource.next(change);
     };
     //Take from component and to component
     FormService.prototype.toggleFormTabs = function (from, to) {
+        // Hiding and showing forms
         if (from == null || to == null) {
             this.audienceHiddenSource.next(true);
             this.billingHiddenSource.next(true);
@@ -1175,6 +1184,11 @@ var FormService = /** @class */ (function () {
             this.billingHiddenSource.next(false);
         else if (to === 'validity')
             this.validityHiddenSource.next(false);
+        //Enabling and disbaling buttons
+        if (to == 'validity')
+            this.billingNavDisabledSource.next(false);
+        if (to == 'audience')
+            this.billingNavDisabledSource.next(true);
     };
     FormService.prototype.getAllTemplates = function () {
         var url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
