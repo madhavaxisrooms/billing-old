@@ -134,6 +134,10 @@ button.active, button:hover {
     background: #4dbc9c;
 }
 
+.text-center{
+    text-align: center;
+}
+
 .header {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -299,11 +303,15 @@ header .profile .drop-down li {
     display: flex;
     flex-wrap: wrap;
 }
+.blue-border{
+    border-color: #02285a !important;
+}
 
 .cards-area .info-card {
-    flex-basis: 26%;
+    flex-basis: 25%;
     padding: 30px;
     margin: 20px 10px;
+    border: 5px solid #4ebc9b;
     position: relative; 
     background: white;
     display: -webkit-box;
@@ -519,9 +527,33 @@ header .profile .drop-down li {
     z-index: 3;
 }
 
+.hotel-list-functionality p {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+}
+
 .hotel-list-hotels{
-    position: absolute;
-    z-index: 5;
+    padding: 5px 0;
+}
+
+.hotel-list-hotels p{
+    display: inline;
+}
+
+.modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]{
+    width: 40px !important;
+    height: 20px !important;
+}
+
+.modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]:before{
+    width: 20px !important;
+    height: 20px !important;
+}
+.modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before{
+    left: 20px;
 }
 
 .modal-content .hotel-list {
@@ -529,13 +561,15 @@ header .profile .drop-down li {
     position: absolute;
     background: #fff;
     padding: 5px 10px;
-    width: 220px;
+    width: 310px;
     border: 1px solid grey;
     height: 200px;
     overflow: auto;
-    top: 114px;
+    top: 115px;
     left: 25px;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 

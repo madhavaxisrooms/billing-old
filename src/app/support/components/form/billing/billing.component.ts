@@ -40,6 +40,7 @@ export class BillingComponent implements OnInit {
 
   initRulesArray() {
     return this.formBuilder.group({
+      hotelDropdownList:[[]],
       connectedHotels: [[]],
       ruleType: [['DEFAULT'], Validators.required],
       recurring: [true, Validators.required], //reccuring - boolean
@@ -51,18 +52,45 @@ export class BillingComponent implements OnInit {
     });
   }
 
+  isSleceted(hotel,i){
+    let hotelsSelected = [];
 
-  searchFocused(value) {
-    if (value == '') {
-      return "SHOWING ALL HOTELS";
+    for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
+    hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
+    
+    let index = hotelsSelected.indexOf(hotel.productName);
+
+    if (index == -1) {
+      return false;
+    } 
+    
+    return true;
+
+  }
+  searchFocused(i) {
+    this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
+  }
+
+  searchQueryEntered(query,i) {
+    if (query == '') {
+      this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
+    } else {
+      this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
+      query = query.toUpperCase();
+      for (let j = 0, len = this.hotels.length; j < len; j++) {
+        let combinedSearch = this.hotels[j].productId + this.hotels[j].productName;
+        if (combinedSearch.toUpperCase().indexOf(query) != -1) this.billingForm.value.ruleDetails[i].hotelDropdownList.push(this.hotels[j]);
+      }
     }
   }
 
-  searchQueryEntered(query) {
-    if (query.includes("SHOWING ALL HOTELS")) {
-      return query.replace("SHOWING ALL HOTELS", '');
+  selectAll(operation,i){
+    if(operation == true){
+      this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
+      this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
+    } else {
+      this.billingForm.value.ruleDetails[i].connectedHotels = [];
     }
-    return query;
   }
 
   addRulesForm() {
@@ -75,9 +103,19 @@ export class BillingComponent implements OnInit {
       control.removeAt(i);
     }
   }
-  hotelSelected(hotel, i) {
-    if (this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel) == -1)
+  hotelChecked(hotel,i) {
+    let hotelsSelected = [];
+
+    for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
+    hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
+
+    let index = hotelsSelected.indexOf(hotel.productName);
+
+    if (index == -1) {
       this.billingForm.value.ruleDetails[i].connectedHotels.push(hotel);
+    } else {
+      this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
+    }
   }
   removeHotel(hotel, i) {
     let index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel)
@@ -87,11 +125,11 @@ export class BillingComponent implements OnInit {
     this.formDataService.getUsers(productSelected).subscribe(
       res => {
         this.hotels = JSON.parse(res["_body"]);
-        console.log(this.hotels);
+      },
+      err => {
+        alert('Something went wrong.');
       }
     );
-    // this.billingForm.reset();
-    // console.log(this.billingForm.value);
 
     this.initForm();
     this.billingForm.controls.productType.setValue(productSelected);
@@ -105,8 +143,6 @@ export class BillingComponent implements OnInit {
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.clearValidators();
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
     }
-
-
   }
 
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
@@ -124,6 +160,8 @@ export class BillingComponent implements OnInit {
     this.formDataService.billingForm = this.billingForm.value;
     this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
     this.formService.toggleFormTabs('billing', 'validity');
+    console.log(this.billingForm.value);
+    
   }
 
 
