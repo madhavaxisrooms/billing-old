@@ -22,8 +22,8 @@ h2,h3{
 
 input[type="checkbox"] {
     position: relative;
-    width: 60px !important;
-    height: 30px !important;
+    width: 40px !important;
+    height: 20px !important;
     -webkit-appearance: none;
     background: #c6c6c6;
     outline: none;
@@ -47,8 +47,8 @@ input:checked[type="checkbox"] {
 input[type="checkbox"]:before {
     content: "";
     position: absolute;
-    width: 30px !important;
-    height: 30px !important;
+    width: 20px !important;
+    height: 20px !important;
     border-radius: 50px;
     top: 0;
     left: 0;
@@ -62,7 +62,7 @@ input[type="checkbox"]:before {
 }
 
 input:checked[type="checkbox"]:before {
-    left: 30px;
+    left: 25px;
 }
 
 input, select {
@@ -308,11 +308,11 @@ header .profile .drop-down li {
 }
 
 .cards-area .info-card {
-    flex-basis: 25%;
+    flex-basis: 26%;
     padding: 30px;
     margin: 20px 10px;
-    border: 5px solid #4ebc9b;
-    position: relative; 
+    border-top: 15px solid #4ebc9b;
+    position: relative;
     background: white;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -533,6 +533,7 @@ header .profile .drop-down li {
     text-align: center;
     margin: 0;
     cursor: pointer;
+    color: #4ebc9b;
 }
 
 .hotel-list-hotels{
@@ -544,13 +545,13 @@ header .profile .drop-down li {
 }
 
 .modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]{
-    width: 40px !important;
-    height: 20px !important;
+    width: 30px !important;
+    height: 15px !important;
 }
 
 .modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]:before{
-    width: 20px !important;
-    height: 20px !important;
+    /* width: 15px !important;
+    height: 15px !important; */
 }
 .modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before{
     left: 20px;

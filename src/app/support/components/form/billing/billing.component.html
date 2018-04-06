@@ -6,7 +6,7 @@
                 <option value="CM">Channel Manager</option>
             </select>
         </span>
-        <span class="single-invoice-checkbox" >
+        <span class="single-invoice-checkbox" [hidden]="isDefault == 'DEFAULT'" >
             <input type="checkbox" formControlName="singleInvoice">
             <p> <span *ngIf="billingForm.value.singleInvoice" >Single</span> <span *ngIf="!billingForm.value.singleInvoice">Multiple</span> Invoice(s) </p>
         </span>
@@ -44,8 +44,7 @@
             </select>
         </span>
     </div>
-    <h2 *ngIf="billingForm.value.productType == 'CM'" class="text-center"> Channel Manager </h2>
-    <h2 *ngIf="billingForm.value.productType != 'CM'" class="text-center" > Booking Engine </h2>
+    
     <div class="modal-form">
         <div class="rule-addition-area">
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">

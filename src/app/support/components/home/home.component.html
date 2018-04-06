@@ -33,8 +33,8 @@
         <p class="content">{{template.ruleName}} </p>
       </div>
 
-      <div class="card-data"  *ngIf="template.templateType != 'Custom'">
-        <h3 class="title"> Supplier Name</h3>
+      <div class="card-data"  *ngIf="template.templateType == 'Custom'">
+        <h3 class="title"> User Name</h3>
         <p class="content">{{template.userName}} </p>
       </div>
 
@@ -48,11 +48,11 @@
         <p class="content">{{template.templateType}} </p>
       </div>
 
-      <div class="card-data">
+      <!-- <div class="card-data">
         <h3 class="title">Star Rating</h3>
         <p class="content" *ngIf="template.starRating == 0" > ANY </p>
         <p class="content" *ngIf="template.starRating != 0" >{{template.starRating}} </p>
-      </div>
+      </div> -->
 
       <div class="card-data">
         <h3 class="title">Currency</h3>

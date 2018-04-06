@@ -42,7 +42,7 @@ export class AudienceComponent implements OnInit {
   }
 
   fillAggregators(val) {
-    this.usersSearchedList = [];
+    this.usersSearchedList.length = 0;
     if (val == 'agg') {
       this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
       this.selectedUser = '';
