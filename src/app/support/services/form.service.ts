@@ -95,7 +95,7 @@ export class FormService {
 
   sendInvoices(date){
     const url = "https://billing-service.axisrooms.com/v1/api/invoice/dateRun/" + date;
-    return this.http.post(url, null).map(
+    return this.http.get(url).map(
       res => {
         return res;
       },

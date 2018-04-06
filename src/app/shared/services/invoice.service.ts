@@ -29,7 +29,7 @@ export class InvoiceService {
   }
 
   changeInvoiceStatus(invoiceId, change) {
-    const url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + invoiceId + '/' + change;
+    const url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' +change+'?invoiceNo='+ invoiceId;
     return this.http.put(url, null).map(
       (res) => {
         return res;
@@ -38,7 +38,7 @@ export class InvoiceService {
   }
 
   changeDueDate(invoiceId, date) {
-    const url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + invoiceId + '/' + date;
+    const url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' +date+'?invoiceNo='+ invoiceId;
     return this.http.put(url, null).map(
       (res) => {
         return res;

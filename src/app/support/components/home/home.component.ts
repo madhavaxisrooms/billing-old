@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   assignTemplate(supplierId){
     this.formService.assignTemplate(supplierId).subscribe(
       res =>{
-        alert('Template has been assigned to Supplier ID: ' + supplierId);
+        alert(res['_body']);
       },
       err => {
         alert("Something went wrong. Could not assign template");
@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
   }
 
   sendInvoices(date){
-    this.formService.assignTemplate(date).subscribe(
+    this.formService.sendInvoices(date).subscribe(
       res =>{
-        alert('Invoices Have been sent');
+        alert(res['_body']);
       },
       err => {
         alert("Something went wrong. Could not send invoices");
