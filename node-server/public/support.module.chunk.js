@@ -146,15 +146,10 @@ var AudienceComponent = /** @class */ (function () {
         this.usersSearchedList = this.allUsers;
     };
     AudienceComponent.prototype.searchUser = function (query) {
-        if (query === 'SHOWING ALL HOTELS') {
-            this.usersSearchedList = this.allUsers;
-        }
-        else if (query.includes("SHOWING ALL HOTELS")) {
-            this.selectedUser = query.replace("SHOWING ALL HOTELS", '');
-        }
-        else if (query == "" || query == undefined) {
+        if (query == "" || query == undefined) {
             this.usersSearchedList = [];
             this.usersSearchedList = this.allUsers;
+            this.audienceForm.value.userId = null;
         }
         else {
             this.usersSearchedList = [];
@@ -167,7 +162,6 @@ var AudienceComponent = /** @class */ (function () {
         }
     };
     AudienceComponent.prototype.templateTypeChange = function () {
-        console.log(this.audienceForm.value.templateType);
         if (this.audienceForm.value.templateType == 'CUSTOM') {
             this.audienceForm.controls.userId.setValidators([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required]);
             this.audienceForm.controls.userId.updateValueAndValidity();

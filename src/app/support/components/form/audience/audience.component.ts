@@ -26,7 +26,7 @@ export class AudienceComponent implements OnInit {
   ngOnInit() {
     this.audienceForm = this.formBuilder.group({
       templateType: ['DEFAULT',],
-      country: [,Validators.required],
+      country: [, Validators.required],
       starRating: [0,],
       ruleName: [, [Validators.required, Validators.maxLength(50)]], //     
       userRole: ["SUPPLIER"], //user role
@@ -59,8 +59,8 @@ export class AudienceComponent implements OnInit {
         this.allUsers = JSON.parse(res['_body']);
         this.selectedUser = '';
         this.usersSearchedList = [];
-        if(counter > 0)
-        this.searchUser(this.selectedUser);
+        if (counter > 0)
+          this.searchUser(this.selectedUser);
       }
     );
   }
@@ -72,18 +72,15 @@ export class AudienceComponent implements OnInit {
   }
 
   searchFocused(value) {
-      this.usersSearchedList = this.allUsers;
+    this.usersSearchedList = this.allUsers;
   }
 
-  searchUser(query){
-    if(query === 'SHOWING ALL HOTELS'){
-      this.usersSearchedList = this.allUsers;
-    } else if (query.includes("SHOWING ALL HOTELS")){
-        this.selectedUser =  query.replace("SHOWING ALL HOTELS", '');
-    }else if(query=="" || query == undefined){
+  searchUser(query) {
+    if (query == "" || query == undefined) {
       this.usersSearchedList = [];
       this.usersSearchedList = this.allUsers;
-    }else {
+      this.audienceForm.value.userId = null;
+    } else {
       this.usersSearchedList = [];
       let queryUC = query.toUpperCase();
       for (let i = 0, len = this.allUsers.length; i < len; i++) {
@@ -91,23 +88,23 @@ export class AudienceComponent implements OnInit {
         if (jointSearch.toUpperCase().indexOf(queryUC) != -1) this.usersSearchedList.push(this.allUsers[i]);
       }
     }
+
   }
-  templateTypeChange(){
-    console.log(this.audienceForm.value.templateType);
-    if(this.audienceForm.value.templateType == 'CUSTOM'){
-      this.audienceForm.controls.userId.setValidators([Validators.required]);    
-      this.audienceForm.controls.userId.updateValueAndValidity();    
-      this.audienceForm.controls.country.clearValidators();    
-      this.audienceForm.controls.country.updateValueAndValidity(); 
+  templateTypeChange() {
+    if (this.audienceForm.value.templateType == 'CUSTOM') {
+      this.audienceForm.controls.userId.setValidators([Validators.required]);
+      this.audienceForm.controls.userId.updateValueAndValidity();
+      this.audienceForm.controls.country.clearValidators();
+      this.audienceForm.controls.country.updateValueAndValidity();
     }
 
-    if(this.audienceForm.value.templateType == 'DEFAULT'){
-      this.audienceForm.controls.userId.clearValidators();    
-      this.audienceForm.controls.userId.updateValueAndValidity();    
-      this.audienceForm.controls.country.setValidators([Validators.required]);    
-      this.audienceForm.controls.country.updateValueAndValidity();    
+    if (this.audienceForm.value.templateType == 'DEFAULT') {
+      this.audienceForm.controls.userId.clearValidators();
+      this.audienceForm.controls.userId.updateValueAndValidity();
+      this.audienceForm.controls.country.setValidators([Validators.required]);
+      this.audienceForm.controls.country.updateValueAndValidity();
     }
-    
+
   }
   next() {
     this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
