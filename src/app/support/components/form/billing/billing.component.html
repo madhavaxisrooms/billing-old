@@ -50,8 +50,8 @@
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
                 <div class="rule" [formGroupName]="i">
                     <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
-                        <p *ngIf="!hotelInputValue" >All Hotels Slected</p> 
-                        <p *ngIf="hotelInputValue" > {{hotelInputValue}} Hotel(s) selected</p>
+                        <p *ngIf="!this.billingForm.value.ruleDetails[i].connectedHotels.length" >All Hotels Selected</p> 
+                        <p *ngIf="this.billingForm.value.ruleDetails[i].connectedHotels.length" > {{this.billingForm.value.ruleDetails[i].connectedHotels.length}} Hotel(s) selected</p>
                         <input type="text" class="hotel-list-input" #searchHotelInput (keyup)="searchQueryEntered(searchHotelInput.value,i)" (focus)="searchFocused(i)" placeholder="Leave empty for all hotels"/>
                     </div>
                     <span class="hotel-list-overlay" (click)="this.billingForm.value.ruleDetails[i].hotelDropdownList =[]; searchHotelInput.value = ''"  *ngIf="this.billingForm.value.ruleDetails[i].hotelDropdownList.length"></span>
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="add-rule">
-                        <img (click)="removeRule(i)" src="../../../../assets/close-icon-black.png" alt="Close Icon" class="icon remove-rule">
+                        <img (click)="removeRule(i)" *ngIf="i != 0" src="../../../../assets/close-icon-black.png" alt="Close Icon" class="icon remove-rule">
                         <img (click)="addRulesForm()" class="icon add-icon" src="../../../../assets/plus-circle-outline.png" alt="Add Rule Icon">
                     </div>
                 </div>
