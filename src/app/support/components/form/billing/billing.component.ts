@@ -10,7 +10,7 @@ import { FormDataService } from '../services/form-data.service';
 })
 export class BillingComponent implements OnInit {
   public hotels = [];
-
+  public hotelInputValue;
   public currency;
   public billingForm: FormGroup;
   public isDefault: string; // To see if the user has selcted the default or the custom option in the audience Tab
@@ -19,14 +19,10 @@ export class BillingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formDataService: FormDataService,
   ) { }
-
-
-
   ngOnInit() {
     this.initForm();
     this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("CM") });
   }
-
   initForm() {
     this.billingForm = this.formBuilder.group({
       productType: ['CM'],
@@ -37,7 +33,6 @@ export class BillingComponent implements OnInit {
       ])
     });
   }
-
   initRulesArray() {
     return this.formBuilder.group({
       hotelDropdownList:[[]],
@@ -51,26 +46,19 @@ export class BillingComponent implements OnInit {
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
-
-  isSleceted(hotel,i){
+  isSelected(hotel,i){
     let hotelsSelected = [];
-
     for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
     hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
-    
     let index = hotelsSelected.indexOf(hotel.productName);
-
     if (index == -1) {
       return false;
     } 
-    
     return true;
-
   }
   searchFocused(i) {
     this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
   }
-
   searchQueryEntered(query,i) {
     if (query == '') {
       this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
@@ -83,16 +71,17 @@ export class BillingComponent implements OnInit {
       }
     }
   }
-
   selectAll(operation,i){
     if(operation == true){
       this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
       this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
+      this.hotelInputValue =  this.billingForm.value.ruleDetails[i].connectedHotels.length;
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels = [];
+      this.hotelInputValue =  this.billingForm.value.ruleDetails[i].connectedHotels.length;
     }
+    
   }
-
   addRulesForm() {
     const control = <FormArray>this.billingForm.controls['ruleDetails'];
     control.push(this.initRulesArray());
@@ -105,17 +94,15 @@ export class BillingComponent implements OnInit {
   }
   hotelChecked(hotel,i) {
     let hotelsSelected = [];
-
     for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
     hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
-
     let index = hotelsSelected.indexOf(hotel.productName);
-
     if (index == -1) {
       this.billingForm.value.ruleDetails[i].connectedHotels.push(hotel);
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
     }
+    this.hotelInputValue = this.billingForm.value.ruleDetails[i].connectedHotels.length;
   }
   removeHotel(hotel, i) {
     let index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel)
@@ -130,11 +117,9 @@ export class BillingComponent implements OnInit {
         alert('Something went wrong.');
       }
     );
-
     this.initForm();
     this.billingForm.controls.productType.setValue(productSelected);
   }
-
   paymentTypeChange(i) {
     if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.setValidators([Validators.required]);
@@ -144,7 +129,6 @@ export class BillingComponent implements OnInit {
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
     }
   }
-
   //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
   checkPaymentType() {
     let rules = this.billingForm.value.ruleDetails;
@@ -155,16 +139,10 @@ export class BillingComponent implements OnInit {
     }
     return false;
   }
-
   next() {
     this.formDataService.billingForm = this.billingForm.value;
     this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
     this.formService.toggleFormTabs('billing', 'validity');
     console.log(this.billingForm.value);
-    
   }
-
-
-
-
 }

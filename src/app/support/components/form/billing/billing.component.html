@@ -50,7 +50,8 @@
             <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
                 <div class="rule" [formGroupName]="i">
                     <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
-                        <p>Select Hotels</p>
+                        <p *ngIf="!hotelInputValue" >All Hotels Slected</p> 
+                        <p *ngIf="hotelInputValue" > {{hotelInputValue}} Hotel(s) selected</p>
                         <input type="text" class="hotel-list-input" #searchHotelInput (keyup)="searchQueryEntered(searchHotelInput.value,i)" (focus)="searchFocused(i)" placeholder="Leave empty for all hotels"/>
                     </div>
                     <span class="hotel-list-overlay" (click)="this.billingForm.value.ruleDetails[i].hotelDropdownList =[]; searchHotelInput.value = ''"  *ngIf="this.billingForm.value.ruleDetails[i].hotelDropdownList.length"></span>
@@ -60,8 +61,7 @@
                             <p (click)="selectAll(false,i)" >Deselect All</p>
                         </div>
                         <span class="hotel-list-hotels" *ngFor="let hotel of this.billingForm.value.ruleDetails[i].hotelDropdownList">
-                           
-                            <input (change)="hotelChecked(hotel,i)" type="checkbox" id="{{hotel.productId}}" [checked]="isSleceted(hotel,i)" /> <p>{{hotel.productName}} [{{hotel.productId}}]</p>
+                            <input (change)="hotelChecked(hotel,i)" type="checkbox" id="{{hotel.productId}}" [checked]="isSelected(hotel,i)" /> <p>{{hotel.productName}} [{{hotel.productId}}]</p>
                         </span>
                     </div>
                     <div class="input-element">
