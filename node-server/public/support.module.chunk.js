@@ -160,6 +160,7 @@ var AudienceComponent = /** @class */ (function () {
                     this.usersSearchedList.push(this.allUsers[i]);
             }
         }
+        console.log(this.audienceForm.value.userId);
     };
     AudienceComponent.prototype.templateTypeChange = function () {
         if (this.audienceForm.value.templateType == 'CUSTOM') {
@@ -347,13 +348,15 @@ var BillingComponent = /** @class */ (function () {
     };
     BillingComponent.prototype.productChoice = function (productSelected) {
         var _this = this;
-        this.formDataService.getUsers(productSelected).subscribe(function (res) {
-            _this.hotels = JSON.parse(res["_body"]);
-        }, function (err) {
-            alert('Something went wrong.');
-        });
-        this.initForm();
-        this.billingForm.controls.productType.setValue(productSelected);
+        if (this.isDefault === 'CUSTOM') {
+            this.formDataService.getUsers(productSelected).subscribe(function (res) {
+                _this.hotels = JSON.parse(res["_body"]);
+            }, function (err) {
+                alert('Something went wrong.');
+            });
+            this.initForm();
+            this.billingForm.controls.productType.setValue(productSelected);
+        }
     };
     BillingComponent.prototype.paymentTypeChange = function (i) {
         if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {

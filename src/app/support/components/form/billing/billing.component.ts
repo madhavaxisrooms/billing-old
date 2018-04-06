@@ -105,7 +105,8 @@ export class BillingComponent implements OnInit {
     this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
   }
   productChoice(productSelected) {
-    this.formDataService.getUsers(productSelected).subscribe(
+    if(this.isDefault === 'CUSTOM'){
+      this.formDataService.getUsers(productSelected).subscribe(
       res => {
         this.hotels = JSON.parse(res["_body"]);
       },
@@ -115,6 +116,7 @@ export class BillingComponent implements OnInit {
     );
     this.initForm();
     this.billingForm.controls.productType.setValue(productSelected);
+    }
   }
   paymentTypeChange(i) {
     if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
