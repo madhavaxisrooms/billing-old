@@ -37,13 +37,13 @@ var InvoiceService = /** @class */ (function () {
         });
     };
     InvoiceService.prototype.changeInvoiceStatus = function (invoiceId, change) {
-        var url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + invoiceId + '/' + change;
+        var url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + change + '?invoiceNo=' + invoiceId;
         return this.http.put(url, null).map(function (res) {
             return res;
         });
     };
     InvoiceService.prototype.changeDueDate = function (invoiceId, date) {
-        var url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + invoiceId + '/' + date;
+        var url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + date + '?invoiceNo=' + invoiceId;
         return this.http.put(url, null).map(function (res) {
             return res;
         });
