@@ -30,6 +30,10 @@
       <p class="info" *ngIf="templateDetails.starRating == 0" > ANY</p>
     </div> -->
     <div class="data">
+      <h3 class="title"> Product Type</h3>
+      <p class="info"> {{templateDetails.productType}}</p>
+    </div>
+    <div class="data">
       <h3 class="title"> Template Type</h3>
       <p class="info"> {{templateDetails.templateType}}</p>
     </div>
@@ -44,6 +48,10 @@
         <div class="sub-data">
           <h4 class="title"> Charge Type</h4>
           <p class="info">{{rule.chargeType}}</p>
+        </div>
+        <div class="sub-data" *ngIf="rule.transactionType" >
+          <h4 class="title"> Transaction Base</h4>
+          <p class="info">{{rule.transactionType}}</p>
         </div>
         <div class="sub-data">
           <h4 class="title"> Charge Value</h4>
@@ -83,8 +91,8 @@
           <p class="info">{{rule.paymentCycle | paymentCycle }}</p>
         </div>
         <div class="sub-data">
-          <h4 class="title"> Connected Hotels </h4>
-          <p class="info" *ngFor="let hotel of rule.connectedHotels" >{{hotel.hotelName}}</p>
+          <h4 class="title"> Connected Hotel IDs </h4>
+          <p class="info" *ngFor="let hotel of rule.connectedHotels" >ID: {{hotel.productId}} </p> 
           <p class="info" *ngIf="rule.connectedHotels.length == 0" > No Selection </p>
         </div>
       </div>

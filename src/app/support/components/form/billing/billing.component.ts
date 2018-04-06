@@ -10,7 +10,6 @@ import { FormDataService } from '../services/form-data.service';
 })
 export class BillingComponent implements OnInit {
   public hotels = [];
-  public hotelInputValue;
   public currency;
   public billingForm: FormGroup;
   public isDefault: string; // To see if the user has selcted the default or the custom option in the audience Tab
@@ -75,10 +74,8 @@ export class BillingComponent implements OnInit {
     if(operation == true){
       this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
       this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
-      this.hotelInputValue =  this.billingForm.value.ruleDetails[i].connectedHotels.length;
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels = [];
-      this.hotelInputValue =  this.billingForm.value.ruleDetails[i].connectedHotels.length;
     }
     
   }
@@ -102,7 +99,6 @@ export class BillingComponent implements OnInit {
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
     }
-    this.hotelInputValue = this.billingForm.value.ruleDetails[i].connectedHotels.length;
   }
   removeHotel(hotel, i) {
     let index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel)
