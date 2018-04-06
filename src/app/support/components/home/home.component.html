@@ -17,13 +17,16 @@
   <div class="search-options">
     <input type="text" class="search-bar" placeholder="Search">
     <button class="create-new" (click)='showForm()'>Create Template</button>
+    <button class="create-new" (click)='assignTemplateVisibility = !assignTemplateVisibility'>Assign Template</button>
+    <button class="create-new" (click)='sendInvoicesVisibility = !sendInvoicesVisibility'>Send Invoice</button>
   </div>
   <div class="cards-area">
     <app-loading-indicator [hidden]="loadingIndicator"></app-loading-indicator>
-    
-    <div class="info-card" *ngFor="let template of templateData?.templateDetails.reverse();let i = index" [ngClass]="{'blue-border': template.templateType == 'Custom' }" >
-    <app-template-details (hideTemplate)="hideTemplateDetails($event)" [hidden]="templateDetailsHidden[i]" [templateDetails]="template" [index]="i"></app-template-details>
-      
+
+    <div class="info-card" *ngFor="let template of templateData?.templateDetails.reverse();let i = index" [ngClass]="{'blue-border': template.templateType == 'Custom' }">
+      <app-template-details (hideTemplate)="hideTemplateDetails($event)" [hidden]="templateDetailsHidden[i]" [templateDetails]="template"
+        [index]="i"></app-template-details>
+
       <span class="edit-button">
         <img (click)='templateDetailsHidden[i] = false' src="../../../../assets/plus-circle-outline.png" alt="Edit Icon" class="edit icon">
       </span>
@@ -33,12 +36,12 @@
         <p class="content">{{template.ruleName}} </p>
       </div>
 
-      <div class="card-data"  *ngIf="template.templateType == 'Custom'">
+      <div class="card-data" *ngIf="template.templateType == 'Custom'">
         <h3 class="title"> User Name</h3>
         <p class="content">{{template.userName}} </p>
       </div>
 
-      <div class="card-data"  *ngIf="template.templateType != 'Custom'" >
+      <div class="card-data" *ngIf="template.templateType != 'Custom'">
         <h3 class="title">Country</h3>
         <p class="content">{{template.country}} </p>
       </div>
@@ -70,4 +73,42 @@
       <li>5</li>
     </ul>
   </div> -->
+</div>
+
+<!-- Assign Template Modal -->
+<div class="modal-wrapper" *ngIf="assignTemplateVisibility">
+  <div class="modal-overlay" (click)="assignTemplateVisibility = !assignTemplateVisibility"></div>
+  <div class="modal-content change-due-date">
+    <div class="close icon">
+      <img (click)="assignTemplateVisibility = !assignTemplateVisibility" src="../../../../assets/close-icon-white.png" alt="Close Icon"
+        class="icon">
+    </div>
+    <div class="navigation-tabs">
+      <h3 class="modal-heading">Assign Template</h3>
+    </div>
+    <div class="modal-body-content">
+      <input type="text" #supplierId placeholder="Enter Supplier Id" (keyup)="supplierId.value">
+      <button (click)="assignTemplate(supplierId.value);assignTemplateVisibility = !assignTemplateVisibility " [disabled]="supplierId.value == '' ">Send</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Send Invoices Modal -->
+<div class="modal-wrapper" *ngIf="sendInvoicesVisibility">
+  <div class="modal-overlay" (click)="sendInvoicesVisibility = !sendInvoicesVisibility"></div>
+  <div class="modal-content change-due-date">
+    <div class="close icon">
+      <img (click)="sendInvoicesVisibility = !sendInvoicesVisibility" src="../../../../assets/close-icon-white.png" alt="Close Icon"
+        class="icon">
+    </div>
+    <div class="navigation-tabs">
+      <h3 class="modal-heading">Send Invoices</h3>
+    </div>
+    <div class="modal-body-content">
+      <input type="date" #date (change)="date.value">
+      <button (click)="sendInvoices(date.value);sendInvoicesVisibility = !sendInvoicesVisibility "  [disabled]="date.value == '' ">Send</button>
+    </div>
+
+  </div>
 </div>

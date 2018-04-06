@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   formHidden: boolean;
   aggrMenuHidden: boolean = true;
   templateDetailsHidden;
+  public assignTemplateVisibility: boolean = false;
+  public sendInvoicesVisibility: boolean = false;
   constructor(
     private formService: FormService
   ) { }
@@ -31,6 +33,29 @@ export class HomeComponent implements OnInit {
   hideTemplateDetails(message) {
     this.templateDetailsHidden[message] = true;
   }
+
+  assignTemplate(supplierId){
+    this.formService.assignTemplate(supplierId).subscribe(
+      res =>{
+        alert('Template has been assigned to Supplier ID: ' + supplierId);
+      },
+      err => {
+        alert("Something went wrong. Could not assign template");
+      }
+    );
+  }
+
+  sendInvoices(date){
+    this.formService.assignTemplate(date).subscribe(
+      res =>{
+        alert('Invoices Have been sent');
+      },
+      err => {
+        alert("Something went wrong. Could not send invoices");
+      }
+    );
+  }
+
   showForm() {
     this.formService.toggleFormTabs(null, 'audience')
     this.formService.toggleForm(false);

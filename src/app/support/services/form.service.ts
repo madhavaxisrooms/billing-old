@@ -79,10 +79,31 @@ export class FormService {
         alert("Something went wrong. Could not create template");
       }
     );
-
-
   }
 
+  assignTemplate(supplierId){
+    const url = "https://billing-service.axisrooms.com/v1/api/assign/supplier/" + supplierId;
+    return this.http.post(url, null).map(
+      res => {
+        return res;
+      },
+      err => {
+        return err;
+      }
+    );
+  }
+
+  sendInvoices(date){
+    const url = "https://billing-service.axisrooms.com/v1/api/invoice/dateRun/" + date;
+    return this.http.post(url, null).map(
+      res => {
+        return res;
+      },
+      err => {
+        return err;
+      }
+    );
+  }
 
 
 }

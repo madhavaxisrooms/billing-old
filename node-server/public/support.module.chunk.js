@@ -744,7 +744,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n    \n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\" [ngClass]=\"{'blue-border': template.templateType == 'Custom' }\" >\n    <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\" [index]=\"i\"></app-template-details>\n      \n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/plus-circle-outline.png\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n\n      <div class=\"card-data\"  *ngIf=\"template.templateType == 'Custom'\">\n        <h3 class=\"title\"> User Name</h3>\n        <p class=\"content\">{{template.userName}} </p>\n      </div>\n\n      <div class=\"card-data\"  *ngIf=\"template.templateType != 'Custom'\" >\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.country}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n\n      <!-- <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div> -->\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>"
+module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n    <button class=\"create-new\" (click)='assignTemplateVisibility = !assignTemplateVisibility'>Assign Template</button>\n    <button class=\"create-new\" (click)='sendInvoicesVisibility = !sendInvoicesVisibility'>Send Invoice</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n\n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\" [ngClass]=\"{'blue-border': template.templateType == 'Custom' }\">\n      <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\"\n        [index]=\"i\"></app-template-details>\n\n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/plus-circle-outline.png\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType == 'Custom'\">\n        <h3 class=\"title\"> User Name</h3>\n        <p class=\"content\">{{template.userName}} </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType != 'Custom'\">\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.country}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n\n      <!-- <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div> -->\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>\n\n<!-- Assign Template Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"assignTemplateVisibility\">\n  <div class=\"modal-overlay\" (click)=\"assignTemplateVisibility = !assignTemplateVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"assignTemplateVisibility = !assignTemplateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Assign Template</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"text\" #supplierId placeholder=\"Enter Supplier Id\" (keyup)=\"supplierId.value\">\n      <button (click)=\"assignTemplate(supplierId.value);assignTemplateVisibility = !assignTemplateVisibility \" [disabled]=\"supplierId.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>\n\n<!-- Send Invoices Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"sendInvoicesVisibility\">\n  <div class=\"modal-overlay\" (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Send Invoices</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"date\" #date (change)=\"date.value\">\n      <button (click)=\"sendInvoices(date.value);sendInvoicesVisibility = !sendInvoicesVisibility \"  [disabled]=\"date.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -771,6 +771,8 @@ var HomeComponent = /** @class */ (function () {
         this.formService = formService;
         this.loadingIndicator = false;
         this.aggrMenuHidden = true;
+        this.assignTemplateVisibility = false;
+        this.sendInvoicesVisibility = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -783,6 +785,20 @@ var HomeComponent = /** @class */ (function () {
     };
     HomeComponent.prototype.hideTemplateDetails = function (message) {
         this.templateDetailsHidden[message] = true;
+    };
+    HomeComponent.prototype.assignTemplate = function (supplierId) {
+        this.formService.assignTemplate(supplierId).subscribe(function (res) {
+            alert('Template has been assigned to Supplier ID: ' + supplierId);
+        }, function (err) {
+            alert("Something went wrong. Could not assign template");
+        });
+    };
+    HomeComponent.prototype.sendInvoices = function (date) {
+        this.formService.assignTemplate(date).subscribe(function (res) {
+            alert('Invoices Have been sent');
+        }, function (err) {
+            alert("Something went wrong. Could not send invoices");
+        });
     };
     HomeComponent.prototype.showForm = function () {
         this.formService.toggleFormTabs(null, 'audience');
@@ -1238,6 +1254,22 @@ var FormService = /** @class */ (function () {
             _this.winRef.reload();
         }, function (err) {
             alert("Something went wrong. Could not create template");
+        });
+    };
+    FormService.prototype.assignTemplate = function (supplierId) {
+        var url = "https://billing-service.axisrooms.com/v1/api/assign/supplier/" + supplierId;
+        return this.http.post(url, null).map(function (res) {
+            return res;
+        }, function (err) {
+            return err;
+        });
+    };
+    FormService.prototype.sendInvoices = function (date) {
+        var url = "https://billing-service.axisrooms.com/v1/api/invoice/dateRun/" + date;
+        return this.http.post(url, null).map(function (res) {
+            return res;
+        }, function (err) {
+            return err;
         });
     };
     FormService = __decorate([
