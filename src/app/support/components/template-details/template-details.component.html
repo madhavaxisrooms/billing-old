@@ -90,7 +90,7 @@
           <h4 class="title"> Payment Cycle </h4>
           <p class="info">{{rule.paymentCycle | paymentCycle }}</p>
         </div>
-        <div class="sub-data">
+        <div class="sub-data"  *ngIf="templateDetails.templateType == 'Custom'"  >
           <h4 class="title"> Connected Hotel IDs </h4>
           <p class="info" *ngFor="let hotel of rule.connectedHotels" >ID: {{hotel.productId}} </p> 
           <p class="info" *ngIf="rule.connectedHotels.length == 0" > No Selection </p>
