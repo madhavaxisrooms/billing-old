@@ -66,8 +66,11 @@ export class AudienceComponent implements OnInit {
   }
   
   userSelected(user) {
-    
-    this.selectedUser = user.userName + " [" + user.userId + "]";
+    if( user.userName + " [" + user.userId + "]" == this.selectedUser){
+      this.selectedUser = user.userName + " [" + user.userId + "] ";
+    } else{
+      this.selectedUser = user.userName + " [" + user.userId + "]";
+    }
     this.audienceForm.controls.userId.setValue(user.userId);
     this.usersSearchedList = [];
   }
@@ -90,8 +93,6 @@ export class AudienceComponent implements OnInit {
         if (jointSearch.toUpperCase().indexOf(queryUC) != -1) this.usersSearchedList.push(this.allUsers[i]);
       }
     }
-    console.log(  this.audienceForm.value.userId);
-    
   }
   templateTypeChange() {
     if (this.audienceForm.value.templateType == 'CUSTOM') {
