@@ -300,18 +300,22 @@ header .profile .drop-down li {
 }
 
 .cards-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 .blue-border{
     border-color: #02285a !important;
 }
 
 .cards-area .info-card {
-    flex-basis: 26%;
+    -ms-flex-preferred-size: 26%;
+        flex-basis: 26%;
     padding: 30px;
     margin: 20px 10px;
-    border-top: 15px solid #4ebc9b;
+    border-top: 10px solid #4ebc9b;
     position: relative;
     background: white;
     display: -webkit-box;
@@ -343,14 +347,19 @@ header .profile .drop-down li {
 
 .cards-area .info-card .card-data .title {
     -ms-flex-preferred-size: 20%;
-    flex: 2;
+    -webkit-box-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
     color: #02285a;
 }
 
 .cards-area .info-card .card-data .content {
     -ms-flex-preferred-size: 80%;
-    flex: 3;
-    align-self: center;
+    -webkit-box-flex: 3;
+        -ms-flex: 3;
+            flex: 3;
+    -ms-flex-item-align: center;
+        align-self: center;
     color: #3d464d;
 }
 
@@ -491,6 +500,8 @@ header .profile .drop-down li {
 /* Billing Modal*/
 
 .billing-navigation{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -549,10 +560,7 @@ header .profile .drop-down li {
     height: 15px !important;
 }
 
-.modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]:before{
-    /* width: 15px !important;
-    height: 15px !important; */
-}
+
 .modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before{
     left: 20px;
 }
@@ -569,8 +577,13 @@ header .profile .drop-down li {
     top: 115px;
     left: 25px;
     margin-bottom: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 
@@ -639,8 +652,13 @@ header .profile .drop-down li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
 }
 .modal-content .rule-addition-area div .rule .add-rule .icon{
     display: none;
