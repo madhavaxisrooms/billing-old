@@ -60,12 +60,6 @@ export class ValidityComponent implements OnInit {
     }
   }
 
-  endDateEntered(){
-    if( this.validityForm.value.startDate > this.validityForm.value.endDate ){
-      alert("End Date Cannot be before the Start Date");
-      this.validityForm.controls.endDate.setValue(null);
-    }
-  }
 
   save() {
     this.formDataService.mergeValidityIntoBilling(this.validityForm.value);

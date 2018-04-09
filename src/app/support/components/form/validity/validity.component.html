@@ -21,9 +21,9 @@
             <p>Start Date</p>
             <input formControlName="startDate" type="date" min="{{today}}">
         </div>
-        <div class="form-element" (change)="endDateEntered()" *ngIf="datesHidden && validityForm.value.validityType != 'PERPETUAL'  ">
+        <div class="form-element" *ngIf="datesHidden && validityForm.value.validityType != 'PERPETUAL'  ">
             <p>End Date</p>
-            <input formControlName="endDate" type="date" min="{{today}}">
+            <input formControlName="endDate" type="date" min="{{validityForm.value.startDate}}">
         </div>
     </div>
 

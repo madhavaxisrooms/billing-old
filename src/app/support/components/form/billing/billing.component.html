@@ -6,7 +6,7 @@
                 <option value="CM">Channel Manager</option>
             </select>
         </span>
-        <span class="single-invoice-checkbox" [hidden]="isDefault == 'DEFAULT'" >
+        <span class="single-invoice-checkbox" *ngIf="isDefault != 'DEFAULT'" >
             <input type="checkbox" formControlName="singleInvoice">
             <p> <span *ngIf="billingForm.value.singleInvoice" >Single</span> <span *ngIf="!billingForm.value.singleInvoice">Multiple</span> Invoice(s) </p>
         </span>
