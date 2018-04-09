@@ -646,7 +646,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/validity/validity.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <div class=\"modal-form\">\n        <div class=\"form-element\">\n            <p>Duration</p>\n            <select #d (change)=\"duration(d.value)\" formControlName=\"validityType\">\n                <option value=\"PERPETUAL\">Perpetual</option>\n                <option value=\"CUSTOM\">Custom</option>\n            </select>\n        </div>\n        <div class=\"form-element\" *ngIf=\"customHidden\">\n            <p>Custom</p>\n            <select #c (change)=\"custom(c.value)\">\n                <option value=1>1 Month</option>\n                <option value=3>3 Month</option>\n                <option value=6>6 Month</option>\n                <option value=c>Custom Duration</option>\n            </select>\n        </div>\n\n        <div class=\"form-element\" *ngIf=\"datesHidden && validityForm.value.validityType != 'PERPETUAL' \">\n            <p>Start Date</p>\n            <input formControlName=\"startDate\" type=\"date\">\n        </div>\n        <div class=\"form-element\" *ngIf=\"datesHidden && validityForm.value.validityType != 'PERPETUAL'  \">\n            <p>End Date</p>\n            <input formControlName=\"endDate\" type=\"date\">\n        </div>\n    </div>\n\n    <div class=\"payment-type\">\n        <select formControlName=\"paymentOption\" *ngIf=\"!restrictToPostPaid\" >\n            <option value=\"PREPAID\">Prepaid</option>\n            <option value=\"POSTPAID\">Post-paid</option>\n        </select>\n        <p *ngIf=\"restrictToPostPaid\">Payment Type is Postpaid</p>\n    </div>\n\n    <div class=\"save-button\">\n        <button type=\"submit\" >Save</button>\n    </div>\n</form>"
+module.exports = "<form [formGroup]='validityForm' (ngSubmit)=\"save()\">\n    <div class=\"modal-form\">\n        <div class=\"form-element\">\n            <p>Duration</p>\n            <select #d (change)=\"duration(d.value)\" formControlName=\"validityType\">\n                <option value=\"PERPETUAL\">Perpetual</option>\n                <option value=\"CUSTOM\">Custom</option>\n            </select>\n        </div>\n        <div class=\"form-element\" *ngIf=\"customHidden\">\n            <p>Custom</p>\n            <select #c (change)=\"custom(c.value)\">\n                <option value=1>1 Month</option>\n                <option value=3>3 Month</option>\n                <option value=6>6 Month</option>\n                <option value=c>Custom Duration</option>\n            </select>\n        </div>\n\n        <div class=\"form-element\"  *ngIf=\"datesHidden && validityForm.value.validityType != 'PERPETUAL' \">\n            <p>Start Date</p>\n            <input formControlName=\"startDate\" type=\"date\" min=\"{{today}}\">\n        </div>\n        <div class=\"form-element\" (change)=\"endDateEntered()\" *ngIf=\"datesHidden && validityForm.value.validityType != 'PERPETUAL'  \">\n            <p>End Date</p>\n            <input formControlName=\"endDate\" type=\"date\" min=\"{{today}}\">\n        </div>\n    </div>\n\n    <div class=\"payment-type\">\n        <select formControlName=\"paymentOption\" *ngIf=\"!restrictToPostPaid\" >\n            <option value=\"PREPAID\">Prepaid</option>\n            <option value=\"POSTPAID\">Post-paid</option>\n        </select>\n        <p *ngIf=\"restrictToPostPaid\">Payment Type is Postpaid</p>\n    </div>\n\n    <div class=\"save-button\">\n        <button type=\"submit\" >Save</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -696,6 +696,8 @@ var ValidityComponent = /** @class */ (function () {
             paymentOption: ['POSTPAID'],
         });
         this.formDataService.restrictToPostPaid.subscribe(function (res) { _this.restrictToPostPaid = res; });
+        this.today = __WEBPACK_IMPORTED_MODULE_4_moment__(new Date()).format('YYYY-MM-DD');
+        console.log(this.today);
     };
     ValidityComponent.prototype.duration = function (value) {
         if (value === 'CUSTOM') {
@@ -715,6 +717,12 @@ var ValidityComponent = /** @class */ (function () {
             this.datesHidden = false;
             this.validityForm.value.startDate = __WEBPACK_IMPORTED_MODULE_4_moment__().format('YYYY-MM-DD');
             this.validityForm.value.endDate = __WEBPACK_IMPORTED_MODULE_4_moment__().add(value, 'M').format('YYYY-MM-DD');
+        }
+    };
+    ValidityComponent.prototype.endDateEntered = function () {
+        if (this.validityForm.value.startDate > this.validityForm.value.endDate) {
+            alert("End Date Cannot be before the Start Date");
+            this.validityForm.controls.endDate.setValue(null);
         }
     };
     ValidityComponent.prototype.save = function () {

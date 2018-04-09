@@ -18,6 +18,7 @@ export class ValidityComponent implements OnInit {
   public customHidden: boolean = false;
   public datesHidden: boolean = false;
   public restrictToPostPaid = false;
+  public today;
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -33,6 +34,9 @@ export class ValidityComponent implements OnInit {
     });
 
     this.formDataService.restrictToPostPaid.subscribe(res => { this.restrictToPostPaid = res; });
+    this.today = moment(new Date()).format('YYYY-MM-DD');
+    console.log(this.today);
+    
   }
 
   duration(value) {
@@ -53,6 +57,13 @@ export class ValidityComponent implements OnInit {
       this.datesHidden = false;
       this.validityForm.value.startDate = moment().format('YYYY-MM-DD');
       this.validityForm.value.endDate = moment().add(value, 'M').format('YYYY-MM-DD');
+    }
+  }
+
+  endDateEntered(){
+    if( this.validityForm.value.startDate > this.validityForm.value.endDate ){
+      alert("End Date Cannot be before the Start Date");
+      this.validityForm.controls.endDate.setValue(null);
     }
   }
 
