@@ -75,16 +75,13 @@
             <div class="form-element searchable-dropdown ">
                 <p>Choose Users</p>
                 <input type="text" placeholder="Type to search" [ngClass]="{'ng-invalid': audienceForm.value.userId == null}" value="{{selectedUser}}" (focus)="searchUser(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/>
-                <!-- <input type="text" placeholder="Type to search" value="{{selectedUser}}" (focus)="searchUserQuery.value = searchFocused(searchUserQuery.value)"  #searchUserQuery (keyup)="searchUser(searchUserQuery.value) "/> -->
-                <!-- <div class="users-dropdown-overlay" *ngIf="searchUserQuery.value" (click)="searchUserQuery.value = ''" ></div> -->
+                {{this.audienceForm.value.userId}} - SU: {{selectedUser}} - SQ: {{searchUserQuery.value}}
                 <div class="users-dropdown"  *ngIf="usersSearchedList">
                     <ul>
                         <li *ngFor="let user of usersSearchedList" (click)="userSelected(user);" > {{user.userName}} [{{user.userId}}] </li>
                     </ul>
                 </div>
-                <!-- <select formControlName="userId">
-                    <option *ngFor="let user of allUsers" value="{{user.userId}}">{{user.userName}} [{{user.userId}}] </option>
-                </select> -->
+              
             </div>
         </span>
 

@@ -17,7 +17,7 @@ export class ValidityComponent implements OnInit {
   public validityForm: FormGroup;
   public customHidden: boolean = false;
   public datesHidden: boolean = false;
-  public restrictToPostPaid:boolean = false;
+  public restrictToPostPaid: boolean = false;
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -36,7 +36,14 @@ export class ValidityComponent implements OnInit {
   }
 
   duration(value) {
-    value == 'CUSTOM' ? this.customHidden = true : this.customHidden = false;
+    if (value == 'CUSTOM') {
+      this.customHidden = true;
+      this.custom(1);
+    } else {
+      this.customHidden = false;
+      this.validityForm.controls['startDate'].setValue(null);
+    }
+   
   }
 
   custom(value) {

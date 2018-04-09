@@ -29,7 +29,7 @@ export class AudienceComponent implements OnInit {
       country: [, Validators.required],
       starRating: [0,],
       ruleName: [, [Validators.required, Validators.maxLength(50)]], //     
-      userRole: ["SUPPLIER"], //user role
+      userRole: ["SUPPLIER"], //user Role
       userId: []
     });
 
@@ -64,9 +64,10 @@ export class AudienceComponent implements OnInit {
       }
     );
   }
-
+  
   userSelected(user) {
-    this.selectedUser = user.userName + " " + user.userId;
+    
+    this.selectedUser = user.userName + " [" + user.userId + "]";
     this.audienceForm.controls.userId.setValue(user.userId);
     this.usersSearchedList = [];
   }
@@ -79,7 +80,8 @@ export class AudienceComponent implements OnInit {
     if (query == "" || query == undefined) {
       this.usersSearchedList = [];
       this.usersSearchedList = this.allUsers;
-      this.audienceForm.value.userId = null;
+      this.audienceForm.controls['userId'].setValue(null);
+      this.audienceForm.controls['userId'].setErrors({'incorrect': true});
     } else {
       this.usersSearchedList = [];
       let queryUC = query.toUpperCase();
