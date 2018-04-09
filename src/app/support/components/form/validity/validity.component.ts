@@ -17,7 +17,7 @@ export class ValidityComponent implements OnInit {
   public validityForm: FormGroup;
   public customHidden: boolean = false;
   public datesHidden: boolean = false;
-  public restrictToPostPaid: boolean = false;
+  public restrictToPostPaid = false;
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -26,30 +26,30 @@ export class ValidityComponent implements OnInit {
 
   ngOnInit() {
     this.validityForm = this.formBuilder.group({
-      validityType: ['PERPETUAL'], //validityType - enum | custom perpet
-      startDate: [], //startDate
-      endDate: [],//endDate
-      paymentOption: ['POSTPAID'], // paymentOption - enum
+      validityType: ['PERPETUAL'],
+      startDate: [],
+      endDate: [],
+      paymentOption: ['POSTPAID'],
     });
 
-    this.formDataService.restrictToPostPaid.subscribe(res => { this.restrictToPostPaid = res });
+    this.formDataService.restrictToPostPaid.subscribe(res => { this.restrictToPostPaid = res; });
   }
 
   duration(value) {
-    if (value == 'CUSTOM') {
+    if (value === 'CUSTOM') {
       this.customHidden = true;
       this.custom(1);
     } else {
       this.customHidden = false;
       this.validityForm.controls['startDate'].setValue(null);
     }
-   
+
   }
 
   custom(value) {
-    if (value == 'c')
+    if (value === 'c') {
       this.datesHidden = true;
-    else {
+    } else {
       this.datesHidden = false;
       this.validityForm.value.startDate = moment().format('YYYY-MM-DD');
       this.validityForm.value.endDate = moment().add(value, 'M').format('YYYY-MM-DD');

@@ -118,12 +118,15 @@ var AudienceComponent = /** @class */ (function () {
     };
     AudienceComponent.prototype.fillAggregators = function (val) {
         this.usersSearchedList.length = 0;
-        if (val == 'agg') {
+        if (val == 'agg' && this.audienceForm.value.templateType != "DEFAULT") {
             this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
             this.selectedUser = '';
             this.usersSearchedList = [];
             this.getUserIds();
             this.searchUser(this.selectedUser);
+        }
+        else if (val == 'agg') {
+            this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
         }
     };
     AudienceComponent.prototype.getUserIds = function () {
@@ -695,7 +698,7 @@ var ValidityComponent = /** @class */ (function () {
         this.formDataService.restrictToPostPaid.subscribe(function (res) { _this.restrictToPostPaid = res; });
     };
     ValidityComponent.prototype.duration = function (value) {
-        if (value == 'CUSTOM') {
+        if (value === 'CUSTOM') {
             this.customHidden = true;
             this.custom(1);
         }
@@ -705,8 +708,9 @@ var ValidityComponent = /** @class */ (function () {
         }
     };
     ValidityComponent.prototype.custom = function (value) {
-        if (value == 'c')
+        if (value === 'c') {
             this.datesHidden = true;
+        }
         else {
             this.datesHidden = false;
             this.validityForm.value.startDate = __WEBPACK_IMPORTED_MODULE_4_moment__().format('YYYY-MM-DD');
