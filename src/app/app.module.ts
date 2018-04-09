@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { ToasterComponent } from './shared/components/toaster/toaster.component';
+import { ToasterService } from './shared/services/toaster.service';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FooterComponent,
     HeaderComponent,
     PageNotFoundComponent,
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

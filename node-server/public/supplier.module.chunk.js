@@ -503,6 +503,7 @@ module.exports = "<app-details-modal [hidden]=\"detailsHidden\" [userDetails]='s
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_payment_service__ = __webpack_require__("../../../../../src/app/supplier/services/payment.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_services_toaster_service__ = __webpack_require__("../../../../../src/app/shared/services/toaster.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -515,10 +516,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SubscriptionComponent = /** @class */ (function () {
-    function SubscriptionComponent(winRef, paymentService) {
+    function SubscriptionComponent(winRef, paymentService, toasterService) {
         this.winRef = winRef;
         this.paymentService = paymentService;
+        this.toasterService = toasterService;
         this.addCreditsVisibility = true;
         this.detailsHidden = true;
         this.loading = false;
@@ -540,13 +543,11 @@ var SubscriptionComponent = /** @class */ (function () {
     SubscriptionComponent.prototype.payNow = function (amount) {
         var _this = this;
         if (amount < 1) {
-            alert("Please enter any number greater than 0");
-            this.winRef.reload();
+            this.toasterService.displayToaster("Please enter any number greater than 0.", 'error');
             return 0;
         }
         if (isNaN(amount)) {
-            alert(amount + " is not a number");
-            this.winRef.reload();
+            this.toasterService.displayToaster(amount + " is not a number", 'error');
             return 0;
         }
         var userDetails = {
@@ -597,7 +598,8 @@ var SubscriptionComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/supplier/components/subscription/subscription.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_window_ref_service__["a" /* WindowRefService */],
-            __WEBPACK_IMPORTED_MODULE_2__services_payment_service__["a" /* PaymentService */]])
+            __WEBPACK_IMPORTED_MODULE_2__services_payment_service__["a" /* PaymentService */],
+            __WEBPACK_IMPORTED_MODULE_3__shared_services_toaster_service__["a" /* ToasterService */]])
     ], SubscriptionComponent);
     return SubscriptionComponent;
 }());

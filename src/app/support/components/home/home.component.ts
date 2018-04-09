@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from '../../services/form.service';
+import { ToasterService } from '../../../shared/services/toaster.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
   public assignTemplateVisibility: boolean = false;
   public sendInvoicesVisibility: boolean = false;
   constructor(
-    private formService: FormService
+    private formService: FormService,
+    private toasterService: ToasterService
   ) { }
 
   ngOnInit() {
@@ -37,10 +39,10 @@ export class HomeComponent implements OnInit {
   assignTemplate(supplierId){
     this.formService.assignTemplate(supplierId).subscribe(
       res =>{
-        alert(res['_body']);
+        this.toasterService.displayToaster(res['_body'], 'info');
       },
       err => {
-        alert("Something went wrong. Could not assign template");
+        this.toasterService.displayToaster("Something went wrong.", 'error');
       }
     );
   }
@@ -48,10 +50,10 @@ export class HomeComponent implements OnInit {
   sendInvoices(date){
     this.formService.sendInvoices(date).subscribe(
       res =>{
-        alert(res['_body']);
+        this.toasterService.displayToaster(res['_body'], 'info');
       },
       err => {
-        alert("Something went wrong. Could not send invoices");
+        this.toasterService.displayToaster("Something went wrong.", 'error');
       }
     );
   }

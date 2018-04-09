@@ -1,0 +1,6 @@
+<div class="toaster-message" 
+[hidden]="toasterHidden" 
+[ngClass]="{'info': toasterMessageType=='info', 'success': toasterMessageType=='success', 'error': toasterMessageType=='error'}" >
+  <span class="dismiss-message" (click)="dismissToaster()" >X</span>
+  <p>{{toasterMessage}}</p>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../../shared/services/invoice.service';
 import { WindowRefService } from '../../../shared/services/window-ref.service';
+import { ToasterService } from '../../../shared/services/toaster.service';
 
 @Component({
   selector: 'app-invoices',
@@ -16,7 +17,8 @@ export class InvoicesComponent implements OnInit {
   public loader: boolean = false;
   constructor(
     private invoiceService: InvoiceService,
-    private winRef: WindowRefService
+    private winRef: WindowRefService,
+    private toasterService: ToasterService
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,7 @@ export class InvoicesComponent implements OnInit {
         this.loader = true;
       },
       err => {
-        alert("Something went wrong.");
+        this.toasterService.displayToaster("Something went wrong.", 'error');
         this.loader = true;
       }
     );
@@ -36,32 +38,27 @@ export class InvoicesComponent implements OnInit {
 
   changeStatus(invoiceId, status, currentStatus) {
     if (currentStatus == 'PAID' && status == "DELETED") {
-      alert("Cannot Delete a Paid Invoice")
+      this.toasterService.displayToaster("Cannot delete paid invoice", 'error');
     } else {
       this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(
         res => {
-          alert(res['_body']);
           this.winRef.reload();
         },
         err => {
-          alert("Something went wrong.");
+          this.toasterService.displayToaster("Something went wrong.", 'error');
         }
       );
     }
   }
 
   changeDueDate(date) {
-    
-    console.log(this.invoiceIdForDueDate + date);
-    
 
     this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
-        alert(res['_body']);
         this.winRef.reload();
       },
       err => {
-        alert("Something went wrong.");
+        this.toasterService.displayToaster("Something went wrong.", 'error');
       }
     );
   }

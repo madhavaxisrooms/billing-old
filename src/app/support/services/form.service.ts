@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/Rx';
 import { WindowRefService } from '../../shared/services/window-ref.service';
+import { ToasterService } from '../../shared/services/toaster.service';
 
 
 
@@ -27,7 +28,8 @@ export class FormService {
 
   constructor(
     private http: Http,
-    private winRef: WindowRefService
+    private winRef: WindowRefService,
+    private toasterService: ToasterService
   ) { }
 
   toggleForm(change: boolean) {
@@ -76,7 +78,7 @@ export class FormService {
         this.winRef.reload();
       },
       err => {
-        alert("Something went wrong. Could not create template");
+        this.toasterService.displayToaster("Something went wrong.", 'error');
       }
     );
   }

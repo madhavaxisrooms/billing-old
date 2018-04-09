@@ -5,6 +5,7 @@ import { window } from 'rxjs/operators/window';
 import { Observable } from 'rxjs/Observable';
 
 import { Http } from '@angular/http/src/http';
+import { ToasterService } from '../../../shared/services/toaster.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     private winRef: WindowRefService,
     private paymentService: PaymentService,
+    private toasterService: ToasterService
   ) { }
 
   ngOnInit() {
@@ -47,14 +49,12 @@ export class SubscriptionComponent implements OnInit {
 
   public payNow(amount) {
     if(amount < 1){
-      alert("Please enter any number greater than 0");
-      this.winRef.reload();
+      this.toasterService.displayToaster("Please enter any number greater than 0.", 'error');
       return 0;
     }
    
     if(isNaN(amount)){
-      alert(amount + " is not a number");
-      this.winRef.reload();
+      this.toasterService.displayToaster(amount + " is not a number", 'error');
       return 0;
     }
     var userDetails = {

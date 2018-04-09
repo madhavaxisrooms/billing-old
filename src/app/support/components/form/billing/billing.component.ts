@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormService } from '../../../services/form.service';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormDataService } from '../services/form-data.service';
+import { ToasterService } from '../../../../shared/services/toaster.service';
 
 @Component({
   selector: 'app-billing',
@@ -17,6 +18,7 @@ export class BillingComponent implements OnInit {
     private formService: FormService,
     private formBuilder: FormBuilder,
     private formDataService: FormDataService,
+    private toasterService: ToasterService
   ) { }
   ngOnInit() {
     this.initForm();
@@ -111,7 +113,7 @@ export class BillingComponent implements OnInit {
         this.hotels = JSON.parse(res["_body"]);
       },
       err => {
-        alert('Something went wrong.');
+        this.toasterService.displayToaster("Something went wrong.", 'error');
       }
     );
     this.initForm();

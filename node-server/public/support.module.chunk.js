@@ -243,6 +243,7 @@ module.exports = "<form [formGroup]=\"billingForm\" (ngSubmit)=\"next()\">\n    
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_form_service__ = __webpack_require__("../../../../../src/app/support/services/form.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__ = __webpack_require__("../../../../../src/app/support/components/form/services/form-data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_services_toaster_service__ = __webpack_require__("../../../../../src/app/shared/services/toaster.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -256,11 +257,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var BillingComponent = /** @class */ (function () {
-    function BillingComponent(formService, formBuilder, formDataService) {
+    function BillingComponent(formService, formBuilder, formDataService, toasterService) {
         this.formService = formService;
         this.formBuilder = formBuilder;
         this.formDataService = formDataService;
+        this.toasterService = toasterService;
         this.hotels = [];
     }
     BillingComponent.prototype.ngOnInit = function () {
@@ -360,7 +363,7 @@ var BillingComponent = /** @class */ (function () {
             this.formDataService.getUsers(productSelected).subscribe(function (res) {
                 _this.hotels = JSON.parse(res["_body"]);
             }, function (err) {
-                alert('Something went wrong.');
+                _this.toasterService.displayToaster("Something went wrong.", 'error');
             });
             this.initForm();
             this.billingForm.controls.productType.setValue(productSelected);
@@ -400,7 +403,8 @@ var BillingComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_form_service__["a" /* FormService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */]])
+            __WEBPACK_IMPORTED_MODULE_3__services_form_data_service__["a" /* FormDataService */],
+            __WEBPACK_IMPORTED_MODULE_4__shared_services_toaster_service__["a" /* ToasterService */]])
     ], BillingComponent);
     return BillingComponent;
 }());
@@ -762,7 +766,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n    <button class=\"create-new\" (click)='assignTemplateVisibility = !assignTemplateVisibility'>Assign Template</button>\n    <button class=\"create-new\" (click)='sendInvoicesVisibility = !sendInvoicesVisibility'>Send Invoice</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n\n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\" [ngClass]=\"{'blue-border': template.templateType == 'Custom' }\">\n      <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\"\n        [index]=\"i\"></app-template-details>\n\n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/plus-circle-outline.png\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType == 'Custom'\">\n        <h3 class=\"title\"> User Name</h3>\n        <p class=\"content\">{{template.userName}} </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType != 'Custom'\">\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.country}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n\n      <!-- <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div> -->\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.productType | productName}} </p>\n      </div>\n\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>\n\n<!-- Assign Template Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"assignTemplateVisibility\">\n  <div class=\"modal-overlay\" (click)=\"assignTemplateVisibility = !assignTemplateVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"assignTemplateVisibility = !assignTemplateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Assign Template</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"text\" #supplierId placeholder=\"Enter Supplier Id\" (keyup)=\"supplierId.value\">\n      <button (click)=\"assignTemplate(supplierId.value);assignTemplateVisibility = !assignTemplateVisibility \" [disabled]=\"supplierId.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>\n\n<!-- Send Invoices Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"sendInvoicesVisibility\">\n  <div class=\"modal-overlay\" (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Send Invoices</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"date\" #date (change)=\"date.value\">\n      <button (click)=\"sendInvoices(date.value);sendInvoicesVisibility = !sendInvoicesVisibility \"  [disabled]=\"date.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>"
+module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-content\">\n  <div class=\"client-nav\">\n    <button routerLinkActive=\"active\" routerLink=\"../home\">All Templates</button>\n    <!-- <button>Promotions</button>\n    <span class=\"icon-container\">\n      <img src=\"../../../../assets/filter-icon.png\" class=\"filter-icon icon\" />\n    </span>\n\n    <select name=\"type\">\n      <option value=\"#\">Axisrooms</option>\n      <option value=\"#\">Hotel Linkage</option>\n      <option value=\"#\">Staydilly</option>\n    </select> -->\n    <button routerLinkActive=\"active\" routerLink=\"../invoices\">Invoices</button>\n  </div>\n  <div class=\"search-options\">\n    <input type=\"text\" class=\"search-bar\" placeholder=\"Search\">\n    <button class=\"create-new\" (click)='showForm()'>Create Template</button>\n    <button class=\"create-new\" (click)='assignTemplateVisibility = !assignTemplateVisibility'>Assign Template</button>\n    <button class=\"create-new\" (click)='sendInvoicesVisibility = !sendInvoicesVisibility'>Send Invoice</button>\n  </div>\n  <div class=\"cards-area\">\n    <app-loading-indicator [hidden]=\"loadingIndicator\"></app-loading-indicator>\n\n    <div class=\"info-card\" *ngFor=\"let template of templateData?.templateDetails.reverse();let i = index\" [ngClass]=\"{'blue-border': template.templateType == 'Custom' }\">\n      <app-template-details (hideTemplate)=\"hideTemplateDetails($event)\" [hidden]=\"templateDetailsHidden[i]\" [templateDetails]=\"template\"\n        [index]=\"i\"></app-template-details>\n\n      <span class=\"edit-button\">\n        <img (click)='templateDetailsHidden[i] = false' src=\"../../../../assets/plus-circle-outline.png\" alt=\"Edit Icon\" class=\"edit icon\">\n      </span>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\"> Rule Name</h3>\n        <p class=\"content\">{{template.ruleName}} </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType == 'Custom'\">\n        <h3 class=\"title\"> User Name</h3>\n        <p class=\"content\">{{template.userName}} [{{template.userId}}] </p>\n      </div>\n\n      <div class=\"card-data\" *ngIf=\"template.templateType != 'Custom'\">\n        <h3 class=\"title\">Country</h3>\n        <p class=\"content\">{{template.country}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.templateType}} </p>\n      </div>\n\n      <!-- <div class=\"card-data\">\n        <h3 class=\"title\">Star Rating</h3>\n        <p class=\"content\" *ngIf=\"template.starRating == 0\" > ANY </p>\n        <p class=\"content\" *ngIf=\"template.starRating != 0\" >{{template.starRating}} </p>\n      </div> -->\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Currency</h3>\n        <p class=\"content\">{{template.transactionCurrency}} </p>\n      </div>\n\n      <div class=\"card-data\">\n        <h3 class=\"title\">Type</h3>\n        <p class=\"content\">{{template.productType | productName}} </p>\n      </div>\n\n    </div>\n\n  </div>\n  <!-- <div class=\"pagination\">\n    <ul>\n      <li>1</li>\n      <li>2</li>\n      <li>3</li>\n      <li>4</li>\n      <li>5</li>\n    </ul>\n  </div> -->\n</div>\n\n<!-- Assign Template Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"assignTemplateVisibility\">\n  <div class=\"modal-overlay\" (click)=\"assignTemplateVisibility = !assignTemplateVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"assignTemplateVisibility = !assignTemplateVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Assign Template</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"text\" #supplierId placeholder=\"Enter Supplier Id\" (keyup)=\"supplierId.value\">\n      <button (click)=\"assignTemplate(supplierId.value);assignTemplateVisibility = !assignTemplateVisibility \" [disabled]=\"supplierId.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>\n\n<!-- Send Invoices Modal -->\n<div class=\"modal-wrapper\" *ngIf=\"sendInvoicesVisibility\">\n  <div class=\"modal-overlay\" (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\"></div>\n  <div class=\"modal-content change-due-date\">\n    <div class=\"close icon\">\n      <img (click)=\"sendInvoicesVisibility = !sendInvoicesVisibility\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\"\n        class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Send Invoices</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <input type=\"date\" #date (change)=\"date.value\">\n      <button (click)=\"sendInvoices(date.value);sendInvoicesVisibility = !sendInvoicesVisibility \"  [disabled]=\"date.value == '' \">Send</button>\n    </div>\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -773,6 +777,7 @@ module.exports = "<app-form *ngIf='!formHidden'></app-form>\n<div class=\"body-c
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_form_service__ = __webpack_require__("../../../../../src/app/support/services/form.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_toaster_service__ = __webpack_require__("../../../../../src/app/shared/services/toaster.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -784,9 +789,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(formService) {
+    function HomeComponent(formService, toasterService) {
         this.formService = formService;
+        this.toasterService = toasterService;
         this.loadingIndicator = false;
         this.aggrMenuHidden = true;
         this.assignTemplateVisibility = false;
@@ -805,17 +812,19 @@ var HomeComponent = /** @class */ (function () {
         this.templateDetailsHidden[message] = true;
     };
     HomeComponent.prototype.assignTemplate = function (supplierId) {
+        var _this = this;
         this.formService.assignTemplate(supplierId).subscribe(function (res) {
-            alert(res['_body']);
+            _this.toasterService.displayToaster(res['_body'], 'info');
         }, function (err) {
-            alert("Something went wrong. Could not assign template");
+            _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
     HomeComponent.prototype.sendInvoices = function (date) {
+        var _this = this;
         this.formService.sendInvoices(date).subscribe(function (res) {
-            alert(res['_body']);
+            _this.toasterService.displayToaster(res['_body'], 'info');
         }, function (err) {
-            alert("Something went wrong. Could not send invoices");
+            _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
     HomeComponent.prototype.showForm = function () {
@@ -828,7 +837,8 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/support/components/home/home.component.html"),
             styles: [__webpack_require__("../../../../../src/app/support/components/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_form_service__["a" /* FormService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_form_service__["a" /* FormService */],
+            __WEBPACK_IMPORTED_MODULE_2__shared_services_toaster_service__["a" /* ToasterService */]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -870,6 +880,7 @@ module.exports = "<app-loading-indicator [hidden]=\"loader\"></app-loading-indic
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_services_toaster_service__ = __webpack_require__("../../../../../src/app/shared/services/toaster.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -882,10 +893,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var InvoicesComponent = /** @class */ (function () {
-    function InvoicesComponent(invoiceService, winRef) {
+    function InvoicesComponent(invoiceService, winRef, toasterService) {
         this.invoiceService = invoiceService;
         this.winRef = winRef;
+        this.toasterService = toasterService;
         this.changeDueDateVisibility = false;
         this.loader = false;
     }
@@ -897,32 +910,29 @@ var InvoicesComponent = /** @class */ (function () {
                 _this.actionMenu = new Array(_this.invoices.length);
             _this.loader = true;
         }, function (err) {
-            alert("Something went wrong.");
+            _this.toasterService.displayToaster("Something went wrong.", 'error');
             _this.loader = true;
         });
     };
     InvoicesComponent.prototype.changeStatus = function (invoiceId, status, currentStatus) {
         var _this = this;
         if (currentStatus == 'PAID' && status == "DELETED") {
-            alert("Cannot Delete a Paid Invoice");
+            this.toasterService.displayToaster("Cannot delete paid invoice", 'error');
         }
         else {
             this.invoiceService.changeInvoiceStatus(invoiceId, status).subscribe(function (res) {
-                alert(res['_body']);
                 _this.winRef.reload();
             }, function (err) {
-                alert("Something went wrong.");
+                _this.toasterService.displayToaster("Something went wrong.", 'error');
             });
         }
     };
     InvoicesComponent.prototype.changeDueDate = function (date) {
         var _this = this;
-        console.log(this.invoiceIdForDueDate + date);
         this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
-            alert(res['_body']);
             _this.winRef.reload();
         }, function (err) {
-            alert("Something went wrong.");
+            _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
     InvoicesComponent = __decorate([
@@ -932,7 +942,8 @@ var InvoicesComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/support/components/invoices/invoices.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_invoice_service__["a" /* InvoiceService */],
-            __WEBPACK_IMPORTED_MODULE_2__shared_services_window_ref_service__["a" /* WindowRefService */]])
+            __WEBPACK_IMPORTED_MODULE_2__shared_services_window_ref_service__["a" /* WindowRefService */],
+            __WEBPACK_IMPORTED_MODULE_3__shared_services_toaster_service__["a" /* ToasterService */]])
     ], InvoicesComponent);
     return InvoicesComponent;
 }());
@@ -1199,6 +1210,7 @@ var RecurringPipe = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_services_window_ref_service__ = __webpack_require__("../../../../../src/app/shared/services/window-ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_services_toaster_service__ = __webpack_require__("../../../../../src/app/shared/services/toaster.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1213,10 +1225,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FormService = /** @class */ (function () {
-    function FormService(http, winRef) {
+    function FormService(http, winRef, toasterService) {
         this.http = http;
         this.winRef = winRef;
+        this.toasterService = toasterService;
         // Behaviour Subjects for Froms
         this.formHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.audienceHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
@@ -1271,7 +1285,7 @@ var FormService = /** @class */ (function () {
             _this.getAllTemplates();
             _this.winRef.reload();
         }, function (err) {
-            alert("Something went wrong. Could not create template");
+            _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
     FormService.prototype.assignTemplate = function (supplierId) {
@@ -1293,7 +1307,8 @@ var FormService = /** @class */ (function () {
     FormService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */],
-            __WEBPACK_IMPORTED_MODULE_4__shared_services_window_ref_service__["a" /* WindowRefService */]])
+            __WEBPACK_IMPORTED_MODULE_4__shared_services_window_ref_service__["a" /* WindowRefService */],
+            __WEBPACK_IMPORTED_MODULE_5__shared_services_toaster_service__["a" /* ToasterService */]])
     ], FormService);
     return FormService;
 }());
