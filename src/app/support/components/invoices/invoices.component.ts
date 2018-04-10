@@ -9,7 +9,7 @@ import { ToasterService } from '../../../shared/services/toaster.service';
   styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements OnInit {
-
+  public invoiceDate;
   public invoices;
   public actionMenu;
   public changeDueDateVisibility: boolean = false;
@@ -52,7 +52,6 @@ export class InvoicesComponent implements OnInit {
   }
 
   changeDueDate(date) {
-
     this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
       res => {
         this.winRef.reload();

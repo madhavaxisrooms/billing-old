@@ -35,8 +35,6 @@ export class ValidityComponent implements OnInit {
 
     this.formDataService.restrictToPostPaid.subscribe(res => { this.restrictToPostPaid = res; });
     this.today = moment(new Date()).format('YYYY-MM-DD');
-    console.log(this.today);
-    
   }
 
   duration(value) {

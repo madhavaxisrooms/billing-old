@@ -34,7 +34,7 @@
                     <span [hidden]="!actionMenu[i]" >
                         <span class="action-dropdown-overlay" (click)="actionMenu[i] = !actionMenu[i]" ></span>
                         <ul class="action-dropdown" >
-                            <li *ngIf="invoice.status != 'PAID'" (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId">Change Due-Date</li>
+                            <li *ngIf="invoice.status != 'PAID'" (click)="changeDueDateVisibility = !changeDueDateVisibility; actionMenu[i] = !actionMenu[i];invoiceIdForDueDate = invoice.invoiceId; invoiceDate = invoice.generationDate.slice(0,10)">Change Due-Date</li>
                             <li *ngIf="invoice.status != 'PAID'" (click)="changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Paid</li>
                             <li *ngIf="invoice.status != 'UNPAID'" (click)="changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
                             <li *ngIf="invoice.status == 'UNPAID'" (click)="changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
@@ -68,7 +68,7 @@
             <h3 class="modal-heading">Change Due Date</h3>
         </div>
         <div class="modal-body-content">
-            <input type="date" #date (change)="date.value">
+            <input type="date" #date (change)="date.value" min="{{invoiceDate}}" >
             <button (click)="changeDueDate(date.value);changeDueDateVisibility = !changeDueDateVisibility ">Done</button>
         </div>
 
