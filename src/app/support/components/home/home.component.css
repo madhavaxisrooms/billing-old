@@ -1,0 +1,14 @@
+.bottom-right{
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    margin: 0;
+}
+
+.card-data > *{
+    margin: 0;
+}
+
+.card-data{
+    margin: 5px 0;
+}

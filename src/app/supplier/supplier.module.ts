@@ -16,7 +16,6 @@ import { DetailsModalComponent } from './components/subscription/details-modal/d
 import { ChargeValuePipe } from './pipes/charge-value.pipe';
 import { RecurringPipe } from './pipes/recurring.pipe';
 import { PaymentCyclePipe } from './pipes/payment-cycle.pipe';
-import { ProductNamePipe } from './pipes/produt-name.pipe';
 import { InvoiceService } from '../shared/services/invoice.service';
 import {LoadingIndicatorComponent} from './components/loading-indicator/loading-indicator.component';
 
@@ -39,7 +38,6 @@ import {LoadingIndicatorComponent} from './components/loading-indicator/loading-
     ChargeValuePipe,
     RecurringPipe,
     PaymentCyclePipe,
-    ProductNamePipe,
     LoadingIndicatorComponent
   ],
   providers:[

@@ -357,8 +357,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var PageNotFoundComponent = /** @class */ (function () {
     function PageNotFoundComponent() {
     }
-    PageNotFoundComponent.prototype.ngOnInit = function () {
-    };
     PageNotFoundComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-page-not-found',

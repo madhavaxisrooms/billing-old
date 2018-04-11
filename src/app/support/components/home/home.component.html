@@ -33,23 +33,28 @@
 
       <div class="card-data">
         <h3 class="title"> Rule Name</h3>
-        <p class="content">{{template.ruleName}} </p>
-      </div>
-
-      <div class="card-data" *ngIf="template.templateType == 'Custom'">
-        <h3 class="title"> User Name</h3>
-        <p class="content">{{template.userName}} [{{template.userId}}] </p>
-      </div>
-
-      <div class="card-data" *ngIf="template.templateType != 'Custom'">
-        <h3 class="title">Country</h3>
-        <p class="content">{{template.country}} </p>
+        <p class="content">({{template.templateType}}) {{template.ruleName}} </p>
       </div>
 
       <div class="card-data">
+        <h3 class="title"> Type </h3>
+        <p class="content"> <span  *ngIf="template.templateType == 'Custom'"> {{template.userName}} [{{template.userId}}] - </span> {{template.productType}} </p>
+      </div>
+
+      <!-- <div class="card-data" *ngIf="template.templateType == 'Custom'">
+        <h3 class="title"> User Name</h3>
+        <p class="content">{{template.userName}} [{{template.userId}}] </p>
+      </div> -->
+
+      <!-- <div class="card-data" *ngIf="template.templateType != 'Custom'">
+        <h3 class="title">Country</h3>
+        <p class="content">{{template.country}} </p>
+      </div> -->
+
+      <!-- <div class="card-data">
         <h3 class="title">Type</h3>
         <p class="content">{{template.templateType}} </p>
-      </div>
+      </div> -->
 
       <!-- <div class="card-data">
         <h3 class="title">Star Rating</h3>
@@ -57,15 +62,17 @@
         <p class="content" *ngIf="template.starRating != 0" >{{template.starRating}} </p>
       </div> -->
 
-      <div class="card-data">
+      <!-- <div class="card-data bottom-right ">
         <h3 class="title">Currency</h3>
         <p class="content">{{template.transactionCurrency}} </p>
-      </div>
+      </div> -->
 
-      <div class="card-data">
+      <h4 class="bottom-right" >{{template.transactionCurrency}} </h4>
+
+      <!-- <div class="card-data">
         <h3 class="title">Product</h3>
         <p class="content">{{template.productType | productName}} </p>
-      </div>
+      </div> -->
 
     </div>
 

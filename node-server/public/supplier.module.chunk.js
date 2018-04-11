@@ -678,42 +678,6 @@ var PaymentCyclePipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/supplier/pipes/produt-name.pipe.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductNamePipe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var ProductNamePipe = /** @class */ (function () {
-    function ProductNamePipe() {
-    }
-    ProductNamePipe.prototype.transform = function (value, args) {
-        if (value == "BE")
-            return "Booking Engine";
-        else if (value == "CM")
-            return "Channel Manager";
-        else if (value == "HEX")
-            return "HeX";
-    };
-    ProductNamePipe = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Pipe */])({
-            name: 'productName'
-        })
-    ], ProductNamePipe);
-    return ProductNamePipe;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../../../../src/app/supplier/pipes/recurring.pipe.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -876,16 +840,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pipes_charge_value_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/charge-value.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pipes_recurring_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/recurring.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pipes_payment_cycle_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/payment-cycle.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pipes_produt_name_pipe__ = __webpack_require__("../../../../../src/app/supplier/pipes/produt-name.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__shared_services_invoice_service__ = __webpack_require__("../../../../../src/app/shared/services/invoice.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_loading_indicator_loading_indicator_component__ = __webpack_require__("../../../../../src/app/supplier/components/loading-indicator/loading-indicator.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -928,13 +890,12 @@ var SupplierModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_14__pipes_charge_value_pipe__["a" /* ChargeValuePipe */],
                 __WEBPACK_IMPORTED_MODULE_15__pipes_recurring_pipe__["a" /* RecurringPipe */],
                 __WEBPACK_IMPORTED_MODULE_16__pipes_payment_cycle_pipe__["a" /* PaymentCyclePipe */],
-                __WEBPACK_IMPORTED_MODULE_17__pipes_produt_name_pipe__["a" /* ProductNamePipe */],
-                __WEBPACK_IMPORTED_MODULE_19__components_loading_indicator_loading_indicator_component__["a" /* LoadingIndicatorComponent */]
+                __WEBPACK_IMPORTED_MODULE_18__components_loading_indicator_loading_indicator_component__["a" /* LoadingIndicatorComponent */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_10__shared_services_window_ref_service__["a" /* WindowRefService */],
                 __WEBPACK_IMPORTED_MODULE_11__services_payment_service__["a" /* PaymentService */],
-                __WEBPACK_IMPORTED_MODULE_18__shared_services_invoice_service__["a" /* InvoiceService */]
+                __WEBPACK_IMPORTED_MODULE_17__shared_services_invoice_service__["a" /* InvoiceService */]
             ]
         })
     ], SupplierModule);
