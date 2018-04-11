@@ -21,6 +21,13 @@ export class ToasterComponent implements OnInit {
     this.toasterService.toasterMessageType.subscribe((status) => this.toasterMessageType = status);
   }
 
+  /**
+   * Calls the dismiss toaster in Toaster Service
+   * Hides toaster
+   * 
+   * @requires ToasterService
+   * @memberof ToasterComponent
+   */
   dismissToaster() {
     this.toasterService.dismissToaster();
   }

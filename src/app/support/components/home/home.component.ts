@@ -21,6 +21,13 @@ export class HomeComponent implements OnInit {
     private toasterService: ToasterService
   ) { }
 
+  /**
+   * 1. Getting all the templates from server and displaying in the template
+   * 2. Getting the Formhidden flag from the form service.
+   * 
+   * @requires FormService 
+   * @memberof HomeComponent
+   */
   ngOnInit() {
     this.formService.getAllTemplates().subscribe(
       res => {
@@ -52,6 +59,13 @@ export class HomeComponent implements OnInit {
     );
   }
   
+  /**
+   * 
+   * @requires FormService Calling API to send the invoice date to the server.
+   * @requires ToasterSevice Displaying Error and success messages.
+   * @param {any} date Getting the Date from the user.
+   * @memberof HomeComponent
+   */
   sendInvoices(date){
     this.formService.sendInvoices(date).subscribe(
       res =>{
@@ -63,6 +77,11 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  /**
+   * Changes the form hidden flag to False. Hence showing the form.
+   * @requires fromService To toggle form tabs back to audience and hide the form when needed.
+   * @memberof HomeComponent
+   */
   showForm() {
     this.formService.toggleFormTabs(null, 'audience')
     this.formService.toggleForm(false);

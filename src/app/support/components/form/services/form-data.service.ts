@@ -11,7 +11,12 @@ export class FormDataService {
     private formService: FormService,
     private http: Http
   ) { }
-
+  /**
+   * Setting a behaviour subject to broadcast weather the restrictToPostPaid flag is to be set to true or false
+   * 
+   * @private 
+   * @memberof FormDataService
+   */
   private restrictToPostPaidSource = new BehaviorSubject<boolean>(false);
   restrictToPostPaid = this.restrictToPostPaidSource.asObservable();
 
@@ -20,6 +25,12 @@ export class FormDataService {
     this.restrictToPostPaidSource.next(val);
   }
 
+  /**
+   * Behaviour subject to check if the user has selected Default or custom in the Audience From
+   * 
+   * @private
+   * @memberof FormDataService
+   */
   private isDefaultSource = new BehaviorSubject<string>("DEFAULT");
   isDefault = this.isDefaultSource.asObservable();
 
@@ -55,6 +66,12 @@ export class FormDataService {
   }
   public mergerdForm = {};
 
+  /**
+   * Gets all countries from server
+   * 
+   * @returns {Observable<any>} 
+   * @memberof FormDataService
+   */
   getCountries(): Observable<any> {
     const url = "https://billing-service.axisrooms.com/v1/api/country";
     return this.http.post(url, null).map(
@@ -63,8 +80,14 @@ export class FormDataService {
       }
     );
   }
-
-  getUserIds(userType): Observable<any> {
+/**
+ * Gets all the user based on the usertype selected in the audience form
+ * 
+ * @param {any} userType 
+ * @returns {Observable<any>} 
+ * @memberof FormDataService
+ */
+getUserIds(userType): Observable<any> {
 
     if (userType == 'AGGREGATOR') val = 8;
     else if (userType == 'SUPPLIER') val = 1;
@@ -79,6 +102,13 @@ export class FormDataService {
     );
   }
 
+  /**
+   * Gets all hotels based on product type and userId entered in the audience form
+   * 
+   * @param {any} product 
+   * @returns {Observable<any>} 
+   * @memberof FormDataService
+   */
   getUsers(product): Observable<any> {
     const url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
     return this.http.post(url, null).map(
@@ -89,9 +119,14 @@ export class FormDataService {
   }
 
 
-
-  //Last function called from Validity TAB
-  mergeValidityIntoBilling(validityFormValue) {
+/**
+ * Function called from validity tab.
+ * Merges the data of validity form and Billing form
+ * 
+ * @param {any} validityFormValue 
+ * @memberof FormDataService
+ */
+mergeValidityIntoBilling(validityFormValue) {
 
     for (let i = 0; i < this.billingForm.ruleDetails.length; i++) {
       if (this.billingForm.ruleDetails[i].connectedHotels.length > 0) {
@@ -107,9 +142,14 @@ export class FormDataService {
     this.mergeForms();
   }
 
+  /**
+   * Called from merged form. Is responsible of merging all the form parts and sending it to formservice to post in the server.
+   * 
+   * @requires FromService
+   * @memberof FormDataService
+   */
   mergeForms() {
     this.mergerdForm = { ...this.userDetails, ...this.audienceForm, ...this.billingForm };
-    console.log(this.mergerdForm);
     this.formService.createTemplate(this.mergerdForm);
   }
 }

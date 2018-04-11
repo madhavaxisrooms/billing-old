@@ -64,7 +64,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/support/components/form/audience/audience.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-loading-indicator [hidden]=\"loader\" ></app-loading-indicator> -->\n<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" (change)=\"templateTypeChange()\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p>\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <!-- <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div> -->\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelable </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <!-- <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option> -->\n                </select>\n            </div>\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value); \">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelabel </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds();\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <!-- <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option> -->\n                </select>\n            </div>\n\n            <div class=\"form-element searchable-dropdown \">\n                <p>Choose User</p>\n                <input type=\"text\" placeholder=\"Type to search\" [ngClass]=\"{'ng-invalid': audienceForm.value.userId == null}\" [value]=\"selectedUser\" (focus)=\"searchUser(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/>\n                <div class=\"users-dropdown\"  *ngIf=\"usersSearchedList\">\n                    <ul>\n                        <li *ngFor=\"let user of usersSearchedList\" (click)=\"userSelected(user);\" > {{user.userName}} [{{user.userId}}] </li>\n                    </ul>\n                </div>\n              \n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
+module.exports = "<!-- <app-loading-indicator [hidden]=\"loader\" ></app-loading-indicator> -->\n<form [formGroup]=\"audienceForm\" (ngSubmit)=\"next()\">\n\n    <div class=\"modal-form\">\n\n        <div class=\"form-element\">\n            <div class=\"default-values\">\n                <select style=\"width: 100%;\" formControlName=\"templateType\" (change)=\"templateTypeChange()\" >\n                    <option value='CUSTOM'> CUSTOM </option>\n                    <option value='DEFAULT'> DEFAULT </option>\n                </select>\n            </div>\n        </div>\n        <div class=\"form-element\">\n            <p>Enter Rule Name</p>\n            <input formControlName=\"ruleName\" #ruleName type=\"text\" placeholder=\"Rule Name\">\n        </div>\n\n        <!-- Default Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'DEFAULT'\">\n            <div class=\"form-element\">\n                <p>Select Country</p>\n                <select formControlName=\"country\">\n                    <option *ngFor=\"let country of countries\" value=\"{{country.countryValue}}\">{{country.countryValue}}</option>\n                </select>\n            </div>\n\n            <!-- <div class=\"form-element\">\n                <p>Rating</p>\n                <select formControlName=\"starRating\">\n                    <option value=0> Any </option>\n                    <option value=1> &#9733; </option>\n                    <option value=2> &#9733;&#9733; </option>\n                    <option value=3> &#9733;&#9733;&#9733; </option>\n                    <option value=4> &#9733;&#9733;&#9733;&#9733; </option>\n                    <option value=5> &#9733;&#9733;&#9733;&#9733;&#9733; </option>\n                </select>\n            </div> -->\n\n            <div class=\"form-element\">\n                <p>Belongs To</p>\n                <select #btc (change)=\"btc.value; fillAggregators(btc.value)\">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelabel </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <!-- <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option> -->\n                </select>\n            </div>\n        </span>\n\n        <!-- Custom Form -->\n        <span [hidden]=\"audienceForm.value.templateType != 'CUSTOM'\">\n            <div class=\"form-element\">\n                <p>Belongs custom To</p>\n                <select #btc1 (change)=\"btc1.value; fillAggregators(btc1.value); \">\n                    <option value=\"axr\"> Axisrooms </option>\n                    <option value=\"agg\"> Aggregator | Whitelabel </option>\n                </select>\n            </div>\n\n            <div class=\"form-element\" *ngIf=\"btc1.value == 'axr'\">\n                <p>User Type</p>\n                <select formControlName=\"userRole\" (change)=\"getUserIds();\">\n                    <option value=\"SUPPLIER\"> Supplier </option>\n                    <!-- <option value=\"SUPPLIER_ADMIN\"> Supplier Admin </option> -->\n                </select>\n            </div>\n\n            <div class=\"form-element searchable-dropdown \">\n                <p>Choose User</p>\n                <input type=\"text\" placeholder=\"Type to search\" [ngClass]=\"{'ng-invalid': audienceForm.value.userId == null}\" [value]=\"selectedUser\" (focus)=\"searchUser(searchUserQuery.value)\"  #searchUserQuery (keyup)=\"searchUser(searchUserQuery.value) \"/>\n                <div class=\"users-dropdown\"  *ngIf=\"usersSearchedList\">\n                    <ul>\n                        <li *ngFor=\"let user of usersSearchedList\" (click)=\"userSelected(user);\" > {{user.userName}} [{{user.userId}}] </li>\n                    </ul>\n                </div>\n              \n            </div>\n        </span>\n\n\n    </div>\n    <div class=\"next-button\">\n        <button type=\"submit\" [disabled]=\"audienceForm.invalid\">Next</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -101,6 +101,12 @@ var AudienceComponent = /** @class */ (function () {
         this.countries = [];
         this.selectedUser = '';
     }
+    /**
+     * 1. Initializing the form elements
+     * 2. Getting the list of countries
+     * 3. Getting UserIds
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.audienceForm = this.formBuilder.group({
@@ -116,6 +122,16 @@ var AudienceComponent = /** @class */ (function () {
         });
         this.getUserIds();
     };
+    /**
+     * 1. Gets the Aggregator type from the user
+     * 2. Setting the user role  in the form
+     * 3. Gets corresponding users
+     * 4. Emptys the Users searched list
+     * 5. Emptys the selected user feild
+     *
+     * @param {any} val
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.fillAggregators = function (val) {
         this.usersSearchedList.length = 0;
         if (val == 'agg' && this.audienceForm.value.templateType != "DEFAULT") {
@@ -129,6 +145,12 @@ var AudienceComponent = /** @class */ (function () {
             this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
         }
     };
+    /**
+     * Gets all the userId from the service.
+     *
+     * @requires FormDataService
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.getUserIds = function () {
         var _this = this;
         var counter = 0;
@@ -140,6 +162,15 @@ var AudienceComponent = /** @class */ (function () {
                 _this.searchUser(_this.selectedUser);
         });
     };
+    /**
+     * 1. Gets the user that is selected.
+     * 2. Updates the User selected input value
+     * 3. Emptys the user searched list
+     * 4. Sets the userId in the audience form
+     *
+     * @param {any} user
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.userSelected = function (user) {
         if (user.userName + " [" + user.userId + "]" == this.selectedUser) {
             this.selectedUser = user.userName + " [" + user.userId + "] ";
@@ -150,9 +181,21 @@ var AudienceComponent = /** @class */ (function () {
         this.audienceForm.controls.userId.setValue(user.userId);
         this.usersSearchedList = [];
     };
+    /**
+     * Display all the Users when the user clicks on the select user input
+     *
+     * @param {any} value
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.searchFocused = function (value) {
         this.usersSearchedList = this.allUsers;
     };
+    /**
+     * Updates the user searched list based on the query provided by the user.
+     *
+     * @param {any} query
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.searchUser = function (query) {
         if (query == "" || query == undefined) {
             this.usersSearchedList = [];
@@ -170,6 +213,13 @@ var AudienceComponent = /** @class */ (function () {
             }
         }
     };
+    /**
+     * 1. Updates the view based on template type selection.
+     * 2. Adds and removes the validators of the respective views.
+     * This is done becuase if we add validators during form validation the user will not be able to submit the form.
+     *
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.templateTypeChange = function () {
         if (this.audienceForm.value.templateType == 'CUSTOM') {
             this.audienceForm.controls.userId.setValidators([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required]);
@@ -184,12 +234,19 @@ var AudienceComponent = /** @class */ (function () {
             this.audienceForm.controls.country.updateValueAndValidity();
         }
     };
+    /**
+     * 1. Star rating disabled for now.
+     * 2. Sets the is default flag in the formdataservice.
+     * 3. Toggles the tabs
+     *
+     * @requires FormDataService
+     * @requires FormSerivice
+     * @memberof AudienceComponent
+     */
     AudienceComponent.prototype.next = function () {
         this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
         this.formDataService.audienceForm = this.audienceForm.value;
         this.formDataService.toggleIsDefault(this.audienceForm.value.templateType);
-        //For Navigation
-        console.log(this.audienceForm.value);
         this.formService.toggleFormTabs('audience', 'billing');
     };
     AudienceComponent = __decorate([
@@ -266,12 +323,24 @@ var BillingComponent = /** @class */ (function () {
         this.toasterService = toasterService;
         this.hotels = [];
     }
+    /**
+     * Initialises the form
+     * Knows weather the Audiece form type was Custom pr default
+     *
+     * @requires FormDataService
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.initForm();
         this.formDataService.isDefault.subscribe(function (res) { _this.isDefault = res; if (_this.isDefault != "DEFAULT")
             _this.productChoice("CM"); });
     };
+    /**
+     * Initilises the From
+     * Add
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.initForm = function () {
         this.billingForm = this.formBuilder.group({
             productType: ['CM'],
@@ -282,6 +351,13 @@ var BillingComponent = /** @class */ (function () {
             ])
         });
     };
+    /**
+     * Initialises and adds the Rules array for the ruledetails in the billingform.
+     *
+     *
+     * @returns
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.initRulesArray = function () {
         return this.formBuilder.group({
             hotelDropdownList: [[]],
@@ -295,6 +371,15 @@ var BillingComponent = /** @class */ (function () {
             paymentCycle: [1, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required] //paymentCycle - num 1,3,6,12
         });
     };
+    /**
+     * Checks if the hotel is selected
+     * Used for checking/unchecking the hotels in the select hotel drowpdown
+     *
+     * @param {any} hotel hotel object as recieved from the server.
+     * @param {any} i index
+     * @returns {boolean}
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.isSelected = function (hotel, i) {
         var hotelsSelected = [];
         for (var p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++)
@@ -305,9 +390,22 @@ var BillingComponent = /** @class */ (function () {
         }
         return true;
     };
+    /**
+     * Fills the hotel dropdown list with all the users for selection
+     *
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.searchFocused = function (i) {
         this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
     };
+    /**
+     * Filters the hoteldropdownlist based on the search query entered.
+     *
+     * @param {any} query query typed by the user
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.searchQueryEntered = function (query, i) {
         if (query == '') {
             this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
@@ -322,6 +420,14 @@ var BillingComponent = /** @class */ (function () {
             }
         }
     };
+    /**
+     * 1. Used to select/deselect all the hotels in the dropdown list.
+     * 2. Fills all the hotes in the connected hotels element of the Billing form
+     *
+     * @param {boolean} operation True to select all. False to deselect all.
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.selectAll = function (operation, i) {
         if (operation == true) {
             this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
@@ -331,16 +437,36 @@ var BillingComponent = /** @class */ (function () {
             this.billingForm.value.ruleDetails[i].connectedHotels = [];
         }
     };
+    /**
+     * Pushes another rules array in the billing form ruledetails obejct
+     *
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.addRulesForm = function () {
         var control = this.billingForm.controls['ruleDetails'];
         control.push(this.initRulesArray());
     };
+    /**
+     * Removes the rule from the billing form ruledetails object.
+     *
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.removeRule = function (i) {
         if (i > 0) {
             var control = this.billingForm.controls['ruleDetails'];
             control.removeAt(i);
         }
     };
+    /**
+     * 1. Emptying the hotel selected list.
+     * 2. Checking if the hotel is already checked.
+     * 3. Pushing the hotel in the connected hotels array in the billing form
+     *
+     * @param {any} hotel hotel object as recieved from the Server
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.hotelChecked = function (hotel, i) {
         var hotelsSelected = [];
         for (var p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++)
@@ -353,10 +479,28 @@ var BillingComponent = /** @class */ (function () {
             this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
         }
     };
+    /**
+     * Gets the index of the connected hotel
+     * Removes the hotel frm the connected hotels array in the billing form
+     *
+     * @param {any} hotel hotel object as recieved from the server
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.removeHotel = function (hotel, i) {
         var index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel);
         this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
     };
+    /**
+     * 1. Based on the product choice of the user updares the hotels list
+     * 2. By Default shows the Channel manger's hotels
+     * 3. Reinitialises the form to make sure no previous values are submitted.
+     *
+     * @requires FormDataService
+     * @requires ToasterService
+     * @param {any} productSelected
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.productChoice = function (productSelected) {
         var _this = this;
         if (this.isDefault === 'CUSTOM') {
@@ -369,6 +513,13 @@ var BillingComponent = /** @class */ (function () {
             this.billingForm.controls.productType.setValue(productSelected);
         }
     };
+    /**
+     * Updates the Transaction base object in the billing form.
+     * Adds/Removes the validators based on user selection
+     *
+     * @param {any} i index
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.paymentTypeChange = function (i) {
         if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
             this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.setValidators([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["d" /* Validators */].required]);
@@ -379,7 +530,12 @@ var BillingComponent = /** @class */ (function () {
             this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
         }
     };
-    //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+    /**
+     * To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+     *
+     * @returns {boolean}
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.checkPaymentType = function () {
         var rules = this.billingForm.value.ruleDetails;
         for (var i = 0; i < rules.length; i++) {
@@ -389,11 +545,19 @@ var BillingComponent = /** @class */ (function () {
         }
         return false;
     };
+    /**
+     * 1. Sends the billing form to the form data service
+     * 2. Toggles the tabs
+     * 3. Sends the paymentType to Form Data service.
+     *
+     * @requires FormDataService
+     * @requires FormService
+     * @memberof BillingComponent
+     */
     BillingComponent.prototype.next = function () {
         this.formDataService.billingForm = this.billingForm.value;
         this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
         this.formService.toggleFormTabs('billing', 'validity');
-        console.log(this.billingForm.value);
     };
     BillingComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -461,6 +625,12 @@ var FormComponent = /** @class */ (function () {
         this.formService = formService;
         this.validityNavDisabled = true;
     }
+    /**
+     * Getting all the flags from the form serivice. Based on that showing/hiding the form components.
+     * Using the same idea for navigation in the form
+     * @requires FormService getting the Behaviour subjects.
+     * @memberof FormComponent
+     */
     FormComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formService.audienceHidden.subscribe(function (status) { return _this.audienceHidden = status; });
@@ -468,12 +638,32 @@ var FormComponent = /** @class */ (function () {
         this.formService.validityHidden.subscribe(function (status) { return _this.validityHidden = status; });
         this.formService.billingNavDisabled.subscribe(function (status) { return _this.billingNavDisabled = status; });
     };
+    /**
+     * Hiding the form
+     *
+     * @requires FormService
+     * @memberof FormComponent
+     */
     FormComponent.prototype.hideForm = function () {
         this.formService.toggleForm(true);
     };
+    /**
+     * Toggling form Tabs
+     *
+     * @requires FormService
+     * @memberof FormComponent
+     */
     FormComponent.prototype.toggleFormTabs = function (from, to) {
         this.formService.toggleFormTabs(from, to);
     };
+    /**
+     *
+     * Whenever the user presses the escape key. The Form will hide.
+     *
+     * @requires Hostlistner
+     * @param {any} $event
+     * @memberof FormComponent
+     */
     FormComponent.prototype.doSomething = function ($event) {
         if ($event.code == "Escape") {
             this.hideForm();
@@ -536,8 +726,20 @@ var FormDataService = /** @class */ (function () {
     function FormDataService(formService, http) {
         this.formService = formService;
         this.http = http;
+        /**
+         * Setting a behaviour subject to broadcast weather the restrictToPostPaid flag is to be set to true or false
+         *
+         * @private
+         * @memberof FormDataService
+         */
         this.restrictToPostPaidSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.restrictToPostPaid = this.restrictToPostPaidSource.asObservable();
+        /**
+         * Behaviour subject to check if the user has selected Default or custom in the Audience From
+         *
+         * @private
+         * @memberof FormDataService
+         */
         this.isDefaultSource = new __WEBPACK_IMPORTED_MODULE_4_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]("DEFAULT");
         this.isDefault = this.isDefaultSource.asObservable();
         this.audienceForm = {
@@ -571,12 +773,25 @@ var FormDataService = /** @class */ (function () {
     FormDataService.prototype.toggleIsDefault = function (val) {
         this.isDefaultSource.next(val);
     };
+    /**
+     * Gets all countries from server
+     *
+     * @returns {Observable<any>}
+     * @memberof FormDataService
+     */
     FormDataService.prototype.getCountries = function () {
         var url = "https://billing-service.axisrooms.com/v1/api/country";
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Gets all the user based on the usertype selected in the audience form
+     *
+     * @param {any} userType
+     * @returns {Observable<any>}
+     * @memberof FormDataService
+     */
     FormDataService.prototype.getUserIds = function (userType) {
         if (userType == 'AGGREGATOR')
             val = 8;
@@ -590,13 +805,26 @@ var FormDataService = /** @class */ (function () {
             return res;
         });
     };
+    /**
+     * Gets all hotels based on product type and userId entered in the audience form
+     *
+     * @param {any} product
+     * @returns {Observable<any>}
+     * @memberof FormDataService
+     */
     FormDataService.prototype.getUsers = function (product) {
         var url = "https://billing-service.axisrooms.com/v1/api/userHotelList?requestType=HOTEL_LIST&productType=" + product + "&userId=" + this.audienceForm.userId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
-    //Last function called from Validity TAB
+    /**
+     * Function called from validity tab.
+     * Merges the data of validity form and Billing form
+     *
+     * @param {any} validityFormValue
+     * @memberof FormDataService
+     */
     FormDataService.prototype.mergeValidityIntoBilling = function (validityFormValue) {
         for (var i = 0; i < this.billingForm.ruleDetails.length; i++) {
             if (this.billingForm.ruleDetails[i].connectedHotels.length > 0) {
@@ -612,9 +840,14 @@ var FormDataService = /** @class */ (function () {
         }
         this.mergeForms();
     };
+    /**
+     * Called from merged form. Is responsible of merging all the form parts and sending it to formservice to post in the server.
+     *
+     * @requires FromService
+     * @memberof FormDataService
+     */
     FormDataService.prototype.mergeForms = function () {
         this.mergerdForm = __assign({}, this.userDetails, this.audienceForm, this.billingForm);
-        console.log(this.mergerdForm);
         this.formService.createTemplate(this.mergerdForm);
     };
     FormDataService = __decorate([
@@ -691,6 +924,15 @@ var ValidityComponent = /** @class */ (function () {
         this.datesHidden = false;
         this.restrictToPostPaid = false;
     }
+    /**
+     * Initialises the form.
+     * Checks the tramsaction type selection from the Billing form
+     * Initilizes today's date
+     *
+     * @requires FromDataService
+     * @requires Moment A third party plugin for date manipulation
+     * @memberof ValidityComponent
+     */
     ValidityComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.validityForm = this.formBuilder.group({
@@ -702,6 +944,13 @@ var ValidityComponent = /** @class */ (function () {
         this.formDataService.restrictToPostPaid.subscribe(function (res) { _this.restrictToPostPaid = res; });
         this.today = __WEBPACK_IMPORTED_MODULE_4_moment__(new Date()).format('YYYY-MM-DD');
     };
+    /**
+     * Sets the duration of the custom value.
+     * By defualt assumes the custom duration is one month
+     *
+     * @param {any} value
+     * @memberof ValidityComponent
+     */
     ValidityComponent.prototype.duration = function (value) {
         if (value === 'CUSTOM') {
             this.customHidden = true;
@@ -712,6 +961,13 @@ var ValidityComponent = /** @class */ (function () {
             this.validityForm.controls['startDate'].setValue(null);
         }
     };
+    /**
+     * Sets custom duration.
+     *
+     * @requires Moments A third party plugin for date manipulation
+     * @param {any} value
+     * @memberof ValidityComponent
+     */
     ValidityComponent.prototype.custom = function (value) {
         if (value === 'c') {
             this.datesHidden = true;
@@ -722,6 +978,12 @@ var ValidityComponent = /** @class */ (function () {
             this.validityForm.value.endDate = __WEBPACK_IMPORTED_MODULE_4_moment__().add(value, 'M').format('YYYY-MM-DD');
         }
     };
+    /**
+     * Merges Validity into billing form
+     * Toggle the form to hide it.
+     *
+     * @memberof ValidityComponent
+     */
     ValidityComponent.prototype.save = function () {
         this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
         this.formService.toggleFormTabs('validity', null);
@@ -798,6 +1060,13 @@ var HomeComponent = /** @class */ (function () {
         this.assignTemplateVisibility = false;
         this.sendInvoicesVisibility = false;
     }
+    /**
+     * 1. Getting all the templates from server and displaying in the template
+     * 2. Getting the Formhidden flag from the form service.
+     *
+     * @requires FormService
+     * @memberof HomeComponent
+     */
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formService.getAllTemplates().subscribe(function (res) {
@@ -824,6 +1093,13 @@ var HomeComponent = /** @class */ (function () {
             _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
+    /**
+     *
+     * @requires FormService Calling API to send the invoice date to the server.
+     * @requires ToasterSevice Displaying Error and success messages.
+     * @param {any} date Getting the Date from the user.
+     * @memberof HomeComponent
+     */
     HomeComponent.prototype.sendInvoices = function (date) {
         var _this = this;
         this.formService.sendInvoices(date).subscribe(function (res) {
@@ -832,6 +1108,11 @@ var HomeComponent = /** @class */ (function () {
             _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
+    /**
+     * Changes the form hidden flag to False. Hence showing the form.
+     * @requires fromService To toggle form tabs back to audience and hide the form when needed.
+     * @memberof HomeComponent
+     */
     HomeComponent.prototype.showForm = function () {
         this.formService.toggleFormTabs(null, 'audience');
         this.formService.toggleForm(false);
@@ -907,6 +1188,12 @@ var InvoicesComponent = /** @class */ (function () {
         this.changeDueDateVisibility = false;
         this.loader = false;
     }
+    /**
+     * Getting all the invices on page  load.
+     *
+     * @requires invoiceService.getAllInvoices
+     * @memberof InvoicesComponent
+     */
     InvoicesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.invoiceService.getAllInvoices().subscribe(function (res) {
@@ -944,6 +1231,14 @@ var InvoicesComponent = /** @class */ (function () {
             });
         }
     };
+    /**
+     * Takes the date from the front-end and validates of Invoice date is greater than new due date.
+     *
+     * @param {any} date
+     * @memberof InvoicesComponent
+     * @requires InvoiceService.changeDueDate
+     * @requires toasterService.displayToaster
+     */
     InvoicesComponent.prototype.changeDueDate = function (date) {
         var _this = this;
         if (date < this.invoiceDate) {
@@ -1015,6 +1310,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+/**
+ * Used to show the loader.
+ * Use it any component set the hidden flag set to true/false accordingly
+ * @export
+ * @class LoadingIndicatorComponent
+ * @implements {OnInit}
+ */
 var LoadingIndicatorComponent = /** @class */ (function () {
     function LoadingIndicatorComponent() {
     }
@@ -1076,13 +1378,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+/**
+ * Is a child template of the template summary.
+ * Get template details and displays the data
+ *
+ * @export
+ * @class TemplateDetailsComponent
+ * @implements {OnInit}
+ */
 var TemplateDetailsComponent = /** @class */ (function () {
     function TemplateDetailsComponent() {
         this.hideTemplate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
     }
     TemplateDetailsComponent.prototype.ngOnInit = function () {
-        console.log(this.templateDetails);
     };
+    /**
+     * Emits the hidetemplate variable to the parent component. Used in hiding the template details view.
+     *
+     * @memberof TemplateDetailsComponent
+     */
     TemplateDetailsComponent.prototype.hideTemplateDetails = function () {
         this.hideTemplate.emit(this.index);
     };
@@ -1253,7 +1567,12 @@ var FormService = /** @class */ (function () {
         this.http = http;
         this.winRef = winRef;
         this.toasterService = toasterService;
-        // Behaviour Subjects for Froms
+        /**
+         * Behaviour Subjects for forms naviation and toggling
+         *
+         * @private
+         * @memberof FormService
+         */
         this.formHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.audienceHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.billingHiddenSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
@@ -1268,7 +1587,13 @@ var FormService = /** @class */ (function () {
     FormService.prototype.toggleForm = function (change) {
         this.formHiddenSource.next(change);
     };
-    //Take from component and to component
+    /**
+     * Toggling inbetween froms.
+     *
+     * @param {*} from Current Component
+     * @param {*} to Target Component
+     * @memberof FormService
+     */
     FormService.prototype.toggleFormTabs = function (from, to) {
         // Hiding and showing forms
         if (from == null || to == null) {
@@ -1294,12 +1619,24 @@ var FormService = /** @class */ (function () {
         if (to == 'audience')
             this.billingNavDisabledSource.next(true);
     };
+    /**
+     * Getting all templates from Server
+     *
+     * @returns {Observable<any>}
+     * @memberof FormService
+     */
     FormService.prototype.getAllTemplates = function () {
         var url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     *  Posting a new template to the server for creating a template
+     *
+     * @param {any} template
+     * @memberof FormService
+     */
     FormService.prototype.createTemplate = function (template) {
         var _this = this;
         var url = "https://billing-service.axisrooms.com/v1/api/createTemplate";
@@ -1310,6 +1647,13 @@ var FormService = /** @class */ (function () {
             _this.toasterService.displayToaster("Something went wrong.", 'error');
         });
     };
+    /**
+     * Assiging templates to the users.
+     *
+     * @param {any} supplierId
+     * @returns
+     * @memberof FormService
+     */
     FormService.prototype.assignTemplate = function (supplierId) {
         var url = "https://billing-service.axisrooms.com/v1/api/assign/supplier/" + supplierId;
         return this.http.post(url, null).map(function (res) {
@@ -1318,6 +1662,13 @@ var FormService = /** @class */ (function () {
             return err;
         });
     };
+    /**
+     * Sending Invoices based on date
+     *
+     * @param {any} date
+     * @returns
+     * @memberof FormService
+     */
     FormService.prototype.sendInvoices = function (date) {
         var url = "https://billing-service.axisrooms.com/v1/api/invoice/dateRun/" + date;
         return this.http.get(url).map(function (res) {

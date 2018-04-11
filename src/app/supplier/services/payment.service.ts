@@ -8,6 +8,13 @@ export class PaymentService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Gets Supplier details based on supplier ID
+   * 
+   * @param {any} supplierId 
+   * @returns 
+   * @memberof PaymentService
+   */
   getSupplierDetails(supplierId) {
     const url = "https://billing-service.axisrooms.com/v1/api/supplierDetails/" + supplierId;
     return this.http.post(url, null).map(
@@ -17,6 +24,13 @@ export class PaymentService {
     )
   }
 
+  /**
+   * Notifies the server on successfull completion of payment
+   * 
+   * @param {any} paymentId Returned by Razorpay
+   * @returns 
+   * @memberof PaymentService
+   */
   successfulPayment(paymentId) {
     const url = "https://billing-service.axisrooms.com/v1/api/payment/response?paymentId=" + paymentId;
     return this.http.post(url, null).map(
@@ -26,6 +40,13 @@ export class PaymentService {
     )
   }
 
+  /**
+   * Based on the currency it decides if domestic or international url is to be called.
+   * 
+   * @param {any} userDetails 
+   * @returns {Observable<any>} 
+   * @memberof PaymentService
+   */
   paymentGateway(userDetails): Observable<any> {
     let url = "";
     userDetails.orderDetail.currency == "INR" ? url = url.concat("domestic") : url = url.concat("international");

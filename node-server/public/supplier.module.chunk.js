@@ -188,6 +188,13 @@ var InvoicesComponent = /** @class */ (function () {
         this.loading = false;
         this.supplierid = localStorage.getItem('id');
     }
+    /**
+     *
+     * Gets invoices details by ID
+     *
+     * @requires InvoiceService
+     * @memberof InvoicesComponent
+     */
     InvoicesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.invoiceService.getInvoiceDetailsById(this.supplierid).subscribe(function (res) {
@@ -195,13 +202,26 @@ var InvoicesComponent = /** @class */ (function () {
             _this.loading = true;
         });
     };
+    /**
+     * Called from inside the Pay Invoice function.
+     * Invoked when payment has been made successfully.
+     *
+     * @param {any} response
+     * @memberof InvoicesComponent
+     */
     InvoicesComponent.prototype.paymentResponseHander = function (response) {
         var _this = this;
         this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(function (res) {
-            console.log(res);
             _this.winRef.reload();
         });
     };
+    /**
+     * Calling payment Razorpay's payment gateway
+     * Do not recollect much about the same - Madhav Sharma
+     *
+     * @param {any} invoice
+     * @memberof InvoicesComponent
+     */
     InvoicesComponent.prototype.payInvoice = function (invoice) {
         var _this = this;
         var userDetails = {
@@ -406,7 +426,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/subscription/details-modal/details-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-wrapper\">\n  <!-- <div class=\"modal-overlay\" (click)=\"closeModal()\"></div> -->\n  <div class=\"modal-content\">\n    <div class=\"close icon\">\n      <img (click)=\"closeModal()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Products Enabled</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <span  *ngFor=\"let ruleDetail of userDetails?.ruleDetails\" >\n\n      <div class=\"product-card\" *ngIf=\"ruleDetail.productRules\" >\n\n        <h3 class=\"product-name\">\n           <span *ngIf=\"ruleDetail.productType == 'CM'\" >Channel Manager</span>\n           <span *ngIf=\"ruleDetail.productType == 'BE'\" >Booking Engine</span>\n        </h3>\n        <div class=\"hotel-details\" *ngFor=\"let productRule of ruleDetail.productRules\">\n          <p class=\"hotel-name\">{{productRule.productName}}</p>\n          <!-- Fixed Amount Value , recurring? , cycle? -->\n          <!--% Amount  of + transaction base  , recurring? , cycle? -->\n          <div>\n            <!-- <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> {{rule.chargeValue | chargeValue: ruleDetail: rule}}, {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}} -->\n            <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> INR {{rule.chargeValue}} : {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}}\n            </p>\n          </div>\n\n        </div>\n\n      </div>\n      </span>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"modal-wrapper\">\n  <!-- <div class=\"modal-overlay\" (click)=\"closeModal()\"></div> -->\n  <div class=\"modal-content\">\n    <div class=\"close icon\">\n      <img (click)=\"closeModal()\" src=\"../../../../assets/close-icon-white.png\" alt=\"Close Icon\" class=\"icon\">\n    </div>\n    <div class=\"navigation-tabs\">\n      <h3 class=\"modal-heading\">Products Enabled</h3>\n    </div>\n    <div class=\"modal-body-content\">\n      <span  *ngFor=\"let ruleDetail of userDetails?.ruleDetails\" >\n\n      <div class=\"product-card\" *ngIf=\"ruleDetail.productRules\" >\n\n        <h3 class=\"product-name\">\n           <span *ngIf=\"ruleDetail.productType == 'CM'\" >Channel Manager</span>\n           <span *ngIf=\"ruleDetail.productType == 'BE'\" >Booking Engine</span>\n        </h3>\n        <div class=\"hotel-details\" *ngFor=\"let productRule of ruleDetail.productRules\">\n          <p class=\"hotel-name\">{{productRule.productName}}</p>\n          <!-- Fixed Amount Value , recurring? , cycle? -->\n          <!--% Amount  of + transaction base  , recurring? , cycle? -->\n          <div>\n            <!-- <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> {{rule.chargeValue | chargeValue: ruleDetail: rule}}, {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}} -->\n            <p class=\"hotel-rules\" *ngFor=\"let rule of productRule.appliedRules\"> INR {{rule.chargeValue}} : {{rule.recurring | recurring}}, {{rule.paymentCycle | paymentCycle}}\n            </p>\n          </div>\n        </div>\n      </div>\n      </span>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -526,6 +546,12 @@ var SubscriptionComponent = /** @class */ (function () {
         this.detailsHidden = true;
         this.loading = false;
     }
+    /**
+     * Gets the ID of the user from local storage and displays the details.
+     *
+     * @requires PaymentService
+     * @memberof SubscriptionComponent
+     */
     SubscriptionComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.suppierId = localStorage.getItem("id");
@@ -534,12 +560,26 @@ var SubscriptionComponent = /** @class */ (function () {
             _this.loading = true;
         });
     };
+    /**
+      * Called from inside the Pay Invoice function.
+      * Invoked when payment has been made successfully.
+      *
+      * @param {any} response
+      * @memberof InvoicesComponent
+      */
     SubscriptionComponent.prototype.paymentResponseHander = function (response) {
         this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(function (res) {
             console.log(res);
         });
         this.winRef.reload();
     };
+    /**
+    * Calling payment Razorpay's payment gateway
+    * Do not recollect much about the same - Madhav Sharma
+    *
+    * @param {any} invoice
+    * @memberof SubsciptionComponent
+    */
     SubscriptionComponent.prototype.payNow = function (amount) {
         var _this = this;
         if (amount < 1) {
@@ -736,18 +776,39 @@ var PaymentService = /** @class */ (function () {
     function PaymentService(http) {
         this.http = http;
     }
+    /**
+     * Gets Supplier details based on supplier ID
+     *
+     * @param {any} supplierId
+     * @returns
+     * @memberof PaymentService
+     */
     PaymentService.prototype.getSupplierDetails = function (supplierId) {
         var url = "https://billing-service.axisrooms.com/v1/api/supplierDetails/" + supplierId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Notifies the server on successfull completion of payment
+     *
+     * @param {any} paymentId Returned by Razorpay
+     * @returns
+     * @memberof PaymentService
+     */
     PaymentService.prototype.successfulPayment = function (paymentId) {
         var url = "https://billing-service.axisrooms.com/v1/api/payment/response?paymentId=" + paymentId;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Based on the currency it decides if domestic or international url is to be called.
+     *
+     * @param {any} userDetails
+     * @returns {Observable<any>}
+     * @memberof PaymentService
+     */
     PaymentService.prototype.paymentGateway = function (userDetails) {
         var url = "";
         userDetails.orderDetail.currency == "INR" ? url = url.concat("domestic") : url = url.concat("international");

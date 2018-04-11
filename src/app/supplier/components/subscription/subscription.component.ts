@@ -27,10 +27,16 @@ export class SubscriptionComponent implements OnInit {
     private toasterService: ToasterService
   ) { }
 
+  /**
+   * Gets the ID of the user from local storage and displays the details.
+   * 
+   * @requires PaymentService
+   * @memberof SubscriptionComponent
+   */
   ngOnInit() {
-    
+
     this.suppierId = localStorage.getItem("id");
-    
+
     this.paymentService.getSupplierDetails(this.suppierId).subscribe(
       res => {
         this.supplierDetails = JSON.parse(res["_body"]);
@@ -38,6 +44,14 @@ export class SubscriptionComponent implements OnInit {
       }
     );
   }
+
+ /**
+   * Called from inside the Pay Invoice function. 
+   * Invoked when payment has been made successfully.
+   * 
+   * @param {any} response 
+   * @memberof InvoicesComponent
+   */
   paymentResponseHander(response) {
     this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(
       res => {
@@ -47,13 +61,20 @@ export class SubscriptionComponent implements OnInit {
     this.winRef.reload();
   }
 
+   /**
+   * Calling payment Razorpay's payment gateway 
+   * Do not recollect much about the same - Madhav Sharma
+   * 
+   * @param {any} invoice 
+   * @memberof SubsciptionComponent
+   */
   public payNow(amount) {
-    if(amount < 1){
+    if (amount < 1) {
       this.toasterService.displayToaster("Please enter any number greater than 0.", 'error');
       return 0;
     }
-   
-    if(isNaN(amount)){
+
+    if (isNaN(amount)) {
       this.toasterService.displayToaster(amount + " is not a number", 'error');
       return 0;
     }

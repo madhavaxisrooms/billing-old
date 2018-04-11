@@ -13,7 +13,7 @@ import 'moment/locale/pt-br';
 })
 
 export class ValidityComponent implements OnInit {
-
+  
   public validityForm: FormGroup;
   public customHidden: boolean = false;
   public datesHidden: boolean = false;
@@ -25,6 +25,15 @@ export class ValidityComponent implements OnInit {
     private formDataService: FormDataService,
   ) { }
 
+  /**
+   * Initialises the form.
+   * Checks the tramsaction type selection from the Billing form
+   * Initilizes today's date 
+   * 
+   * @requires FromDataService
+   * @requires Moment A third party plugin for date manipulation
+   * @memberof ValidityComponent
+   */
   ngOnInit() {
     this.validityForm = this.formBuilder.group({
       validityType: ['PERPETUAL'],
@@ -37,6 +46,13 @@ export class ValidityComponent implements OnInit {
     this.today = moment(new Date()).format('YYYY-MM-DD');
   }
 
+  /**
+   * Sets the duration of the custom value.
+   * By defualt assumes the custom duration is one month
+   * 
+   * @param {any} value 
+   * @memberof ValidityComponent
+   */
   duration(value) {
     if (value === 'CUSTOM') {
       this.customHidden = true;
@@ -48,6 +64,13 @@ export class ValidityComponent implements OnInit {
 
   }
 
+  /**
+   * Sets custom duration. 
+   * 
+   * @requires Moments A third party plugin for date manipulation
+   * @param {any} value 
+   * @memberof ValidityComponent
+   */
   custom(value) {
     if (value === 'c') {
       this.datesHidden = true;
@@ -59,6 +82,12 @@ export class ValidityComponent implements OnInit {
   }
 
 
+  /**
+   * Merges Validity into billing form
+   * Toggle the form to hide it.
+   * 
+   * @memberof ValidityComponent
+   */
   save() {
     this.formDataService.mergeValidityIntoBilling(this.validityForm.value);
     this.formService.toggleFormTabs('validity', null);

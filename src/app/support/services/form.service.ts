@@ -11,7 +11,12 @@ import { ToasterService } from '../../shared/services/toaster.service';
 @Injectable()
 export class FormService {
 
-  // Behaviour Subjects for Froms
+  /**
+   * Behaviour Subjects for forms naviation and toggling
+   * 
+   * @private
+   * @memberof FormService
+   */
   private formHiddenSource = new BehaviorSubject<boolean>(true);
   private audienceHiddenSource = new BehaviorSubject<boolean>(false);
   private billingHiddenSource = new BehaviorSubject<boolean>(true);
@@ -36,7 +41,13 @@ export class FormService {
     this.formHiddenSource.next(change);
   }
 
-  //Take from component and to component
+  /**
+   * Toggling inbetween froms. 
+   * 
+   * @param {*} from Current Component
+   * @param {*} to Target Component
+   * @memberof FormService
+   */
   toggleFormTabs(from: any, to: any) {
     // Hiding and showing forms
     if (from == null || to == null) {
@@ -60,7 +71,12 @@ export class FormService {
   }
 
 
-
+  /**
+   * Getting all templates from Server
+   * 
+   * @returns {Observable<any>} 
+   * @memberof FormService
+   */
   getAllTemplates(): Observable<any> {
     const url = 'https://billing-service.axisrooms.com//v1/api/getTemplate';
     return this.http.post(url, null).map(
@@ -70,6 +86,12 @@ export class FormService {
     );
   }
 
+  /**
+   *  Posting a new template to the server for creating a template
+   * 
+   * @param {any} template 
+   * @memberof FormService
+   */
   createTemplate(template) {
     const url = "https://billing-service.axisrooms.com/v1/api/createTemplate";
     this.http.post(url, template).subscribe(
@@ -83,7 +105,15 @@ export class FormService {
     );
   }
 
-  assignTemplate(supplierId){
+
+  /**
+   * Assiging templates to the users.
+   * 
+   * @param {any} supplierId 
+   * @returns 
+   * @memberof FormService
+   */
+  assignTemplate(supplierId) {
     const url = "https://billing-service.axisrooms.com/v1/api/assign/supplier/" + supplierId;
     return this.http.post(url, null).map(
       res => {
@@ -95,7 +125,14 @@ export class FormService {
     );
   }
 
-  sendInvoices(date){
+  /**
+   * Sending Invoices based on date
+   * 
+   * @param {any} date 
+   * @returns 
+   * @memberof FormService
+   */
+  sendInvoices(date) {
     const url = "https://billing-service.axisrooms.com/v1/api/invoice/dateRun/" + date;
     return this.http.get(url).map(
       res => {

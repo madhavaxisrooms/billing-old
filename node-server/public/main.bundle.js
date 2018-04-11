@@ -110,7 +110,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'app';
     }
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -425,6 +424,13 @@ var ToasterComponent = /** @class */ (function () {
         this.toasterService.toasterMessage.subscribe(function (status) { return _this.toasterMessage = status; });
         this.toasterService.toasterMessageType.subscribe(function (status) { return _this.toasterMessageType = status; });
     };
+    /**
+     * Calls the dismiss toaster in Toaster Service
+     * Hides toaster
+     *
+     * @requires ToasterService
+     * @memberof ToasterComponent
+     */
     ToasterComponent.prototype.dismissToaster = function () {
         this.toasterService.dismissToaster();
     };
@@ -465,6 +471,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ToasterService = /** @class */ (function () {
     function ToasterService() {
+        /**
+         * Creating a behaviour subject to broadcast to toaster details
+         *
+         * @private
+         * @memberof ToasterService
+         */
         this.toasterHiddenSource = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](true);
         this.toasterMessageSource = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]("Default Message");
         this.toasterMessageTypeSource = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]("success");
@@ -472,6 +484,14 @@ var ToasterService = /** @class */ (function () {
         this.toasterMessage = this.toasterMessageSource.asObservable();
         this.toasterMessageType = this.toasterMessageTypeSource.asObservable();
     }
+    /**
+     * Displays the Toater
+     * hides the toaster in 5 seconds
+     *
+     * @param {string} message
+     * @param {string} messageType
+     * @memberof ToasterService
+     */
     ToasterService.prototype.displayToaster = function (message, messageType) {
         var _this = this;
         this.toasterHiddenSource.next(false);
@@ -479,6 +499,11 @@ var ToasterService = /** @class */ (function () {
         this.toasterMessageTypeSource.next(messageType);
         setTimeout(function () { _this.dismissToaster(); }, 5000);
     };
+    /**
+     * Dismisses the toaster.
+     *
+     * @memberof ToasterService
+     */
     ToasterService.prototype.dismissToaster = function () {
         this.toasterHiddenSource.next(true);
     };

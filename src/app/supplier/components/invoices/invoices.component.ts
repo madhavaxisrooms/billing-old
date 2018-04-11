@@ -19,6 +19,13 @@ export class InvoicesComponent implements OnInit {
     private winRef: WindowRefService,
   ) { }
 
+  /**
+   *
+   * Gets invoices details by ID
+   *
+   * @requires InvoiceService 
+   * @memberof InvoicesComponent
+   */
   ngOnInit() {
     this.invoiceService.getInvoiceDetailsById(this.supplierid).subscribe(
       res => {
@@ -28,15 +35,28 @@ export class InvoicesComponent implements OnInit {
     );
   }
 
+  /**
+   * Called from inside the Pay Invoice function. 
+   * Invoked when payment has been made successfully.
+   * 
+   * @param {any} response 
+   * @memberof InvoicesComponent
+   */
   paymentResponseHander(response) {
     this.paymentService.successfulPayment(response.razorpay_payment_id).subscribe(
       res => {
-        console.log(res);
         this.winRef.reload();
       }
     );
   }
 
+  /**
+   * Calling payment Razorpay's payment gateway 
+   * Do not recollect much about the same - Madhav Sharma
+   * 
+   * @param {any} invoice 
+   * @memberof InvoicesComponent
+   */
   payInvoice(invoice) {
 
     var userDetails = {

@@ -20,10 +20,23 @@ export class BillingComponent implements OnInit {
     private formDataService: FormDataService,
     private toasterService: ToasterService
   ) { }
+
+  /**
+   * Initialises the form
+   * Knows weather the Audiece form type was Custom pr default
+   * 
+   * @requires FormDataService
+   * @memberof BillingComponent
+   */
   ngOnInit() {
     this.initForm();
     this.formDataService.isDefault.subscribe(res => { this.isDefault = res; if (this.isDefault != "DEFAULT") this.productChoice("CM") });
   }
+  /**
+   * Initilises the From
+   * Add
+   * @memberof BillingComponent
+   */
   initForm() {
     this.billingForm = this.formBuilder.group({
       productType: ['CM'],
@@ -34,6 +47,14 @@ export class BillingComponent implements OnInit {
       ])
     });
   }
+
+  /**
+   * Initialises and adds the Rules array for the ruledetails in the billingform.
+   * 
+   * 
+   * @returns 
+   * @memberof BillingComponent
+   */
   initRulesArray() {
     return this.formBuilder.group({
       hotelDropdownList:[[]],
@@ -47,6 +68,16 @@ export class BillingComponent implements OnInit {
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
+
+  /**
+   * Checks if the hotel is selected
+   * Used for checking/unchecking the hotels in the select hotel drowpdown
+   * 
+   * @param {any} hotel hotel object as recieved from the server.
+   * @param {any} i index
+   * @returns {boolean}
+   * @memberof BillingComponent
+   */
   isSelected(hotel,i){
     let hotelsSelected = [];
     for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
@@ -57,9 +88,23 @@ export class BillingComponent implements OnInit {
     } 
     return true;
   }
+  /**
+   * Fills the hotel dropdown list with all the users for selection
+   * 
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
   searchFocused(i) {
     this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
   }
+
+  /**
+   * Filters the hoteldropdownlist based on the search query entered.
+   * 
+   * @param {any} query query typed by the user
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
   searchQueryEntered(query,i) {
     if (query == '') {
       this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
@@ -72,7 +117,16 @@ export class BillingComponent implements OnInit {
       }
     }
   }
-  selectAll(operation,i){
+
+  /**
+   * 1. Used to select/deselect all the hotels in the dropdown list. 
+   * 2. Fills all the hotes in the connected hotels element of the Billing form
+   * 
+   * @param {boolean} operation True to select all. False to deselect all.
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
+  selectAll(operation:boolean ,i){
     if(operation == true){
       this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
       this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
@@ -81,16 +135,39 @@ export class BillingComponent implements OnInit {
     }
     
   }
+
+  /**
+   * Pushes another rules array in the billing form ruledetails obejct
+   * 
+   * @memberof BillingComponent
+   */
   addRulesForm() {
     const control = <FormArray>this.billingForm.controls['ruleDetails'];
     control.push(this.initRulesArray());
   }
+
+  /**
+   * Removes the rule from the billing form ruledetails object.
+   * 
+   * @param {any} i index 
+   * @memberof BillingComponent
+   */
   removeRule(i) {
     if (i > 0) {
       const control = <FormArray>this.billingForm.controls['ruleDetails'];
       control.removeAt(i);
     }
   }
+
+  /**
+   * 1. Emptying the hotel selected list. 
+   * 2. Checking if the hotel is already checked.
+   * 3. Pushing the hotel in the connected hotels array in the billing form
+   * 
+   * @param {any} hotel hotel object as recieved from the Server
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
   hotelChecked(hotel,i) {
     let hotelsSelected = [];
     for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
@@ -102,10 +179,30 @@ export class BillingComponent implements OnInit {
       this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
     }
   }
+  /**
+   * Gets the index of the connected hotel
+   * Removes the hotel frm the connected hotels array in the billing form
+   * 
+   * @param {any} hotel hotel object as recieved from the server
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
   removeHotel(hotel, i) {
     let index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel)
     this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
   }
+
+
+  /**
+   * 1. Based on the product choice of the user updares the hotels list 
+   * 2. By Default shows the Channel manger's hotels
+   * 3. Reinitialises the form to make sure no previous values are submitted. 
+   * 
+   * @requires FormDataService
+   * @requires ToasterService
+   * @param {any} productSelected 
+   * @memberof BillingComponent
+   */
   productChoice(productSelected) {
     if(this.isDefault === 'CUSTOM'){
       this.formDataService.getUsers(productSelected).subscribe(
@@ -120,6 +217,14 @@ export class BillingComponent implements OnInit {
     this.billingForm.controls.productType.setValue(productSelected);
     }
   }
+
+  /**
+   * Updates the Transaction base object in the billing form. 
+   * Adds/Removes the validators based on user selection
+   * 
+   * @param {any} i index
+   * @memberof BillingComponent
+   */
   paymentTypeChange(i) {
     if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.setValidators([Validators.required]);
@@ -129,7 +234,12 @@ export class BillingComponent implements OnInit {
       this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
     }
   }
-  //To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+  /**
+   * To check if any of the payment type is tansaction based. Based on which we change the Payment type in Validity form
+   * 
+   * @returns {boolean} 
+   * @memberof BillingComponent
+   */
   checkPaymentType() {
     let rules = this.billingForm.value.ruleDetails;
     for (let i = 0; i < rules.length; i++) {
@@ -139,10 +249,19 @@ export class BillingComponent implements OnInit {
     }
     return false;
   }
+
+  /**
+   * 1. Sends the billing form to the form data service
+   * 2. Toggles the tabs
+   * 3. Sends the paymentType to Form Data service.
+   *
+   * @requires FormDataService
+   * @requires FormService
+   * @memberof BillingComponent
+   */
   next() {
     this.formDataService.billingForm = this.billingForm.value;
     this.formDataService.enableRestrictToPostPaid(this.checkPaymentType());
     this.formService.toggleFormTabs('billing', 'validity');
-    console.log(this.billingForm.value);
   }
 }

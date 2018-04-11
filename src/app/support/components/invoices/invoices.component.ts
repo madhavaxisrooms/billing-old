@@ -21,6 +21,12 @@ export class InvoicesComponent implements OnInit {
     private toasterService: ToasterService
   ) { }
 
+  /**
+   * Getting all the invices on page  load.
+   * 
+   * @requires invoiceService.getAllInvoices
+   * @memberof InvoicesComponent
+   */
   ngOnInit() {
     this.invoiceService.getAllInvoices().subscribe(
       res => {
@@ -62,6 +68,15 @@ export class InvoicesComponent implements OnInit {
     }
   }
   
+
+  /**
+   * Takes the date from the front-end and validates of Invoice date is greater than new due date.
+   * 
+   * @param {any} date 
+   * @memberof InvoicesComponent
+   * @requires InvoiceService.changeDueDate
+   * @requires toasterService.displayToaster
+   */
   changeDueDate(date) {
     if (date < this.invoiceDate) {
       this.toasterService.displayToaster("Due Date should be before Invoice Date", 'error');

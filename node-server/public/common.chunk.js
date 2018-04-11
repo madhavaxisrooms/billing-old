@@ -24,24 +24,53 @@ var InvoiceService = /** @class */ (function () {
     function InvoiceService(http) {
         this.http = http;
     }
+    /**
+     * Gets All Invoices of perticular User ID from server
+     *
+     * @param {any} userid
+     * @returns
+     * @memberof InvoiceService
+     */
     InvoiceService.prototype.getInvoiceDetailsById = function (userid) {
         var url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails/' + userid;
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Getting all Invoices
+     *
+     * @returns
+     * @memberof InvoiceService
+     */
     InvoiceService.prototype.getAllInvoices = function () {
         var url = 'https://billing-service.axisrooms.com/v1/api/invoiceDetails';
         return this.http.post(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Changing Invioce Status
+     *
+     * @param {any} invoiceId
+     * @param {any} change
+     * @returns
+     * @memberof InvoiceService
+     */
     InvoiceService.prototype.changeInvoiceStatus = function (invoiceId, change) {
         var url = 'https://billing-service.axisrooms.com/v1/api/changeStatus/' + change + '?invoiceNo=' + invoiceId;
         return this.http.put(url, null).map(function (res) {
             return res;
         });
     };
+    /**
+     * Changes Due date
+     *
+     * @param {any} invoiceId
+     * @param {any} date
+     * @returns
+     * @memberof InvoiceService
+     */
     InvoiceService.prototype.changeDueDate = function (invoiceId, date) {
         var url = 'https://billing-service.axisrooms.com/v1/api/changeDueDate/' + date + '?invoiceNo=' + invoiceId;
         return this.http.put(url, null).map(function (res) {
@@ -76,6 +105,13 @@ function _window() {
     // return the global native browser window object
     return window;
 }
+/**
+ * Since Angular 5 does not support the window object. Creating this servive to get a window object
+ * Useed in the razorpay payement gateway
+ *
+ * @export
+ * @class WindowRefService
+ */
 var WindowRefService = /** @class */ (function () {
     function WindowRefService() {
     }

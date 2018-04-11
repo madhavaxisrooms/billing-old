@@ -23,6 +23,12 @@ export class AudienceComponent implements OnInit {
     private formDataService: FormDataService
   ) { }
 
+  /**
+   * 1. Initializing the form elements
+   * 2. Getting the list of countries
+   * 3. Getting UserIds
+   * @memberof AudienceComponent
+   */
   ngOnInit() {
     this.audienceForm = this.formBuilder.group({
       templateType: ['DEFAULT',],
@@ -41,6 +47,16 @@ export class AudienceComponent implements OnInit {
     this.getUserIds();
   }
 
+  /**
+   * 1. Gets the Aggregator type from the user
+   * 2. Setting the user role  in the form
+   * 3. Gets corresponding users
+   * 4. Emptys the Users searched list
+   * 5. Emptys the selected user feild
+   * 
+   * @param {any} val 
+   * @memberof AudienceComponent
+   */
   fillAggregators(val) {
     this.usersSearchedList.length = 0;
     if (val == 'agg' && this.audienceForm.value.templateType != "DEFAULT") {
@@ -49,11 +65,17 @@ export class AudienceComponent implements OnInit {
       this.usersSearchedList = [];
       this.getUserIds();
       this.searchUser(this.selectedUser);
-    } else if(val == 'agg'){
+    } else if (val == 'agg') {
       this.audienceForm.controls['userRole'].setValue("AGGREGATOR");
     }
   }
 
+  /**
+   * Gets all the userId from the service.
+   * 
+   * @requires FormDataService
+   * @memberof AudienceComponent
+   */
   getUserIds() {
     let counter = 0;
     this.formDataService.getUserIds(this.audienceForm.value.userRole).subscribe(
@@ -66,27 +88,48 @@ export class AudienceComponent implements OnInit {
       }
     );
   }
-  
+
+  /**
+   * 1. Gets the user that is selected.
+   * 2. Updates the User selected input value
+   * 3. Emptys the user searched list
+   * 4. Sets the userId in the audience form
+   *  
+   * @param {any} user 
+   * @memberof AudienceComponent
+   */
   userSelected(user) {
-    if( user.userName + " [" + user.userId + "]" == this.selectedUser){
+    if (user.userName + " [" + user.userId + "]" == this.selectedUser) {
       this.selectedUser = user.userName + " [" + user.userId + "] ";
-    } else{
+    } else {
       this.selectedUser = user.userName + " [" + user.userId + "]";
     }
     this.audienceForm.controls.userId.setValue(user.userId);
     this.usersSearchedList = [];
   }
 
+  /**
+   * Display all the Users when the user clicks on the select user input
+   * 
+   * @param {any} value 
+   * @memberof AudienceComponent
+   */
   searchFocused(value) {
     this.usersSearchedList = this.allUsers;
   }
 
+  /**
+   * Updates the user searched list based on the query provided by the user.
+   * 
+   * @param {any} query 
+   * @memberof AudienceComponent
+   */
   searchUser(query) {
     if (query == "" || query == undefined) {
       this.usersSearchedList = [];
       this.usersSearchedList = this.allUsers;
       this.audienceForm.controls['userId'].setValue(null);
-      this.audienceForm.controls['userId'].setErrors({'incorrect': true});
+      this.audienceForm.controls['userId'].setErrors({ 'incorrect': true });
     } else {
       this.usersSearchedList = [];
       let queryUC = query.toUpperCase();
@@ -96,6 +139,14 @@ export class AudienceComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * 1. Updates the view based on template type selection.
+   * 2. Adds and removes the validators of the respective views. 
+   * This is done becuase if we add validators during form validation the user will not be able to submit the form.
+   * 
+   * @memberof AudienceComponent
+   */
   templateTypeChange() {
     if (this.audienceForm.value.templateType == 'CUSTOM') {
       this.audienceForm.controls.userId.setValidators([Validators.required]);
@@ -112,13 +163,20 @@ export class AudienceComponent implements OnInit {
     }
 
   }
+
+  /**
+   * 1. Star rating disabled for now.
+   * 2. Sets the is default flag in the formdataservice. 
+   * 3. Toggles the tabs
+   * 
+   * @requires FormDataService
+   * @requires FormSerivice
+   * @memberof AudienceComponent
+   */
   next() {
     this.audienceForm.value.starRating = parseInt(this.audienceForm.value.starRating);
     this.formDataService.audienceForm = this.audienceForm.value;
     this.formDataService.toggleIsDefault(this.audienceForm.value.templateType);
-    //For Navigation
-    console.log(this.audienceForm.value);
-
     this.formService.toggleFormTabs('audience', 'billing');
 
   }

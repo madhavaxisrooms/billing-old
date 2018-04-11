@@ -19,7 +19,12 @@ export class FormComponent implements OnInit {
   constructor(
     private formService: FormService
   ) { }
-
+  /**
+   * Getting all the flags from the form serivice. Based on that showing/hiding the form components. 
+   * Using the same idea for navigation in the form
+   * @requires FormService getting the Behaviour subjects.
+   * @memberof FormComponent
+   */
   ngOnInit() {
     this.formService.audienceHidden.subscribe((status) => this.audienceHidden = status);
     this.formService.billingHidden.subscribe((status) => this.billingHidden = status);
@@ -27,18 +32,37 @@ export class FormComponent implements OnInit {
     this.formService.billingNavDisabled.subscribe((status) => this.billingNavDisabled = status);
   }
 
+  /**
+   * Hiding the form
+   * 
+   * @requires FormService
+   * @memberof FormComponent
+   */
   hideForm() {
     this.formService.toggleForm(true);
   }
 
+  /**
+   * Toggling form Tabs
+   * 
+   * @requires FormService
+   * @memberof FormComponent
+   */
   toggleFormTabs(from: any, to: string) {
     this.formService.toggleFormTabs(from, to);
   }
 
-
-  @HostListener('window:keydown', ['$event'])
+/**
+ * 
+ * Whenever the user presses the escape key. The Form will hide.
+ * 
+ * @requires Hostlistner 
+ * @param {any} $event 
+ * @memberof FormComponent
+ */
+@HostListener('window:keydown', ['$event'])
   doSomething($event) {
-    if( $event.code == "Escape" ){
+    if ($event.code == "Escape") {
       this.hideForm();
     }
   }
