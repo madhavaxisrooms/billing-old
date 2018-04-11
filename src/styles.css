@@ -109,7 +109,7 @@ button:disabled {
 }
 
 input {
-    border: 2px solid #3d464d;
+    border: 1px solid #3d464d;
     outline: none;
     padding: 6px 12px;
     color: #3d464d;
@@ -134,7 +134,7 @@ button {
 select {
     padding: 6px 12px;
     background: white;
-    border: 2px solid #3d464d;
+    border: 1px solid #3d464d;
     font-size: 13px;
     color: #3d464d;
     outline: none;
@@ -143,6 +143,7 @@ select {
 button.active, button:hover {
     color: white;
     background: #4dbc9c;
+    border-color: #4dbc9c;
 }
 
 .text-center {
@@ -200,7 +201,7 @@ header .profile .drop-down {
     padding: 10px;
     text-align: left;
     list-style: none;
-    border: 2px solid grey;
+    border: 1px solid grey;
 }
 
 header .profile .drop-down ul {
@@ -435,6 +436,7 @@ header .profile .drop-down li {
 
 .modal-wrapper .modal-content .navigation-tabs button {
     margin: 0 5px;
+    border: none;
 }
 
 .modal-wrapper .modal-content .modal-body-content, .modal-wrapper .modal-content .modal-form-content {
@@ -744,7 +746,7 @@ table .action-dropdown-rel .action-dropdown {
     padding: 10px;
     text-align: left;
     list-style: none;
-    border: 2px solid grey;
+    border: 1px solid grey;
     z-index: 4;
 }
 

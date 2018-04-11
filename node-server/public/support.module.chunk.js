@@ -1014,7 +1014,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".bottom-right{\n    position: absolute;\n    bottom: 10px;\n    right: 15px;\n    margin: 0;\n}\n\n.card-data > *{\n    margin: 0;\n}\n\n.card-data{\n    margin: 5px 0;\n}", ""]);
+exports.push([module.i, ".bottom-right{\n    position: absolute;\n    bottom: 10px;\n    right: 15px;\n    margin: 0;\n    font-weight: 400;\n    color: #5f5f5f;\n}\n\n.card-data > *{\n    margin: 0;\n}\n\n.card-data{\n    margin: 5px 0;\n}", ""]);
 
 // exports
 
