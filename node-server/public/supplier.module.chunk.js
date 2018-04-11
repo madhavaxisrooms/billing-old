@@ -352,7 +352,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\n    display: inline-block;\n    width: 25%;\n    background: #006bab;\n}\n", ""]);
+exports.push([module.i, ":host{\n    display: inline-block;\n    width: 25%;\n    background: #162c42;\n}\n", ""]);
 
 // exports
 

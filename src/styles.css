@@ -20,7 +20,7 @@ h2, h3 {
     font-size: 16px;
 }
 
-h4, th, td{
+h4, th, td {
     font-size: 13px;
 }
 
@@ -53,7 +53,7 @@ input.ng-invalid, .ng-invalid {
 }
 
 input:checked[type="checkbox"] {
-    background: #02285a;
+    background: #162c42;
 }
 
 input[type="checkbox"]:before {
@@ -74,7 +74,7 @@ input[type="checkbox"]:before {
 }
 
 input:checked[type="checkbox"]:before {
-    left: 25px;
+    left: 15px;
 }
 
 input, select {
@@ -105,6 +105,7 @@ a {
 
 button:disabled {
     background-color: grey;
+    color: white;
 }
 
 input {
@@ -120,10 +121,10 @@ input[type="date"] {
 
 button {
     padding: 6px 12px;
-    background: #34495e;
-    border: none;
+    background: transparent;
+    border: 1px solid #afafaf;
     font-size: 14px;
-    color: #ffffff;
+    color: #3a9788;
     border-radius: 3px;
     -webkit-transition: 0.3s ease-in-out;
     transition: 0.3s ease-in-out;
@@ -318,7 +319,7 @@ header .profile .drop-down li {
 }
 
 .blue-border {
-    border-color: #02285a !important;
+    border-color: #162c42 !important;
 }
 
 .cards-area .info-card {
@@ -426,7 +427,7 @@ header .profile .drop-down li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background: #01285b;
+    background: #162c42;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -556,7 +557,7 @@ header .profile .drop-down li {
     text-align: center;
     margin: 0;
     cursor: pointer;
-    color: #02285a;
+    color: #162c42;
 }
 
 .hotel-list-hotels {
@@ -573,7 +574,7 @@ header .profile .drop-down li {
 }
 
 .modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before {
-    left: 20px;
+    left: 15px;
 }
 
 .modal-content .hotel-list {
@@ -625,7 +626,7 @@ header .profile .drop-down li {
     margin: 2px;
     padding: 10px;
     border-radius: 3px;
-    color: #02285a;
+    color: #162c42;
     width: auto !important;
 }
 
@@ -860,7 +861,7 @@ table .action-dropdown-rel .action-dropdown li {
 }
 
 .supplier-content-area .menu-content h3 {
-    color: #02285a;
+    color: #162c42;
     margin: 8px 0;
 }
 
@@ -969,7 +970,7 @@ table .action-dropdown-rel .action-dropdown li {
 }
 
 .modal-wrapper .modal-content .modal-body-content .product-card .product-name {
-    color: #02285a;
+    color: #162c42;
     margin: 0;
 }
 
