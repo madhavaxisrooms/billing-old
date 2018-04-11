@@ -13,7 +13,8 @@
       <div class="product-card" *ngIf="ruleDetail.productRules" >
 
         <h3 class="product-name">
-          {{ruleDetail.productType | productName}}
+           <span *ngIf="ruleDetail.productType == 'CM'" >Channel Manager</span>
+           <span *ngIf="ruleDetail.productType == 'BE'" >Booking Engine</span>
         </h3>
         <div class="hotel-details" *ngFor="let productRule of ruleDetail.productRules">
           <p class="hotel-name">{{productRule.productName}}</p>
