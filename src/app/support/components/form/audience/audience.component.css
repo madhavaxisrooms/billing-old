@@ -14,7 +14,7 @@
 .users-dropdown {
   position: absolute;
   left: 230px;
-  top: 48px;
+  top: 25px;
   width: 290px;
   /* border: 2px solid #02285a; */
   z-index: 5;

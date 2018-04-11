@@ -16,14 +16,27 @@ body {
     outline: none;
 }
 
-h2,h3{
-    font-size: 17px;
+h2, h3 {
+    font-size: 16px;
+}
+
+h4, th, td{
+    font-size: 13px;
+}
+
+p, li {
+    font-size: 13px;
+    font-family: lato, 'Montserrat', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, li, td, input, select {
+    color: #333;
 }
 
 input[type="checkbox"] {
     position: relative;
-    width: 40px !important;
-    height: 20px !important;
+    width: 30px !important;
+    height: 15px !important;
     -webkit-appearance: none;
     background: #c6c6c6;
     outline: none;
@@ -35,8 +48,7 @@ input[type="checkbox"] {
     border: none;
 }
 
-input.ng-invalid,
-.ng-invalid{
+input.ng-invalid, .ng-invalid {
     border-color: red;
 }
 
@@ -47,8 +59,8 @@ input:checked[type="checkbox"] {
 input[type="checkbox"]:before {
     content: "";
     position: absolute;
-    width: 20px !important;
-    height: 20px !important;
+    width: 15px !important;
+    height: 15px !important;
     border-radius: 50px;
     top: 0;
     left: 0;
@@ -66,20 +78,20 @@ input:checked[type="checkbox"]:before {
 }
 
 input, select {
-    border-radius: 100px;
+    border-radius: 3px;
 }
 
 ::-webkit-input-placeholder {
-    font-family: Raleway, sans-serif;
-    font-size: 1.2em;
+    font-family: lato, 'Montserrat', Arial, sans-serif;
+    font-size: 13px;
 }
 
 button, ul li, a, p, h1, h2, h3, h4, h5, h6, th, td, input {
-    font-family: "Poppins", sans-serif;
+    font-family: lato, 'Montserrat', Arial, sans-serif;
 }
 
-p, td {
-    font-family: "Roboto", sans-serif;
+td {
+    font-family: lato, 'Montserrat', Arial, sans-serif;
 }
 
 a {
@@ -98,34 +110,32 @@ button:disabled {
 input {
     border: 2px solid #3d464d;
     outline: none;
-    padding: 10px 20px;
+    padding: 6px 12px;
     color: #3d464d;
 }
 
 input[type="date"] {
-    color: #006bab;
-    border-color: #006bab;
-    font-size: 0.9em;
+    font-size: 13px;
 }
 
 button {
-    padding: 10px 20px;
-    background: #006cab;
+    padding: 6px 12px;
+    background: #34495e;
     border: none;
-    font-size: 15px;;
+    font-size: 14px;
     color: #ffffff;
-    border-radius: 100px;
+    border-radius: 3px;
     -webkit-transition: 0.3s ease-in-out;
     transition: 0.3s ease-in-out;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 select {
-    padding: 10px 20px;
+    padding: 6px 12px;
     background: white;
-    border: 2px solid #006bab;
-    font-size: 15px;
-    color: #006bab;
+    border: 2px solid #3d464d;
+    font-size: 13px;
+    color: #3d464d;
     outline: none;
 }
 
@@ -134,7 +144,7 @@ button.active, button:hover {
     background: #4dbc9c;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
@@ -142,12 +152,13 @@ button.active, button:hover {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background: #01285b;
-    height: 60px;
+    background: #009688;
+    height: 50px;
 }
 
 .header .axis-logo {
     max-height: 70px;
+    padding: 10px;
 }
 
 .header nav {
@@ -204,7 +215,7 @@ header .profile .drop-down li {
 .header .profile .initials {
     width: 39px;
     background: #4dbc9c;
-    border-radius: 50%;
+    border-radius: 3px;
     text-align: center;
     color: white;
     font-size: 1em;
@@ -215,11 +226,11 @@ header .profile .drop-down li {
 }
 
 .footer {
-    background: #01285c;
+    background: #111;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    height: 60px;
+    height: 50px;
 }
 
 .footer .footer-content {
@@ -227,8 +238,8 @@ header .profile .drop-down li {
     color: white;
 }
 
-.footer .footer-content h3 {
-    font-size: 1em;
+.footer .footer-content p {
+    color: white;
 }
 
 .filter-icon {
@@ -252,7 +263,7 @@ header .profile .drop-down li {
 }
 
 .body-content .client-nav>* {
-    margin: 0 10px;
+    margin: 0 2px;
 }
 
 .body-content .client-nav button:first-child {
@@ -275,8 +286,7 @@ header .profile .drop-down li {
 .body-content .search-options .search-bar {
     visibility: hidden;
     -ms-flex-preferred-size: 80%;
-    flex-basis: 50%;
-    padding: 10px;
+    flex-basis: 66%;
 }
 
 .body-content .three-dot-menu {
@@ -304,18 +314,19 @@ header .profile .drop-down li {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
 }
-.blue-border{
+
+.blue-border {
     border-color: #02285a !important;
 }
 
 .cards-area .info-card {
     -ms-flex-preferred-size: 18%;
-    flex-basis: 21%;
+    flex-basis: 21.5%;
     padding: 30px 10px;
     margin: 20px 10px;
-    border-top: 10px solid #4ebc9b;
+    border-top: 5px solid #4ebc9b;
     position: relative;
     background: white;
     display: -webkit-box;
@@ -348,18 +359,19 @@ header .profile .drop-down li {
 .cards-area .info-card .card-data .title {
     -ms-flex-preferred-size: 20%;
     -webkit-box-flex: 2;
-        -ms-flex: 2;
-            flex: 2;
-    color: #02285a;
+    -ms-flex: 2;
+    flex: 2;
+    color: #333;
+    font-size: 14px;
 }
 
 .cards-area .info-card .card-data .content {
     -ms-flex-preferred-size: 80%;
     -webkit-box-flex: 3;
-        -ms-flex: 3;
-            flex: 3;
+    -ms-flex: 3;
+    flex: 3;
     -ms-flex-item-align: center;
-        align-self: center;
+    align-self: center;
     color: #3d464d;
 }
 
@@ -379,7 +391,7 @@ header .profile .drop-down li {
     overflow: auto;
 }
 
-.modal-overlay{
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -391,7 +403,7 @@ header .profile .drop-down li {
 .modal-wrapper .modal-content {
     margin: auto;
     width: 1170px;
-    min-height: 400px;
+    min-height: 350px;
     overflow: auto;
     background-color: white;
     position: relative;
@@ -449,6 +461,7 @@ header .profile .drop-down li {
     width: 49%;
     display: inline-block;
     position: relative;
+    margin: 5px 0;
 }
 
 .modal-wrapper .modal-content .modal-form .form-element .default-values {
@@ -499,12 +512,11 @@ header .profile .drop-down li {
 
 /* Billing Modal*/
 
-.billing-navigation{
+.billing-navigation {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 }
-
 
 .modal-wrapper .modal-content .modal-form .product {
     background-color: #f1f1f1;
@@ -529,7 +541,7 @@ header .profile .drop-down li {
     position: relative;
 }
 
-.hotel-list-overlay{
+.hotel-list-overlay {
     position: fixed;
     top: 0;
     right: 0;
@@ -544,24 +556,23 @@ header .profile .drop-down li {
     text-align: center;
     margin: 0;
     cursor: pointer;
-    color: #4ebc9b;
+    color: #02285a;
 }
 
-.hotel-list-hotels{
+.hotel-list-hotels {
     padding: 5px 0;
 }
 
-.hotel-list-hotels p{
+.hotel-list-hotels p {
     display: inline;
 }
 
-.modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"]{
+.modal-content .rule-addition-area .hotel-list-hotels input[type="checkbox"] {
     width: 30px !important;
     height: 15px !important;
 }
 
-
-.modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before{
+.modal-content .rule-addition-area .hotel-list-hotels input:checked[type="checkbox"]:before {
     left: 20px;
 }
 
@@ -574,7 +585,7 @@ header .profile .drop-down li {
     border: 1px solid grey;
     height: 200px;
     overflow: auto;
-    top: 115px;
+    top: 92px;
     left: 25px;
     margin-bottom: 20px;
     display: -webkit-box;
@@ -582,10 +593,9 @@ header .profile .drop-down li {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
-
 
 .modal-content .hotel-list ul {
     padding: 0;
@@ -614,7 +624,7 @@ header .profile .drop-down li {
     background: #ffc107;
     margin: 2px;
     padding: 10px;
-    border-radius: 40px;
+    border-radius: 3px;
     color: #02285a;
     width: auto !important;
 }
@@ -636,7 +646,7 @@ header .profile .drop-down li {
     position: relative;
 }
 
-.modal-content .rule-addition-area .input-element p{
+.modal-content .rule-addition-area .input-element p {
     text-align: center;
 }
 
@@ -654,26 +664,25 @@ header .profile .drop-down li {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
 }
-.modal-content .rule-addition-area div .rule .add-rule .icon{
+
+.modal-content .rule-addition-area div .rule .add-rule .icon {
     display: none;
-    height: 30px;
+    height: 20px;
 }
 
-.modal-content .rule-addition-area div .rule .add-rule .remove-rule{
-    display: block;
-}
- 
-
-.modal-content .rule-addition-area div:last-child .rule .add-icon{
+.modal-content .rule-addition-area div .rule .add-rule .remove-rule {
     display: block;
 }
 
+.modal-content .rule-addition-area div:last-child .rule .add-icon {
+    display: block;
+}
 
 /*Invoice Page*/
 
@@ -684,7 +693,7 @@ header .profile .drop-down li {
 .body-content .invoice-table table {
     width: 100%;
     border-spacing: 0;
-    border: 2px solid #032859;
+    border: 1px solid #34485d;
 }
 
 .body-content .invoice-table table th {
@@ -694,7 +703,7 @@ header .profile .drop-down li {
 }
 
 .body-content .invoice-table table tr:first-child {
-    background: #02285a;
+    background: #34485d;
 }
 
 .body-content .invoice-table {
@@ -738,7 +747,7 @@ table .action-dropdown-rel .action-dropdown {
     z-index: 4;
 }
 
-table .action-dropdown-overlay{
+table .action-dropdown-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -775,7 +784,7 @@ table .action-dropdown-rel .action-dropdown li {
     color: white;
     font-weight: bold;
     margin: 0px 10px;
-    border-radius: 50%;
+    border-radius: 3px;
     border: 1px solid #032859;
     cursor: pointer;
     color: white;
@@ -901,7 +910,7 @@ table .action-dropdown-rel .action-dropdown li {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    width:70%;
+    width: 70%;
     height: 90px;
 }
 
