@@ -35,8 +35,13 @@ export class HomeComponent implements OnInit {
   hideTemplateDetails(message) {
     this.templateDetailsHidden[message] = true;
   }
-
-  assignTemplate(supplierId){
+  /**
+   * Used to assign templates based on the supplier id provided by the user.
+   * 
+   * @param {String} supplierId 
+   * @memberof HomeComponent
+   */
+  assignTemplate(supplierId: String){
     this.formService.assignTemplate(supplierId).subscribe(
       res =>{
         this.toasterService.displayToaster(res['_body'], 'info');
@@ -46,7 +51,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
+  
   sendInvoices(date){
     this.formService.sendInvoices(date).subscribe(
       res =>{

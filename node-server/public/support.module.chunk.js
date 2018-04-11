@@ -810,6 +810,12 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.hideTemplateDetails = function (message) {
         this.templateDetailsHidden[message] = true;
     };
+    /**
+     * Used to assign templates based on the supplier id provided by the user.
+     *
+     * @param {String} supplierId
+     * @memberof HomeComponent
+     */
     HomeComponent.prototype.assignTemplate = function (supplierId) {
         var _this = this;
         this.formService.assignTemplate(supplierId).subscribe(function (res) {
@@ -913,6 +919,18 @@ var InvoicesComponent = /** @class */ (function () {
             _this.loader = true;
         });
     };
+    /**
+     * Validates the following conditions.
+     * 1. Paid invoice cannot be deleted
+     *
+     * Makes a call to the changeInvoiceStatus function in invoice service if validated.
+     * Which inturn pushes the data to the backend.
+     *
+     * @param {String} invoiceId Which invoice ID we're trying to update
+     * @param {String} status The status we want to update it to
+     * @param {String} currentStatus The current status
+     * @memberof InvoicesComponent
+     */
     InvoicesComponent.prototype.changeStatus = function (invoiceId, status, currentStatus) {
         var _this = this;
         if (currentStatus == 'PAID' && status == "DELETED") {
@@ -928,11 +946,16 @@ var InvoicesComponent = /** @class */ (function () {
     };
     InvoicesComponent.prototype.changeDueDate = function (date) {
         var _this = this;
-        this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
-            _this.winRef.reload();
-        }, function (err) {
-            _this.toasterService.displayToaster("Something went wrong.", 'error');
-        });
+        if (date < this.invoiceDate) {
+            this.toasterService.displayToaster("Due Date should be before Invoice Date", 'error');
+        }
+        else {
+            this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(function (res) {
+                _this.winRef.reload();
+            }, function (err) {
+                _this.toasterService.displayToaster("Something went wrong.", 'error');
+            });
+        }
     };
     InvoicesComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({

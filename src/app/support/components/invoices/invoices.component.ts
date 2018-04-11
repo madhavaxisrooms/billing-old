@@ -25,7 +25,7 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService.getAllInvoices().subscribe(
       res => {
         this.invoices = JSON.parse(res['_body']);
-        if(this.invoices != null) this.actionMenu = new Array(this.invoices.length);
+        if (this.invoices != null) this.actionMenu = new Array(this.invoices.length);
         this.loader = true;
       },
       err => {
@@ -35,8 +35,19 @@ export class InvoicesComponent implements OnInit {
     );
   }
 
-
-  changeStatus(invoiceId, status, currentStatus) {
+  /**
+   * Validates the following conditions.
+   * 1. Paid invoice cannot be deleted
+   * 
+   * Makes a call to the changeInvoiceStatus function in invoice service if validated. 
+   * Which inturn pushes the data to the backend.
+   * 
+   * @param {String} invoiceId Which invoice ID we're trying to update
+   * @param {String} status The status we want to update it to
+   * @param {String} currentStatus The current status 
+   * @memberof InvoicesComponent
+   */
+  changeStatus(invoiceId: String, status: String, currentStatus: String) {
     if (currentStatus == 'PAID' && status == "DELETED") {
       this.toasterService.displayToaster("Cannot delete paid invoice", 'error');
     } else {
@@ -50,15 +61,19 @@ export class InvoicesComponent implements OnInit {
       );
     }
   }
-
+  
   changeDueDate(date) {
-    this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
-      res => {
-        this.winRef.reload();
-      },
-      err => {
-        this.toasterService.displayToaster("Something went wrong.", 'error');
-      }
-    );
+    if (date < this.invoiceDate) {
+      this.toasterService.displayToaster("Due Date should be before Invoice Date", 'error');
+    } else {
+      this.invoiceService.changeDueDate(this.invoiceIdForDueDate, date).subscribe(
+        res => {
+          this.winRef.reload();
+        },
+        err => {
+          this.toasterService.displayToaster("Something went wrong.", 'error');
+        }
+      );
+    }
   }
 }
