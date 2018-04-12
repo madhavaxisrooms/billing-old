@@ -74,22 +74,5 @@ getInvoiceDetailsById(userid) {
     );
   }
 
-  /**
-   * Sends a request to download all invoices
-   * 
-   * @returns 
-   * @memberof InvoiceService
-   */
-  downloadInvoice(){
-    let url = "https://billing-service.axisrooms.com/v1/api/invoice/download";
-    return this.http.get(url).map(
-      (res) => {
-        return res;
-      },
-      (err)=>{
-        alert(err);
-      }
-    );
-  }
 
 }

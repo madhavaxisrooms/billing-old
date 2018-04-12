@@ -92,17 +92,5 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
-  /**
-   * Doownloads all the invoices shown in the Invoice Table
-   * 
-   * @requires InvoiceService
-   * @memberof InvoicesComponent
-   */
-  downloadInvoice() {
-    this.invoiceService.downloadInvoice().subscribe(
-      (res) => {
-        console.log(res);
-      }
-    );
-  }
+
 }
