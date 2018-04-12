@@ -67,7 +67,7 @@ export class InvoicesComponent implements OnInit {
       );
     }
   }
-  
+
 
   /**
    * Takes the date from the front-end and validates of Invoice date is greater than new due date.
@@ -90,5 +90,19 @@ export class InvoicesComponent implements OnInit {
         }
       );
     }
+  }
+
+  /**
+   * Doownloads all the invoices shown in the Invoice Table
+   * 
+   * @requires InvoiceService
+   * @memberof InvoicesComponent
+   */
+  downloadInvoice() {
+    this.invoiceService.downloadInvoice().subscribe(
+      (res) => {
+        console.log(res);
+      }
+    );
   }
 }

@@ -154,7 +154,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/supplier/components/invoices/invoices.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-loading-indicator [hidden]=\"loading\"  ></app-loading-indicator>\n\n<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i>Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID' && invoice.amount != 0 \" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
+module.exports = "<app-loading-indicator [hidden]=\"loading\"  ></app-loading-indicator>\n\n<div class=\"menu-content\">\n  <div class=\"invoice-table\">\n    <table>\n      <tr>\n        <th>ID</th>\n        <th>Date</th>\n        <th>Amount</th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let invoice of invoices\">\n        <td>{{invoice.invoiceId}}</td>\n        <td>{{invoice.paymentDueDate}}</td>\n        <td>{{invoice.amount | currency:invoice.currency }}</td>\n        <td>\n          <i (click)=\"downloadInvoice()\" >Download</i>\n          <i *ngIf=\"invoice.status == 'UNPAID' && invoice.amount != 0 \" (click)=\"payInvoice(invoice)\">Pay Now</i>\n        </td>\n      </tr>\n    </table>\n    <!-- <div class=\"pagination\">\n      <ul>\n        <li>1</li>\n        <li>2</li>\n        <li>3</li>\n        <li>4</li>\n        <li>5</li>\n      </ul>\n    </div> -->\n  </div>\n\n\n</div>"
 
 /***/ }),
 
@@ -201,6 +201,9 @@ var InvoicesComponent = /** @class */ (function () {
             _this.invoices = JSON.parse(res['_body']);
             _this.loading = true;
         });
+    };
+    InvoicesComponent.prototype.downloadInvoice = function () {
+        this.paymentService.downloadInvoice();
     };
     /**
      * Called from inside the Pay Invoice function.
@@ -815,6 +818,14 @@ var PaymentService = /** @class */ (function () {
         url = "https://billing-service.axisrooms.com/v1/api/payment/request/" + url;
         return this.http.post(url, userDetails).map(function (res) {
             return res;
+        });
+    };
+    PaymentService.prototype.downloadInvoice = function () {
+        var url = "192.168.0.163:36000/v1/api/invoice/download";
+        return this.http.get(url).map(function (res) {
+            return res;
+        }, function (err) {
+            alert(err);
         });
     };
     PaymentService = __decorate([

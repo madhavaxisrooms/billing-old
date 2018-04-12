@@ -60,5 +60,18 @@ export class PaymentService {
     );
   }
 
+  downloadInvoice(){
+
+    let url = "192.168.0.163:36000/v1/api/invoice/download";
+    return this.http.get(url).map(
+      (res) => {
+        return res;
+      },
+      (err)=>{
+        alert(err);
+      }
+    );
+  }
+
 
 }

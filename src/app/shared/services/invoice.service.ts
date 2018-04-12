@@ -74,4 +74,22 @@ getInvoiceDetailsById(userid) {
     );
   }
 
+  /**
+   * Sends a request to download all invoices
+   * 
+   * @returns 
+   * @memberof InvoiceService
+   */
+  downloadInvoice(){
+    let url = "http://192.168.0.163:36000/v1/api/invoice/download";
+    return this.http.get(url).map(
+      (res) => {
+        return res;
+      },
+      (err)=>{
+        alert(err);
+      }
+    );
+  }
+
 }

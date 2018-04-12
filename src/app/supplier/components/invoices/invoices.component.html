@@ -14,7 +14,7 @@
         <td>{{invoice.paymentDueDate}}</td>
         <td>{{invoice.amount | currency:invoice.currency }}</td>
         <td>
-          <i>Download</i>
+          <i (click)="downloadInvoice()" >Download</i>
           <i *ngIf="invoice.status == 'UNPAID' && invoice.amount != 0 " (click)="payInvoice(invoice)">Pay Now</i>
         </td>
       </tr>

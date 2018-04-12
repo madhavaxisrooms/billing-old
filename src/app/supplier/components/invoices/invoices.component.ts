@@ -35,6 +35,10 @@ export class InvoicesComponent implements OnInit {
     );
   }
 
+  downloadInvoice(){
+    this.paymentService.downloadInvoice();
+  }
+
   /**
    * Called from inside the Pay Invoice function. 
    * Invoked when payment has been made successfully.

@@ -77,6 +77,20 @@ var InvoiceService = /** @class */ (function () {
             return res;
         });
     };
+    /**
+     * Sends a request to download all invoices
+     *
+     * @returns
+     * @memberof InvoiceService
+     */
+    InvoiceService.prototype.downloadInvoice = function () {
+        var url = "http://192.168.0.163:36000/v1/api/invoice/download";
+        return this.http.get(url).map(function (res) {
+            return res;
+        }, function (err) {
+            alert(err);
+        });
+    };
     InvoiceService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
