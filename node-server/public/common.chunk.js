@@ -84,7 +84,7 @@ var InvoiceService = /** @class */ (function () {
      * @memberof InvoiceService
      */
     InvoiceService.prototype.downloadInvoice = function () {
-        var url = "http://192.168.0.163:36000/v1/api/invoice/download";
+        var url = "https://billing-service.axisrooms.com/v1/api/invoice/download";
         return this.http.get(url).map(function (res) {
             return res;
         }, function (err) {

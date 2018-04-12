@@ -81,7 +81,7 @@ getInvoiceDetailsById(userid) {
    * @memberof InvoiceService
    */
   downloadInvoice(){
-    let url = "http://192.168.0.163:36000/v1/api/invoice/download";
+    let url = "https://billing-service.axisrooms.com/v1/api/invoice/download";
     return this.http.get(url).map(
       (res) => {
         return res;
