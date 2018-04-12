@@ -57,14 +57,14 @@ export class BillingComponent implements OnInit {
    */
   initRulesArray() {
     return this.formBuilder.group({
-      hotelDropdownList:[[]],
+      hotelDropdownList: [[]],
       connectedHotels: [[]],
       ruleType: [['DEFAULT'], Validators.required],
       recurring: [true, Validators.required], //reccuring - boolean
       paymentType: ['FIXED', Validators.required], // payment type - enum  
       trasactionBase: [], //trasactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
-      chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+'),Validators.min(1)]], //chargevalue
+      chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+'), Validators.min(1)]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
     });
   }
@@ -78,14 +78,14 @@ export class BillingComponent implements OnInit {
    * @returns {boolean}
    * @memberof BillingComponent
    */
-  isSelected(hotel,i){
+  isSelected(hotel, i) {
     let hotelsSelected = [];
-    for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
-    hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
+    for (let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++)
+      hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
     let index = hotelsSelected.indexOf(hotel.productName);
     if (index == -1) {
       return false;
-    } 
+    }
     return true;
   }
   /**
@@ -105,7 +105,7 @@ export class BillingComponent implements OnInit {
    * @param {any} i index
    * @memberof BillingComponent
    */
-  searchQueryEntered(query,i) {
+  searchQueryEntered(query, i) {
     if (query == '') {
       this.billingForm.value.ruleDetails[i].hotelDropdownList = [];
     } else {
@@ -126,14 +126,14 @@ export class BillingComponent implements OnInit {
    * @param {any} i index
    * @memberof BillingComponent
    */
-  selectAll(operation:boolean ,i){
-    if(operation == true){
+  selectAll(operation: boolean, i) {
+    if (operation == true) {
       this.billingForm.controls.ruleDetails['controls'][i].controls.connectedHotels.setValue(this.billingForm.value.ruleDetails[i].hotelDropdownList);
       this.billingForm.value.ruleDetails[i].hotelDropdownList = this.hotels;
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels = [];
     }
-    
+
   }
 
   /**
@@ -163,35 +163,30 @@ export class BillingComponent implements OnInit {
    * 1. Emptying the hotel selected list. 
    * 2. Checking if the hotel is already checked.
    * 3. Pushing the hotel in the connected hotels array in the billing form
+   * 4. If the hotel already exists in the connected hotels array, Remove it.
    * 
    * @param {any} hotel hotel object as recieved from the Server
    * @param {any} i index
    * @memberof BillingComponent
    */
-  hotelChecked(hotel,i) {
+  hotelChecked(hotel, i) {
+    let dropdownRefill = [];
     let hotelsSelected = [];
-    for( let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p ++) 
-    hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
+    for (let k = 0; k < this.billingForm.value.ruleDetails[i].hotelDropdownList.length; k++){
+      dropdownRefill.push(this.billingForm.value.ruleDetails[i].hotelDropdownList[k])
+    }
+    for (let p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++){
+      hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName)
+    }
     let index = hotelsSelected.indexOf(hotel.productName);
     if (index == -1) {
       this.billingForm.value.ruleDetails[i].connectedHotels.push(hotel);
     } else {
       this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
+      this.billingForm.value.ruleDetails[i].hotelDropdownList = dropdownRefill;
+      this.hotels = dropdownRefill;
     }
   }
-  /**
-   * Gets the index of the connected hotel
-   * Removes the hotel frm the connected hotels array in the billing form
-   * 
-   * @param {any} hotel hotel object as recieved from the server
-   * @param {any} i index
-   * @memberof BillingComponent
-   */
-  removeHotel(hotel, i) {
-    let index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel)
-    this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
-  }
-
 
   /**
    * 1. Based on the product choice of the user updares the hotels list 
@@ -204,17 +199,17 @@ export class BillingComponent implements OnInit {
    * @memberof BillingComponent
    */
   productChoice(productSelected) {
-    if(this.isDefault === 'CUSTOM'){
+    if (this.isDefault === 'CUSTOM') {
       this.formDataService.getUsers(productSelected).subscribe(
-      res => {
-        this.hotels = JSON.parse(res["_body"]);
-      },
-      err => {
-        this.toasterService.displayToaster("Something went wrong.", 'error');
-      }
-    );
-    this.initForm();
-    this.billingForm.controls.productType.setValue(productSelected);
+        res => {
+          this.hotels = JSON.parse(res["_body"]);
+        },
+        err => {
+          this.toasterService.displayToaster("Something went wrong.", 'error');
+        }
+      );
+      this.initForm();
+      this.billingForm.controls.productType.setValue(productSelected);
     }
   }
 

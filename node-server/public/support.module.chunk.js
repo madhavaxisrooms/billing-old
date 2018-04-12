@@ -462,34 +462,30 @@ var BillingComponent = /** @class */ (function () {
      * 1. Emptying the hotel selected list.
      * 2. Checking if the hotel is already checked.
      * 3. Pushing the hotel in the connected hotels array in the billing form
+     * 4. If the hotel already exists in the connected hotels array, Remove it.
      *
      * @param {any} hotel hotel object as recieved from the Server
      * @param {any} i index
      * @memberof BillingComponent
      */
     BillingComponent.prototype.hotelChecked = function (hotel, i) {
+        var dropdownRefill = [];
         var hotelsSelected = [];
-        for (var p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++)
+        for (var k = 0; k < this.billingForm.value.ruleDetails[i].hotelDropdownList.length; k++) {
+            dropdownRefill.push(this.billingForm.value.ruleDetails[i].hotelDropdownList[k]);
+        }
+        for (var p = 0; p < this.billingForm.value.ruleDetails[i].connectedHotels.length; p++) {
             hotelsSelected.push(this.billingForm.value.ruleDetails[i].connectedHotels[p].productName);
+        }
         var index = hotelsSelected.indexOf(hotel.productName);
         if (index == -1) {
             this.billingForm.value.ruleDetails[i].connectedHotels.push(hotel);
         }
         else {
             this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
+            this.billingForm.value.ruleDetails[i].hotelDropdownList = dropdownRefill;
+            this.hotels = dropdownRefill;
         }
-    };
-    /**
-     * Gets the index of the connected hotel
-     * Removes the hotel frm the connected hotels array in the billing form
-     *
-     * @param {any} hotel hotel object as recieved from the server
-     * @param {any} i index
-     * @memberof BillingComponent
-     */
-    BillingComponent.prototype.removeHotel = function (hotel, i) {
-        var index = this.billingForm.value.ruleDetails[i].connectedHotels.indexOf(hotel);
-        this.billingForm.value.ruleDetails[i].connectedHotels.splice(index, 1);
     };
     /**
      * 1. Based on the product choice of the user updares the hotels list
