@@ -66,7 +66,7 @@ export class InvoicesComponent implements OnInit {
     var userDetails = {
       "paymentRequestType": "NON_CREDIT",
       "loginId":'1101',
-      "amount":invoice.amount,
+      "amount":invoice.totalAmount,
       "guestDetail": {
         "firstName": "test",
         "lastName": "test1",
