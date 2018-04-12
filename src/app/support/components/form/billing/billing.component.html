@@ -47,7 +47,7 @@
     
     <div class="modal-form">
         <div class="rule-addition-area">
-            <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails.controls; let i = index">
+            <div class="rules" formArrayName="ruleDetails" *ngFor="let rule of billingForm.controls.ruleDetails['controls']; let i = index">
                 <div class="rule" [formGroupName]="i">
                     <div class="input-element" [hidden]="isDefault == 'DEFAULT'">
                         <p *ngIf="!this.billingForm.value.ruleDetails[i].connectedHotels.length" >All Hotels Selected</p> 

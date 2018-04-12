@@ -3,7 +3,7 @@
     <div class="client-nav">
         <button routerLinkActive="active" routerLink="../home"> All Templates</button>
         <button routerLinkActive="active" routerLink="../invoices">Invoices</button>
-        <a class="align-right-flex" href="https://billing-service.axisrooms.com/v1/api/invoice/download"><button (click)="downloadInvoice()"  > Download Invoices </button></a>
+        <a class="align-right-flex" href="https://billing-service.axisrooms.com/v1/api/invoice/download"><button > Download Invoices </button></a>
     </div>
     <div class="empty" *ngIf="!invoices">
         <h3>Currently there are no Invoices available.</h3>
