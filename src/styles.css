@@ -106,6 +106,14 @@ a {
 button:disabled {
     background-color: grey;
     color: white;
+    border-color: grey;
+}
+
+button:disabled:hover{
+    background-color: grey;
+    color: white;
+    border-color: grey;
+    cursor: not-allowed;
 }
 
 input {
@@ -121,7 +129,7 @@ input[type="date"] {
 
 button {
     padding: 6px 12px;
-    background: transparent;
+    background: white;
     border: 1px solid #afafaf;
     font-size: 14px;
     color: #3a9788;
