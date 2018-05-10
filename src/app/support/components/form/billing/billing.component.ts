@@ -62,7 +62,7 @@ export class BillingComponent implements OnInit {
       ruleType: [['DEFAULT'], Validators.required],
       recurring: [true, Validators.required], //reccuring - boolean
       paymentType: ['FIXED', Validators.required], // payment type - enum  
-      trasactionBase: [], //trasactionBase - enum
+      transactionBase: [], //transactionBase - enum
       chargeType: ['FIXED', Validators.required],//charge type - enum | fixed percentage
       chargeValue: [, [Validators.required, Validators.pattern('^[0-9.]+'), Validators.min(1)]], //chargevalue
       paymentCycle: [1, Validators.required] //paymentCycle - num 1,3,6,12
@@ -222,11 +222,11 @@ export class BillingComponent implements OnInit {
    */
   paymentTypeChange(i) {
     if (this.billingForm.value.ruleDetails[i].paymentType === "TRANSACTION_BASED") {
-      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.setValidators([Validators.required]);
-      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.transactionBase.setValidators([Validators.required]);
+      this.billingForm.controls.ruleDetails['controls'][i].controls.transactionBase.updateValueAndValidity();
     } else {
-      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.clearValidators();
-      this.billingForm.controls.ruleDetails['controls'][i].controls.trasactionBase.updateValueAndValidity();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.transactionBase.clearValidators();
+      this.billingForm.controls.ruleDetails['controls'][i].controls.transactionBase.updateValueAndValidity();
     }
   }
   /**
