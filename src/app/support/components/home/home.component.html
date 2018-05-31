@@ -119,8 +119,12 @@
       <h3 class="modal-heading">Send Invoices</h3>
     </div>
     <div class="modal-body-content">
+      <p>Send By Date</p>
       <input type="date" #date (change)="date.value">
-      <button (click)="sendInvoices(date.value);sendInvoicesVisibility = !sendInvoicesVisibility "  [disabled]="date.value == '' ">Send</button>
+      <button (click)="sendInvoicesByDate(date.value);sendInvoicesVisibility = !sendInvoicesVisibility "  [disabled]="date.value == '' ">Send</button>
+      <p>Send By Invoice Id</p>
+      <input type="number" #id (keyup)="id.value" placeholder="Enter Invoice ID">
+      <button (click)="sendInvoicesById(id.value);sendInvoicesVisibility = !sendInvoicesVisibility "  [disabled]="id.value == '' ">Send</button>
     </div>
 
   </div>

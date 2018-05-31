@@ -92,5 +92,25 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
+  
+  sendInvoice(id){
+    this.invoiceService.sendInvoice(id).subscribe(
+      res => {
+        this.winRef.reload();
+      },
+      err => {
+        this.toasterService.displayToaster("Something went wrong.", 'error');
+      }
+    );
+  }
 
+  public showTempPw = true;
+  public message;
+  tempLogin(pw){
+    if(pw === 'Axisrooms321#'){
+      this.showTempPw = false;
+    } else{
+      this.message = 'Unauthorised';
+    }
+  }
 }

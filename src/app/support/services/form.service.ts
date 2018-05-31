@@ -144,5 +144,24 @@ export class FormService {
     );
   }
 
+   /**
+   * Sending Invoices based on Id
+   * 
+   * @param {any} date 
+   * @returns 
+   * @memberof FormService
+   */
+  sendInvoicesById(id) {
+    const url = "https://billing-service.axisrooms.com//v1/api/generate/invoice/" + id;
+    return this.http.post(url, null).map(
+      res => {
+        return res;
+      },
+      err => {
+        return err;
+      }
+    );
+  }
+
 
 }

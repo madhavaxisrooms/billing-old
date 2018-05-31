@@ -66,8 +66,19 @@ export class HomeComponent implements OnInit {
    * @param {any} date Getting the Date from the user.
    * @memberof HomeComponent
    */
-  sendInvoices(date){
+  sendInvoicesByDate(date){
     this.formService.sendInvoices(date).subscribe(
+      res =>{
+        this.toasterService.displayToaster(res['_body'], 'info');
+      },
+      err => {
+        this.toasterService.displayToaster("Something went wrong.", 'error');
+      }
+    );
+  }
+
+  sendInvoicesById(id){
+    this.formService.sendInvoicesById(id).subscribe(
       res =>{
         this.toasterService.displayToaster(res['_body'], 'info');
       },

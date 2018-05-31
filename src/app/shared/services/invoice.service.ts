@@ -70,9 +70,23 @@ getInvoiceDetailsById(userid) {
     return this.http.put(url, null).map(
       (res) => {
         return res;
+      },
+      err => {
+        return err;
       }
     );
   }
 
+  sendInvoice(id){
+    const url = 'https://billing-service.axisrooms.com/v1/api/generate/invoice?invoiceNo='+ id;
+    return this.http.put(url, null).map(
+      (res) => {
+        return res;
+      },
+      err => {
+        return err;
+      }
+    );
+  }
 
 }
