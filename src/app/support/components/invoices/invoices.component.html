@@ -2,8 +2,7 @@
     <div>
         <input type="password" placeholder="Enter Password" #pw>
         <button type="button" (click)="tempLogin(pw.value)">submit</button>
-        <br>
-        {{message}}
+        <br> {{message}}
     </div>
 </div>
 <app-loading-indicator [hidden]="loader"></app-loading-indicator>
@@ -50,6 +49,11 @@
                             <li *ngIf="invoice.status != 'PAID'" (click)="changeStatus(invoice.invoiceId,'PAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Paid</li>
                             <li *ngIf="invoice.status != 'UNPAID'" (click)="changeStatus(invoice.invoiceId,'UNPAID',invoice.status);actionMenu[i] = !actionMenu[i]">Change to Unpaid</li>
                             <li *ngIf="invoice.status == 'UNPAID'" (click)="changeStatus(invoice.invoiceId,'DELETED',invoice.status);actionMenu[i] = !actionMenu[i]">Delete Invoice</li>
+                            <li>
+                                <a href="https://billing-service.axisrooms.com/v1/api/download/invoice/pdf?invoiceNo={{invoice.invoiceId}}" (click)="$event.stopPropagation()"
+                                    target="_self">
+                                    Download Invoice</a>
+                            </li>
                             <li (click)="sendInvoice(invoice.invoiceId);actionMenu[i] = !actionMenu[i]">Send Invoice</li>
                         </ul>
                     </span>

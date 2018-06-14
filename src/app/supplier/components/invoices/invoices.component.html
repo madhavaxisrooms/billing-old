@@ -1,4 +1,4 @@
-<app-loading-indicator [hidden]="loading"  ></app-loading-indicator>
+<app-loading-indicator [hidden]="loading"></app-loading-indicator>
 
 <div class="menu-content">
   <div class="invoice-table">
@@ -14,7 +14,10 @@
         <td>{{invoice.paymentDueDate}}</td>
         <td>{{invoice.totalAmount | currency:invoice.currency }}</td>
         <td>
-          <i>Download</i>
+          <i>
+            <a href="https://billing-service.axisrooms.com/v1/api/download/invoice/pdf?invoiceNo={{invoice.invoiceId}}" (click)="$event.stopPropagation()" target="_self" >
+              Download </a>
+          </i>
           <i *ngIf="invoice.status == 'UNPAID' && invoice.amount != 0 " (click)="payInvoice(invoice)">Pay Now</i>
         </td>
       </tr>
